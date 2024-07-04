@@ -1,3 +1,11 @@
+<!--
+ * @Author: cjh
+ * @Date: 2024-07-03 16:34:14
+ * @LastEditors: cjh
+ * @LastEditTime: 2024-07-04 19:08:15
+ * @FilePath: \Vue_lianxi\vue-base\src\App.vue
+ * @Description: 文件描述
+-->
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import IfDemo from "./components/ifDemo.vue";
@@ -9,6 +17,9 @@ import EventDemo3 from "./components/EventDemo3.vue";
 import EventDemo4 from "./components/EventDemo4.vue";
 import EventDemo5 from "./components/EventDemo5.vue";
 import ArrayList from "./components/ArrayList.vue";
+import ComputedDemp from "./components/ConputedDemo.vue";
+import ClassDemo from "./components/ClassDemo.vue";
+import ClassDemoVue from "./components/ClassDemo.vue";
 </script>
 
 <template>
@@ -22,6 +33,8 @@ import ArrayList from "./components/ArrayList.vue";
     <EventDemo3 />
     <EventDemo4 /> -->
     <!-- <EventDemo5 /> -->
-    <ArrayList />
+    <!-- <ArrayList /> -->
+    <!-- <ComputedDemp /> -->
+    <ClassDemo />
   </div>
 </template>

@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h3>传递参数</h3>
+    <p @click="clickFive(item)" v-for="(item, index) in names" :key="index">
+      {{ item }}
+    </p>
     <h3>事件修饰符</h3>
     <a @click="clickHandle" href="https://www.baidu.com/">百度一下</a>
     <br />
@@ -16,10 +20,13 @@
 export default {
   data() {
     return {
-      // names: ["金", "木", "水", "火", "土"],
+      names: ["金", "木", "水", "火", "土"],
     };
   },
   methods: {
+    clickFive(name) {
+      console.log(name);
+    },
     clickHandle(e) {
       e.preventDefault();
       console.log("点击了");

@@ -52,7 +52,7 @@ v-bind绑定js里msg的值
 
 2024-7-4
 
-今天学习了。。。
+今天学习了以下内容
 
 **条件渲染**
 
@@ -162,9 +162,11 @@ export default {
 
 **传递参数**
 
-
-
-**传递参数**
+```vue
+<p @click="clickFive(item)" v-for="(item, index) in names" :key="index">
+      {{ item }}
+</p>
+```
 
 
 
@@ -173,7 +175,7 @@ export default {
 
 
 ```vue
-<a @click.prevent="eee" href="https://www.sogou.com/">搜狗</a>
+<a @click.prevent="demo" href="https://www.sogou.com/">搜狗</a>
 ```
 
 ```vue
@@ -182,7 +184,13 @@ export default {
 
 prevent可阻止阻止事件的默认行为（页面单击跳转），stop可阻止事件冒泡（阻止事件继续向父元素传播）。
 
-
+```md
+说明：
+修饰符'.prevent'用于阻止事件的默认行为。例如，阻止表单提交或者超链接的跳转。
+修饰符'.stop'用于阻止事件的进一步传播，即阻止事件冒泡到父元素。
+修饰符'.once'用于只触发一次事件监听器。即使在事件发生后，它也会自动删除监听器。
+修饰符'.enter'通常用于处理键盘事件，特别是keydown或keyup事件，它指定了按下回车键时触发的行为。
+```
 
 
 
@@ -210,7 +218,42 @@ concat()
 
 使用不可变方法时  需注意使用this.demo1=this.demo1.concat(this.demo2);
 
+```js
+methods: {
+    addListHandle() {
+      this.names.push("Marry", "June");
+      this.names = this.names.concat(["AAA", "BBB"]);
+    },
+    addList() {
+      //   this.nums1.push(nums2);
+      //   this.nums1.push(...this.nums2);
+      this.nums1 = this.nums1.concat(this.nums2);
+    },
+  }
+```
 
+官方文档：[点击跳转](https://cn.vuejs.org/guide/essentials/event-handling.html)
 
 **计算属性**
 
+相较于methods的函数或方法，不用加括号，不会多次调用，节省性能。
+
+（官方：不同之处在于**计算属性值会基于其响应式依赖被缓存**。一个计算属性仅会在其响应式依赖更新时才重新计算。）
+
+```vue
+<p>{{ personHobby }}</p>
+<span>{{ obj }}</span>
+```
+
+```js
+methods: {
+    addObject() {
+      this.objects = this.objects.concat("any");
+    },
+    subtract() {
+      this.objects = [];
+    },
+  }
+```
+
+class绑定（明天补充笔记）
