@@ -19,7 +19,7 @@ import EventDemo5 from "./components/EventDemo5.vue";
 import ArrayList from "./components/ArrayList.vue";
 import ComputedDemp from "./components/ConputedDemo.vue";
 import ClassDemo from "./components/ClassDemo.vue";
-import ClassDemoVue from "./components/ClassDemo.vue";
+import StyleDemo from "./components/StyleDemo.vue";
 </script>
 
 <template>
@@ -35,6 +35,7 @@ import ClassDemoVue from "./components/ClassDemo.vue";
     <!-- <EventDemo5 /> -->
     <!-- <ArrayList /> -->
     <!-- <ComputedDemp /> -->
-    <ClassDemo />
+    <!-- <ClassDemo /> -->
+    <StyleDemo />
   </div>
 </template>
