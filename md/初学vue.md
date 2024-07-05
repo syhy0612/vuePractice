@@ -487,6 +487,64 @@ number 修饰符会在输入框有 type="number" 时自动启用。
 
 
 
+> 获取DOM操作
+
+官方文档：[模板引用](https://cn.vuejs.org/guide/essentials/template-refs.html)
+
+用法：
+
+```vue
+<template>
+  <div ref="myElement">Hello</div>
+</template>
+
+this.$refs.myElement // 返回对应的 DOM 元素
+```
+
+使用ref属性可以获取对应的 DOM 元素
+
+代码详见：
+
+```vue
+<template>
+  <div>
+    <h3>获取DOM操作</h3>
+    <div class="container" ref="container">{{ content }}</div>
+    <input type="text" ref="username" />
+    <button @click="getElementHandle">获取元素</button>
+  </div>
+</template>
+
+<script>
+/**
+ * 内容改变：{{ 模块指令 }}
+ * 属性改变：v-bind: 指令
+ * 事件:v-on(@):click
+ *
+ * 非必要不建议使用DOM
+ */
+export default {
+  data() {
+    return {
+      content: "内容",
+    };
+  },
+  methods: {
+    getElementHandle() {
+      this.$refs.container.innerHTML = "<hr/><a href='#'>你好</a>";
+      console.log(this.$refs.username.value);
+    },
+  },
+};
+</script>
+```
+
+
+
+> 组件组成
+
+
+
 
 
 

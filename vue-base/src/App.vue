@@ -1,11 +1,3 @@
-<!--
- * @Author: cjh
- * @Date: 2024-07-03 16:34:14
- * @LastEditors: cjh
- * @LastEditTime: 2024-07-05 14:06:17
- * @FilePath: \Vue_lianxi\vue-base\src\App.vue
- * @Description: 文件描述
--->
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import IfDemo from "./components/ifDemo.vue";
@@ -22,6 +14,7 @@ import ClassDemo from "./components/ClassDemo.vue";
 import StyleDemo from "./components/StyleDemo.vue";
 import WatchDemo from "./components/WatchDemo.vue";
 import ModelDemo from "./components/ModelDemo.vue";
+import RefDemo from "./components/RefDemo.vue";
 </script>
 
 <template>
@@ -39,7 +32,8 @@ import ModelDemo from "./components/ModelDemo.vue";
     <!-- <ComputedDemp /> -->
     <!-- <ClassDemo /> -->
     <!-- <StyleDemo /> -->
-    <WatchDemo />
-    <ModelDemo />
+    <!-- <WatchDemo /> -->
+    <!-- <ModelDemo /> -->
+    <RefDemo />
   </div>
 </template>
