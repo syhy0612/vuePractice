@@ -2,7 +2,7 @@
  * @Author: cjh
  * @Date: 2024-07-03 16:34:14
  * @LastEditors: cjh
- * @LastEditTime: 2024-07-04 19:08:15
+ * @LastEditTime: 2024-07-05 14:06:17
  * @FilePath: \Vue_lianxi\vue-base\src\App.vue
  * @Description: 文件描述
 -->
@@ -20,6 +20,8 @@ import ArrayList from "./components/ArrayList.vue";
 import ComputedDemp from "./components/ConputedDemo.vue";
 import ClassDemo from "./components/ClassDemo.vue";
 import StyleDemo from "./components/StyleDemo.vue";
+import WatchDemo from "./components/WatchDemo.vue";
+import ModelDemo from "./components/ModelDemo.vue";
 </script>
 
 <template>
@@ -36,6 +38,8 @@ import StyleDemo from "./components/StyleDemo.vue";
     <!-- <ArrayList /> -->
     <!-- <ComputedDemp /> -->
     <!-- <ClassDemo /> -->
-    <StyleDemo />
+    <!-- <StyleDemo /> -->
+    <WatchDemo />
+    <ModelDemo />
   </div>
 </template>

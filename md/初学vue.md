@@ -360,3 +360,136 @@ export default {
 </script>
 ```
 
+> 侦听器
+
+与data(),methods,computed 并列，名称为watch
+
+用法：
+
+```js
+watch: {
+    //'demo'为前面{{}}里的变量名称，newValue表示变化后的值，oldValue表示变化前的值。
+	demo(newValue, oldValue){
+        //业务逻辑
+    }
+}
+```
+
+代码详见：
+
+```vue
+<template>
+  <div>
+    <h3>侦听器</h3>
+    <p>{{ msg }}</p>
+    <button @click="update">更新</button>
+    |
+    <button @click="del">清空</button>
+    |
+    <button @click="reset">重置</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: "默认",
+    };
+  },
+  methods: {
+    update() {
+      this.msg = "已更改";
+    },
+    del() {
+      this.msg = "";
+    },
+    reset() {
+      this.msg = "默认";
+    },
+  },
+  watch: {
+    msg(newValue, oldValue) {
+      console.log("旧值是：" + oldValue, "新值是：" + newValue);
+    },
+  },
+};
+</script>
+```
+
+> 表单输入绑定
+
+用法详见官方文档：[表单输入绑定](https://cn.vuejs.org/guide/essentials/forms.html)
+
+代码详见：
+
+```vue
+<template>
+  <div>
+    <h3>表单输入绑定</h3>
+    <form>
+      <!-- .number使用时，如果第一个字符非数字，则该修饰符无效 -->
+      <input type="text" v-model.number.trim.lazy="msg" />
+      <span>{{ msg }}</span>
+      <br />
+      <input type="checkbox" id="checkbox" v-model="checked" />
+      <label for="checkbox">{{ checked }}</label>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: "",
+      checked: false,
+    };
+  },
+};
+</script>
+```
+
+
+
+> 表单输入绑定-修饰符
+
+以下摘自官方文档：[表单输入绑定-修饰符](https://cn.vuejs.org/guide/essentials/forms.html#modifiers)
+
+`.lazy`
+默认情况下，v-model 会在每次 input 事件后更新数据 (IME 拼字阶段的状态例外)。你可以添加 lazy 修饰符来改为在每次 change 事件后更新数据：
+
+```vue
+<!-- 在 "change" 事件后同步更新而不是 "input" -->
+<input v-model.lazy="msg" />
+```
+
+
+
+` .number`
+如果你想让用户输入自动转换为数字，你可以在 v-model 后添加 .number 修饰符来管理输入：
+
+```vue
+<input v-model.number="age" />
+```
+
+如果该值无法被 parseFloat() 处理，那么将返回原始值。
+
+number 修饰符会在输入框有 type="number" 时自动启用。
+
+
+`.trim`
+如果你想要默认自动去除用户输入内容中两端的空格，你可以在 v-model 后添加 .trim 修饰符：
+
+```vue
+<input v-model.number="age" />
+```
+
+
+
+
+
+
+
+
+
