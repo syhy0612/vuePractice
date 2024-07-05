@@ -256,6 +256,8 @@ methods: {
   }
 ```
 
+2024-7-5
+
 > **class绑定**
 
 官方解释：
@@ -543,7 +545,90 @@ export default {
 
 > 组件组成
 
+在App.vue里引入组件
 
+
+
+---传统 Vue 2 单文件组件的写法
+
+```vue
+<template>
+  <div>
+    <!-- 第三步：显示组件 -->
+    <MyComponent />
+    <MyComponent />
+  </div>
+</template>
+
+<script>
+//第一步：引入控件
+import MyComponent from "./components/MyComponent.vue";
+
+export default {
+  //第二步：注入组件
+  components: {
+    MyComponent,
+  },
+};
+</script>
+
+<style></style>
+```
+
+
+
+---Vue 3 `<script setup>` 语法的写法
+
+```vue
+<template>
+  <div>
+    <!-- 第二步：显示组件 -->
+    <MyComponent />
+    <MyComponent />
+  </div>
+</template>
+
+<script setup>
+//第一步：引入控件
+import MyComponent from "./components/MyComponent.vue";
+</script>
+
+<style></style>
+```
+
+
+
+在 `<script setup>` 中，使用 `import` 语句导入组件。Vue 3 会自动将导入的组件注册为局部组件，无需再通过 `components` 选项注册。
+
+
+
+> 组件嵌套关系
+
+
+
+
+
+> 组件注册方式
+
+---局部注册
+
+
+
+---全局注册
+
+
+
+> 组件传递数据
+
+
+
+> 组件传递多种数据类型
+
+
+
+> 组件传递Props校验
+
+以上都看完了，今天看到p25了  晚点整理笔记
 
 
 
