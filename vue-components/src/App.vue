@@ -25,7 +25,7 @@ import MyComponent from "./components/MyComponent.vue";
 import Main from "./pages/Main.vue";
 import Aside from "./pages/Aside.vue";
 import Parent from "./components/Parent.vue";
-import Chird from "./components/Chird.vue";
+import Child from "./components/Child.vue";
 </script>
 
 <style></style>

@@ -1,6 +1,14 @@
+<!--
+ * @Author: cjh
+ * @Date: 2024-07-06 09:18:23
+ * @LastEditors: cjh
+ * @LastEditTime: 2024-07-06 11:05:34
+ * @FilePath: \Vue_lianxi\vue-components\src\components\Child.vue
+ * @Description: 文件描述
+-->
 <template>
   <div>
-    <h3>Chird</h3>
+    <h3>Child</h3>
     <p>{{ title }}</p>
     <p>{{ demo }}</p>
     <p v-if="sths">{{ sths.name }}</p>

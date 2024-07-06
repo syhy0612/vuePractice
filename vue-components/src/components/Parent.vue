@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Chird from "./Chird.vue";
+import Chird from "./Child.vue";
 
 export default {
   components: { Chird },

@@ -783,7 +783,7 @@ export default {
 
 ```js
 //父级关键代码
-<Chird title="你好" :demo="demo" />
+<Child title="你好" :demo="demo" />
 
 //子级关键代码
 export default {
@@ -799,21 +799,21 @@ export default {
 <template>
   <div>
     <h3>Parent</h3>
-    <Chird title="你好" :demo="demo" />
+    <Child title="你好" :demo="demo" />
   </div>
 </template>
 
 <script>
-import Chird from "./Chird.vue";
+import Child from "./Child.vue";
 export default {
-  components: { Chird },
+  components: { Child },
   data() {
     return {
       demo: "apple",
     };
   },
   components: {
-    Chird,
+    Child,
   },
 };
 </script>
@@ -824,7 +824,7 @@ export default {
 ```vue
 <template>
   <div>
-    <h3>Chird</h3>
+    <h3>Child</h3>
     <p>{{ title }}</p>
     <p>{{ demo }}</p>
   </div>
@@ -853,16 +853,16 @@ export default {
 <template>
   <div>
     <h3>Parent</h3>
-    <!-- <Chird title="你好" :demo="demo" /> -->
-    <Chird :sths="sths" />
+    <!-- <Child title="你好" :demo="demo" /> -->
+    <Child :sths="sths" />
   </div>
 </template>
 
 <script>
-import Chird from "./Chird.vue";
+import Child from "./Child.vue";
 
 export default {
-  components: { Chird },
+  components: { Child },
   data() {
     return {
       demo: "apple",
@@ -882,7 +882,7 @@ export default {
 ```vue
 <template>
   <div>
-    <h3>Chird</h3>
+    <h3>Child</h3>
     <p>{{ title }}</p>
     <p>{{ demo }}</p>
     <p v-if="sths">{{ sths.name }}</p>
@@ -996,7 +996,13 @@ Vue 会在开发环境下对试图修改 props 的行为发出警告，以提醒
 
 
 
-用法在 `组件传递多种数据类型` 已经使用到了
+用法在 `组件传递多种数据类型` 已经使用到了。
+
+
+
+#### 组件事件
+
+
 
 
 
