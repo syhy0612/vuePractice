@@ -1,9 +1,28 @@
 <template>
-  <div></div>
+  <div class="main">
+    <h3>Main</h3>
+    <Article />
+    <Article />
+  </div>
 </template>
 
 <script>
-export default {};
+import Article from "./Article.vue";
+
+export default {
+  components: {
+    Article,
+  },
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.main {
+  float: left;
+  width: 70%;
+  height: 400px;
+  border: 5px solid #999;
+  box-sizing: border-box;
+  /* border-top: 0px; */
+}
+</style>
