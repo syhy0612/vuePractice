@@ -1207,3 +1207,50 @@ export default {
 
 
 #### 透传 Attributes
+
+（实际用的少，仅做了解）
+
+“透传 attribute”指的是传递给一个组件，却没有被该组件声明为 [props](https://cn.vuejs.org/guide/components/props.html) 或 [emits](https://cn.vuejs.org/guide/components/events.html#defining-custom-events) 的 attribute 或者 `v-on` 事件监听器。最常见的例子就是 `class`、`style` 和 `id`。
+
+当一个组件以单个元素为根作渲染时，透传的 attribute 会自动被添加到根元素上。举例来说，假如我们有一个 `<MyButton>` 组件，它的模板长这样：
+
+template
+
+```vue
+<!-- <MyButton> 的模板 -->
+<button>Click Me</button>
+```
+
+一个父组件使用了这个组件，并且传入了 `class`：
+
+template
+
+```vue
+<MyButton class="large" />
+```
+
+最后渲染出的 DOM 结果是：
+
+html
+
+```vue
+<button class="large">Click Me</button>
+```
+
+这里，`<MyButton>` 并没有将 `class` 声明为一个它所接受的 prop，所以 `class` 被视作透传 attribute，自动透传到了 `<MyButton>` 的根元素上。
+
+> **禁用 Attributes 继承**
+
+```js
+export default {
+  inheritAttrs: false
+};
+```
+
+
+
+#### 插槽 Slots
+
+3节视频已看完，之后再补充笔记。
+
+- [X] （33/40）
