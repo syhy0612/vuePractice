@@ -1,7 +1,3 @@
-2024-7-3
-
-今天学习了如何创建一个vue框架的项目
-
 #### **创建vue项目**
 
 在控制台或者终端输入
@@ -256,7 +252,7 @@ methods: {
   }
 ```
 
-2024-7-5
+
 
 #### **class绑定**
 
@@ -1002,17 +998,212 @@ Vue 会在开发环境下对试图修改 props 的行为发出警告，以提醒
 
 #### 组件事件
 
+在Vue中，子组件向父组件传递数据通常通过自定义事件实现。下面是一个基本的示例和一些注意事项：
+
+> 子组件通过 `$emit` 触发事件
+
+子组件模板中定义事件触发器：
+
+```vue
+<template>
+  <button @click="handleClick">点击我</button>
+</template>
+
+<script>
+export default {
+  methods: {
+    handleClick() {
+      // 通过 $emit 发射自定义事件，并传递数据
+      this.$emit('childEvent', '这是子组件传递给父组件的数据');
+    }
+  }
+}
+</script>
+```
+
+在上面的例子中，`handleClick` 方法通过 `$emit` 方法触发了一个名为 `childEvent` 的自定义事件，并传递了字符串 `这是子组件传递给父组件的数据` 。
+
+父组件监听子组件的自定义事件：
+
+```vue
+<template>
+  <div>
+    <Child @childEvent="handleChildEvent" />
+  </div>
+</template>
+
+<script>
+import Child from './Child.vue';
+
+export default {
+  components: {
+    Child
+  },
+  methods: {
+    handleChildEvent(data) {
+      // 处理子组件传递过来的数据
+      console.log('接收到子组件传递的数据：', data);
+    }
+  }
+}
+</script>
+```
+
+在这个例子中，`<Child @childEvent="handleChildEvent" />` 表示监听 `<Child>` 组件触发的 `childEvent` 自定义事件，并将事件触发时传递的数据 `data` 作为参数传递给 `handleChildEvent` 方法处理。
+
+**注意事项**
+
+事件名命名：自定义事件名应该有意义和表达清楚其用途，避免与 DOM 原生事件或 Vue 内部事件名冲突。
+
+数据传递：通过 `$emit` 传递的数据可以是任意类型（对象、数组、基本数据类型等）。
+
+监听方法：父组件中监听子组件的自定义事件时，方法名要与模板中的事件处理方法名一致。
+
+数据流：Vue 中数据是单向流动的，子组件通过事件向上传递数据给父组件，父组件不能直接修改子组件的数据，通常通过 `props` 和 `$emit` 来实现组件间的通信。
+
+以上是关于 Vue 中子组件向父组件传递数据的基本实现方法及注意事项的总结。
+
+——by chatGPT
 
 
 
+#### 组件事件配合v-model使用
+
+官方文档：[组件 v-model](https://cn.vuejs.org/guide/components/v-model.html)
+
+这段代码实现了在 Vue.js 中，通过组件事件和 `v-model` 的结合使用，实现了父子组件之间的双向数据绑定和实时数据传递功能。
+
+Main.vue：
+
+```vue
+<template>
+  <div>
+    <h3>Main</h3>
+    <div>{{ search }}</div>
+    <searchComponent @searchEvent="getSearch" />
+  </div>
+</template>
+
+<script>
+import SearchComponent from "./SearchComponent.vue";
+export default {
+  components: { SearchComponent },
+  data() {
+    return {
+      search: "",
+    };
+  },
+  methods: {
+    getSearch(data) {
+      this.search = data;
+    },
+  },
+};
+</script>
+```
+
+SearchComponent.vue：
+
+```vue
+<template>
+  <div>搜索：<input type="text" v-model="search" /></div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      search: "",
+    };
+  },
+  watch: {
+    search(newValue, oldValue) {
+      this.$emit("searchEvent", newValue);
+    },
+  },
+};
+</script>
+```
 
 
 
+#### 组件数据传递
+
+*此节开始理解有点吃力
 
 
 
+父组件：
+
+```vue
+<template>
+  <div>
+    <ComponentB :onEvent="dataFn" />
+    <h3>父组件 {{ msg }}</h3>
+  </div>
+</template>
+
+<script>
+import ComponentB from "./ComponentB.vue";
+
+export default {
+  components: { ComponentB },
+  data() {
+    return {
+      msg: "", // 初始化一个空的msg，用于接收子组件传递的数据
+    };
+  },
+  methods: {
+    // 定义一个方法，用于接收子组件传递的数据，并将其赋值给msg
+    dataFn(data) {
+      this.msg = data;
+    },
+  },
+};
+</script>
+```
+
+使用 ComponentB 组件，并通过 :onEvent 属性将父组件的 dataFn 方法传递给子组件。
+当子组件触发 onEvent 方法时，父组件的 dataFn 方法将被调用，并传入子组件传递的数据 data，然后将其赋值给 msg。
 
 
 
+子组件：
+
+```vue
+<template>
+  <div>
+    <h3>子组件 ComponentB</h3>
+    <p>hello {{ onEvent("apple") }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    // 声明一个名为 onEvent 的 prop，类型为 Function，用于接收父组件传递的方法
+    onEvent: {
+      type: Function,
+    },
+  },
+};
+</script>
+```
+
+接收来自父组件的 `onEvent` 方法作为一个 prop，并在子组件内部调用它。
+
+在 `<p>` 标签中，展示了调用 `onEvent` 方法，并传入了参数 `"apple"`。
 
 
+
+原理解释：
+父组件传递方法给子组件：
+父组件通过 :onEvent="dataFn" 将自己的 dataFn 方法传递给子组件 ComponentB。
+子组件调用父组件的方法：
+子组件内部通过 onEvent("apple") 调用了父组件传递的 dataFn 方法，并传递了参数 "apple"。
+数据流向：
+子组件调用 onEvent("apple") 触发了父组件的 dataFn("apple") 方法，将 "apple" 赋值给了父组件的 msg，从而实现了从子组件到父组件的数据传递。
+
+
+
+#### 透传 Attributes
