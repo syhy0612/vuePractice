@@ -612,7 +612,7 @@ Vue 实现了自己的组件模型，使我们可以在每个组件内封装自�
 
 如图呈现效果：
 
-![Example02](img\Example01.png)
+![Example02](img/Example01.png)
 
 部分代码：
 
