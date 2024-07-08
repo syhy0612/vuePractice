@@ -1,4 +1,4 @@
-**个人笔记地址**：[点击查看](/md/初学vue.md)
+**个人笔记地址**：[点击查看](/md/vue_person_notes.md)
 
 **B站 课程链接**：[点击跳转](https://www.bilibili.com/video/BV1Rs4y127j8)
 
