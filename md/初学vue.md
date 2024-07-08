@@ -1371,9 +1371,19 @@ export default {
 
 
 
+![生命周期图示](https://cn.vuejs.org/assets/lifecycle_zh-CN.W0MNXI0C.png)
+
+
+
+
+
 
 
 > 通过`ref`获取元素DOM结构
+
+
+
+
 
 #### 生命周期应用
 
@@ -1383,7 +1393,19 @@ export default {
 
 #### 动态组件
 
+``` vue
+<component is="example">ComponentA</component>
+```
+
+
+
 #### 组件保持存活
+
+```
+<keep-alive></keep-alive>
+```
+
+
 
 #### 异步组件
 
