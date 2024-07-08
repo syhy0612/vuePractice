@@ -1496,7 +1496,7 @@ export default {
 
 
 
-> 通过`ref`获取元素DOM结构
+
 
 
 
@@ -1504,7 +1504,78 @@ export default {
 
 #### 生命周期应用
 
+> 通过`ref`获取元素DOM结构
 
+```vue
+<template>
+  <div>
+    <h3>组件生命周期函数应用</h3>
+    <p ref="name">喜欢上班</p>
+  </div>
+</template>
+<script>
+export default {
+  beforeMount() {
+    console.log(this.$refs.name); //undefined
+  },
+  mounted() {
+    console.log(this.$refs.name); //正常显示
+  },
+};
+</script>
+```
+
+> 模拟网络请求渲染数据
+
+```vue
+<template>
+  <div>
+    <h3>组件生命周期函数应用</h3>
+    <p ref="name">喜欢上班</p>
+    <ul>
+      <li v-for="(item, index) of characters" :key="index">
+        <h5>{{ item.name }}</h5>
+        <p>{{ item.introduction }}</p>
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      characters: [],
+    };
+  },
+  created() {
+    this.characters = [
+      {
+        name: "孙悟空",
+        introduction: "齐天大圣，身手矫健，神通广大。",
+      },
+      {
+        name: "唐僧",
+        introduction: "正直善良，带领取经团队，心地善良。",
+      },
+      {
+        name: "猪八戒",
+        introduction: "嘴馋好色，力大无穷，忠心耿耿。",
+      },
+      {
+        name: "沙悟净",
+        introduction: "满脸沙子，擅长变化，机智灵活。",
+      },
+    ];
+  },
+  beforeMount() {
+    console.log(this.$refs.name); //undefined
+  },
+  mounted() {
+    console.log(this.$refs.name); //正常显示
+  },
+};
+</script>
+```
 
 
 
@@ -1514,19 +1585,76 @@ export default {
 <component is="example">ComponentA</component>
 ```
 
+```vue
+<template>
+  <div>
+    <component :is="componentTab"></component>
+    <button @click="change">切换组件</button>
+    <br />
+    <b>第{{ count }}次点击</b>
+  </div>
+</template>
+<script>
+import { defineAsyncComponent } from "vue";
+import MyComponentVue from "./components/MyComponent.vue";
+import UseComponentVue from "./components/UseComponent.vue";
+import ComponentA from "./components/ComponentA.vue";
+import ComponentB from "./components/ComponentB.vue";
+
+//const ComponentB = defineAsyncComponent(() => import("./components/ComponentB.vue"));
+
+export default {
+  data() {
+    return {
+      componentTab: "ComponentA",
+      count: 0,
+    };
+  },
+  components: {
+    MyComponentVue,
+    UseComponentVue,
+    ComponentA,
+    ComponentB,
+  },
+  methods: {
+    change() {
+      this.count++;
+      console.log("第" + this.count + "次点击");
+      this.componentTab = this.componentTab == "ComponentA" ? "ComponentB" : "ComponentA";
+    },
+  },
+};
+</script>
+
+```
+
+
+
 
 
 #### 组件保持存活
 
-```
-<keep-alive></keep-alive>
+```vue
+<keep-alive>
+	<component :is="componentTab"></component>
+</keep-alive>
 ```
 
+放进`<keep-alive>`"OvO" `</keep-alive>` 的组件（component）不会被摧毁
 
+（在 Vue.js 中使用 `<keep-alive>` 包裹 `<component>` 是一种常见的技术，它可以确保被包裹的组件在切换时不会被销毁，而是被缓存起来，以便在需要时重新渲染。这在需要在不同的组件之间切换，并保持它们的状态时特别有用。）
 
 #### 异步组件
 
+个人认为记住用法就行了。
 
+在大型项目中，我们可能需要拆分应用为更小的块，并仅在需要时再从服务器加载相关组件。Vue 提供了 [`defineAsyncComponent`](https://cn.vuejs.org/api/general.html#defineasynccomponent) 方法来实现此功能：
+
+```js
+import { defineAsyncComponent } from "vue";//关键
+
+const ComponentB = defineAsyncComponent(() => import("./components/ComponentB.vue"));//引入示例
+```
 
 
 
@@ -1611,24 +1739,6 @@ export default {
     }
   }
 }
-```
-
-
-
-#### 异步组件
-
-在大型项目中，我们可能需要拆分应用为更小的块，并仅在需要时再从服务器加载相关组件。Vue 提供了 [`defineAsyncComponent`](https://cn.vuejs.org/api/general.html#defineasynccomponent) 方法来实现此功能：
-
-```javascript
-import { defineAsyncComponent } from 'vue'
-
-const AsyncComp = defineAsyncComponent(() => {
-  return new Promise((resolve, reject) => {
-    // ...从服务器获取组件
-    resolve(/* 获取到的组件 */)
-  })
-})
-// ... 像使用其他一般组件一样使用 `AsyncComp`
 ```
 
 

@@ -14,28 +14,28 @@
 export default {
   data() {
     return {
-      characters:[]
+      characters: [],
     };
   },
-  created(){
-    this.characters=[
-        {
-          name: "孙悟空",
-          introduction: "齐天大圣，身手矫健，神通广大。",
-        },
-        {
-          name: "唐僧",
-          introduction: "正直善良，带领取经团队，心地善良。",
-        },
-        {
-          name: "猪八戒",
-          introduction: "嘴馋好色，力大无穷，忠心耿耿。",
-        },
-        {
-          name: "沙悟净",
-          introduction: "满脸沙子，擅长变化，机智灵活。",
-        },
-      ],
+  created() {
+    this.characters = [
+      {
+        name: "孙悟空",
+        introduction: "齐天大圣，身手矫健，神通广大。",
+      },
+      {
+        name: "唐僧",
+        introduction: "正直善良，带领取经团队，心地善良。",
+      },
+      {
+        name: "猪八戒",
+        introduction: "嘴馋好色，力大无穷，忠心耿耿。",
+      },
+      {
+        name: "沙悟净",
+        introduction: "满脸沙子，擅长变化，机智灵活。",
+      },
+    ];
   },
   beforeMount() {
     console.log(this.$refs.name); //undefined

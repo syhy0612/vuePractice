@@ -1,7 +1,11 @@
 <template>
   <div>
-    <UseComponentVue />
+    <!-- <UseComponentVue /> -->
     <!-- <MyComponentVue /> -->
+
+    <keep-alive>
+      <component :is="componentTab"></component>
+    </keep-alive>
     <component :is="componentTab">
       <!-- <ComponentA /> -->
     </component>
