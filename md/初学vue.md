@@ -44,12 +44,6 @@ v-bind绑定js里msg的值
 
 
 
-------
-
-2024-7-4
-
-今天学习了以下内容
-
 #### **条件渲染**
 
 v-if	v-show
@@ -1251,6 +1245,129 @@ export default {
 
 #### 插槽 Slots
 
-3节视频已看完，之后再补充笔记。
+官方文档：[插槽 Slots](https://cn.vuejs.org/guide/components/slots.html)
 
-- [X] （33/40）
+外站介绍：[vue插槽之插槽的用法及作用域插槽详解](https://blog.csdn.net/zxdznyy/article/details/128819330)
+
+*插槽基本使用会了，但是具体排列顺序还有疑问
+
+代码详见：
+
+`App.vue` 
+
+```vue
+<template>
+  <div>
+    <!-- 插槽1 -->
+    <SlotsBase>
+      <div>
+        <h3>插槽标题-父组件</h3>
+        <p>插槽内容-父组件</p>
+      </div>
+    </SlotsBase>
+    <!-- 插槽2 -->
+    <SlotsTwo>
+      <h3>{{ msg }}</h3>
+      <template #main>
+        <button>开始</button>
+      </template>
+      <template>
+        <h3>你好</h3>
+      </template>
+    </SlotsTwo>
+    <!-- 插槽3 -->
+    <SlotsThree>
+      <template v-slot:aaa="slotProps">
+        <p>第三: {{ slotProps.msg }}-1</p>
+      </template>
+
+      <template v-slot:three="slotProps">
+        <button>hhh{{ slotProps.msg }}-3</button>
+        <p>第三-副本: {{ slotProps.msg }}-4</p>
+        <button>显示-5</button>
+      </template>
+    </SlotsThree>
+  </div>
+</template>
+<script>
+import SlotsBase from "./components/SlotsBase.vue";
+import SlotsTwo from "./components/SlotsTwo.vue";
+import SlotsThree from "./components/SlotsThree.vue";
+
+export default {
+  data() {
+    return {
+      msg: "我是续集",
+    };
+  },
+  components: {
+    SlotsBase,
+    SlotsTwo,
+    SlotsThree,
+  },
+};
+</script>
+```
+
+`SlotsThree.vue` 
+
+```vue
+<template>
+  <div>
+    <h3>then-2</h3>
+    <slot name="three" :msg="msg">
+      <i>none</i>
+    </slot>
+    <br id="5.5" />
+    <i>abcde-6</i>
+    <slot name="aaa" :msg="msg"></slot>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: "Hello",
+    };
+  },
+};
+</script>
+```
+
+
+
+>插槽基础用法
+
+
+
+
+
+>插槽渲染动态数据
+
+
+
+
+
+>插槽默认值
+
+父组件中：`v-slot:"example"`可以省略为`:example` 
+
+子组件中：需要用`name="example"` 来绑定
+
+> 默认插槽传递数据
+
+父传子，子再传父
+
+
+
+>具名插槽传递数据
+
+
+
+
+
+
+
+
+
