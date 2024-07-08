@@ -1745,11 +1745,59 @@ export default {
 
 #### Vue应用
 
+> 应用实例
 
+创建应用实例 Vue 应用实例是通过 `createApp` 函数创建的，这个函数来自于 Vue 的引入。通常在主入口文件（如 `main.js`）中进行创建。 
 
+```js
+import { createApp } from 'vue';
+import App from './App.vue'; // 导入根组件 const app = createApp(App);
+```
 
+> 根组件
 
+当使用 `createApp` 函数创建一个 Vue 应用实例时，我们传入的对象实际上是一个组件。每个 Vue 应用都必须有一个称为“根组件”的组件，其他所有的组件都将作为根组件的子组件。
 
+以下是一个基本的示例，展示了如何使用 `createApp` 导入一个单文件组件作为根组件：
+
+```js
+import { createApp } from 'vue';
+import App from './App.vue'; // 从一个单文件组件中导入根组件
+
+const app = createApp(App);
+```
+
+> 挂载应用
+
+应用实例必须在调用了 `.mount()` 方法后才会渲染出来。该方法接收一个“容器”参数，可以是一个实际的 DOM 元素或是一个 CSS 选择器字符串。
+
+```js
+app.mount('#app');
+```
+
+在 HTML 中，需要一个与选择器匹配的元素作为应用实例的挂载点：
+
+```html
+<div id="app"></div>
+```
+
+> 公共资源
+
+在 Vue 项目中，公共资源通常存放在 `src/assets` 目录下，包括图片、公共 CSS 文件或字体图标等。这些资源可以被整个应用程序访问和使用。
+
+完整代码：
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+
+// createApp(App).mount('#app')
+
+//上下等价
+
+const app =createApp(App)
+app.mount('#app')
+```
 
 
 
