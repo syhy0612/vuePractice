@@ -1339,31 +1339,148 @@ export default {
 
 >插槽基础用法
 
+插槽允许我们在父组件中将额外的内容插入到子组件的特定位置。例如，在子组件中使用 `<slot></slot>` 标签定义插槽，父组件则可以在使用子组件时，将内容插入到这些插槽中。
 
+```vue
+<!-- 子组件 ChildComponent.vue -->
+<template>
+  <div>
+    <h1>子组件标题</h1>
+    <slot></slot>
+  </div>
+</template>
+
+<!-- 父组件 ParentComponent.vue -->
+<template>
+  <div>
+    <child-component>
+      <p>插槽中的内容</p>
+    </child-component>
+  </div>
+</template>
+```
 
 
 
 >插槽渲染动态数据
 
+可以通过在插槽内部使用插值表达式或者绑定属性来渲染动态数据。
 
+```vue
+<!-- 子组件 ChildComponent.vue -->
+<template>
+  <div>
+    <slot></slot>
+  </div>
+</template>
+
+<!-- 父组件 ParentComponent.vue -->
+<template>
+  <div>
+    <child-component>
+      <p>{{ dynamicText }}</p>
+    </child-component>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      dynamicText: '这是动态的文本内容'
+    };
+  }
+};
+</script>
+```
 
 
 
 >插槽默认值
 
-父组件中：`v-slot:"example"`可以省略为`:example` 
+父组件可以通过在子组件的插槽标签中传递数据，子组件可以在 `slot-scope` 中接收数据。
 
-子组件中：需要用`name="example"` 来绑定
+```vue
+<!-- 子组件 ChildComponent.vue -->
+<template>
+  <div>
+    <slot text="默认文本"></slot>
+  </div>
+</template>
+
+<!-- 父组件 ParentComponent.vue -->
+<template>
+  <div>
+    <child-component>
+      <template v-slot="{ text }">
+        <p>{{ text }}</p>
+      </template>
+    </child-component>
+  </div>
+</template>
+```
+
+
 
 > 默认插槽传递数据
 
-父传子，子再传父
+父组件可以通过在子组件的插槽标签中传递数据，子组件可以在 `slot-scope` 中接收数据。
+
+```vue
+<!-- 子组件 ChildComponent.vue -->
+<template>
+  <div>
+    <slot text="默认文本"></slot>
+  </div>
+</template>
+
+<!-- 父组件 ParentComponent.vue -->
+<template>
+  <div>
+    <child-component>
+      <template v-slot="{ text }">
+        <p>{{ text }}</p>
+      </template>
+    </child-component>
+  </div>
+</template>
+```
+
+（父传子，子再传父）
 
 
 
 >具名插槽传递数据
 
+可以使用具名插槽来传递特定的数据给子组件，以便在子组件内部选择性地渲染。
 
+```vue
+<!-- 子组件 ChildComponent.vue -->
+<template>
+  <div>
+    <slot name="header"></slot>
+    <slot name="content"></slot>
+  </div>
+</template>
+
+<!-- 父组件 ParentComponent.vue -->
+<template>
+  <div>
+    <child-component>
+      <template v-slot:header>
+        <h1>标题</h1>
+      </template>
+      <template v-slot:content>
+        <p>内容部分</p>
+      </template>
+    </child-component>
+  </div>
+</template>
+```
+
+父组件中：`v-slot:"example"`可以省略为`:example` 
+
+子组件中：需要用`name="example"` 来绑定
 
 
 
@@ -1371,9 +1488,9 @@ export default {
 
 
 
-![生命周期图示](https://cn.vuejs.org/assets/lifecycle_zh-CN.W0MNXI0C.png)
+![生命周期图示](img/5.png)
 
-
+图源：https://github.com/yexiaopingguo/ProgramLife/blob/main/Vue3/img/5.png
 
 
 
@@ -1409,9 +1526,118 @@ export default {
 
 #### 异步组件
 
+
+
+
+
 #### 依赖注入
 
+> Prop 逐级透传问题
+
+通常情况下，当我们需要从父组件向子组件传递数据时，会使用 [props](https://cn.vuejs.org/guide/components/props.html)。想象一下这样的结构：有一些多层级嵌套的组件，形成了一颗巨大的组件树，而某个深层的子组件需要一个较远的祖先组件中的部分数据。在这种情况下，如果仅使用 props 则必须将其沿着组件链逐级传递下去，这会非常麻烦。
+
+注意，虽然这里的 `<Footer>` 组件可能根本不关心这些 props，但为了使 `<DeepChild>` 能访问到它们，仍然需要定义并向下传递。如果组件链路非常长，可能会影响到更多这条路上的组件。这一问题被称为“prop 逐级透传”，显然是我们希望尽量避免的情况。
+
+`provide` 和 `inject` 可以帮助我们解决这一问题。
+
+
+
+> Provide
+
+要为组件后代提供数据，需要使用到 [provide](https://cn.vuejs.org/api/options-composition.html#provide) 选项：
+
+```javascript
+export default {
+  provide: {
+    message: 'hello!'
+  }
+}
+```
+
+如果我们需要提供依赖当前组件实例的状态 (比如那些由 `data()` 定义的数据属性)，那么可以以函数形式使用 `provide`：
+
+```javascript
+export default {
+  data() {
+    return {
+      message: 'hello!'
+    }
+  },
+  provide() {
+    // 使用函数的形式，可以访问到 `this`
+    return {
+      message: this.message
+    }
+  }
+}
+```
+
+> 应用层 provide
+
+除了在一个组件中提供依赖，我们还可以在整个应用层面提供依赖：
+
+```javascript
+import { createApp } from 'vue'
+
+const app = createApp({})
+
+app.provide(/* 注入名 */ 'message', /* 值 */ 'hello!')
+```
+
+在应用级别提供的数据在该应用内的所有组件中都可以注入。这在你编写[插件](https://cn.vuejs.org/guide/reusability/plugins.html)时会特别有用，因为插件一般都不会使用组件形式来提供值。
+
+> inject
+
+要注入上层组件提供的数据，需使用 [`inject`](https://cn.vuejs.org/api/options-composition.html#inject) 选项来声明：
+
+```javascript
+export default {
+  inject: ['message'],
+  created() {
+    console.log(this.message) // injected value
+  }
+}
+```
+
+注入会在组件自身的状态**之前**被解析，因此你可以在 `data()` 中访问到注入的属性：
+
+```javascript
+export default {
+  inject: ['message'],
+  data() {
+    return {
+      // 基于注入值的初始数据
+      fullMessage: this.message
+    }
+  }
+}
+```
+
+
+
+#### 异步组件
+
+在大型项目中，我们可能需要拆分应用为更小的块，并仅在需要时再从服务器加载相关组件。Vue 提供了 [`defineAsyncComponent`](https://cn.vuejs.org/api/general.html#defineasynccomponent) 方法来实现此功能：
+
+```javascript
+import { defineAsyncComponent } from 'vue'
+
+const AsyncComp = defineAsyncComponent(() => {
+  return new Promise((resolve, reject) => {
+    // ...从服务器获取组件
+    resolve(/* 获取到的组件 */)
+  })
+})
+// ... 像使用其他一般组件一样使用 `AsyncComp`
+```
+
+
+
 #### Vue应用
+
+
+
+
 
 
 

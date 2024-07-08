@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <UseComponentVue /> -->
+    <UseComponentVue />
     <!-- <MyComponentVue /> -->
     <component :is="componentTab">
       <!-- <ComponentA /> -->
