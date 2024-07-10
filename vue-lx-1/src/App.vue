@@ -15,4 +15,8 @@ import router from "./router";
   padding: 0;
   margin: 0;
 }
+.sy {
+  margin-top: 20px;
+  text-align: center;
+}
 </style>
