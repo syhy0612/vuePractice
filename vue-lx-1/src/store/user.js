@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const useUserStore = defineStore('user', () => {
 
-    const username = ref('abc')
+    const username = ref('')
     const password = ref('111111')
     const isLogin = ref(false)
 

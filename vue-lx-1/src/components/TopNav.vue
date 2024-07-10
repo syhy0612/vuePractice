@@ -3,16 +3,19 @@
     <span id="time">现在是 {{ nowTime }}, {{ hello }} !</span>
     <span id="name">{{ userStore.username }}</span>
     <router-link to="/home"><b>首页</b></router-link>
-    <router-link to="/login"><b>登录</b></router-link>
+    <router-link v-if="userStore.isLogin" to="/login" @click="out"><b>退出</b></router-link>
+    <router-link v-else to="/login"><b>登录</b></router-link>
   </div>
 </template>
   
 <script setup>
 import { ref, onMounted, computed } from "vue";
+import useUserStore from "../store/user";
 
 const nowTime = ref(""); // 定义一个响应式变量来存储当前时间
 const hello = ref(""); // 定义一个响应式变量来存储问候语
-const props = defineProps(['userStore']); // 使用defineProps接收props
+// const props = defineProps(['userStore']); // 使用defineProps接收props
+const userStore = useUserStore();
 
 // 获取当前时间，并格式化为 HH:mm:ss
 const formatTime = () => {
@@ -41,6 +44,12 @@ const setGreeting = () => {
   }
 };
 
+const out =()=>{
+    userStore.username='';
+    userStore.password='';
+    userStore.isLogin=false;
+}
+
 // 定时更新当前时间和问候语
 const updateTimeAndGreeting = () => {
   nowTime.value = formatTime(); // 更新当前时间
@@ -55,9 +64,10 @@ onMounted(() => {
 </script>
   
 <style scoped>
-#time,#name {
-    color: white;
-    margin-left: 20px;
+#time,
+#name {
+  color: white;
+  margin-left: 20px;
 }
 
 .nav {

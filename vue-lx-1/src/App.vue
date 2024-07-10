@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNav :userStore="userStore" />
+    <TopNav />
     <router-view />
   </div>
 </template>

@@ -2,7 +2,7 @@
  * @Author: cjh
  * @Date: 2024-07-10 16:46:43
  * @LastEditors: cjh
- * @LastEditTime: 2024-07-10 19:44:34
+ * @LastEditTime: 2024-07-10 20:16:48
  * @FilePath: \vue-lx-1\src\components\ComponentLogin.vue
  * @Description: 文件描述
 -->
@@ -21,18 +21,22 @@
 </template>
 
 <script setup>
-import router from "@/router";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import useUserStore from "../store/user.js";
 
 const user = ref("");
+const router = useRouter();
 const password = ref("");
+const userStore = useUserStore();
 const loginUser = () => {
   console.log(user.value);
   console.log(password.value);
 
-  if (user.value === "admin" && password.value === "123456") {
-    router.push({ name: "Home" });
+  if (password.value === "123456") {
+    userStore.username=user.value;
+    userStore.isLogin=true;
+    router.push({ name: "home" });
   }
 };
 </script>
