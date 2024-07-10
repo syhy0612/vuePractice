@@ -1,16 +1,18 @@
 <template>
   <div class="nav">
     <span id="time">现在是 {{ nowTime }}, {{ hello }} !</span>
+    <span id="name">{{ userStore.username }}</span>
     <router-link to="/home"><b>首页</b></router-link>
     <router-link to="/login"><b>登录</b></router-link>
   </div>
 </template>
   
-  <script setup>
+<script setup>
 import { ref, onMounted, computed } from "vue";
 
 const nowTime = ref(""); // 定义一个响应式变量来存储当前时间
 const hello = ref(""); // 定义一个响应式变量来存储问候语
+const props = defineProps(['userStore']); // 使用defineProps接收props
 
 // 获取当前时间，并格式化为 HH:mm:ss
 const formatTime = () => {
@@ -53,7 +55,7 @@ onMounted(() => {
 </script>
   
 <style scoped>
-#time {
+#time,#name {
     color: white;
     margin-left: 20px;
 }

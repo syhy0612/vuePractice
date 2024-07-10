@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNav />
+    <TopNav :userStore="userStore" />
     <router-view />
   </div>
 </template>
@@ -8,6 +8,8 @@
 <script setup>
 import TopNav from "./components/TopNav.vue";
 import router from "./router";
+import useUserStore from "./store/user.js";
+const userStore = useUserStore();
 </script>
 
 <style>
