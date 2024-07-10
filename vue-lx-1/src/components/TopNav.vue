@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <span id="time">现在是 {{ nowTime }}, {{ hello }}</span>
+    <span id="time">现在是 {{ nowTime }}, {{ hello }} !</span>
     <router-link to="/home"><b>首页</b></router-link>
     <router-link to="/login"><b>登录</b></router-link>
   </div>
@@ -68,6 +68,6 @@ onMounted(() => {
   float: right;
   color: white;
   margin-right: 20px;
+  font-size: 18px;
 }
 </style>
-  

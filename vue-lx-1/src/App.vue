@@ -14,6 +14,7 @@ import router from "./router";
 * {
   padding: 0;
   margin: 0;
+  font-family: "Microsoft YaHei";
 }
 .sy {
   margin-top: 20px;
