@@ -2,7 +2,7 @@
  * @Author: cjh
  * @Date: 2024-07-10 16:46:43
  * @LastEditors: cjh
- * @LastEditTime: 2024-07-10 20:16:48
+ * @LastEditTime: 2024-07-11 08:26:30
  * @FilePath: \vue-lx-1\src\components\ComponentLogin.vue
  * @Description: 文件描述
 -->
@@ -34,9 +34,16 @@ const loginUser = () => {
   console.log(password.value);
 
   if (password.value === "123456") {
-    userStore.username=user.value;
-    userStore.isLogin=true;
+    userStore.updateUsername(user.value);
+    userStore.updateIsLogin(true);
+    userStore.updatePassword(password.value);
     router.push({ name: "home" });
+  }
+
+  if (userStore.isLogin) {
+    console.log("已登录");
+  } else {
+    console.log("未登录");
   }
 };
 </script>

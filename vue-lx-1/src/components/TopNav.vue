@@ -1,9 +1,19 @@
+<!--
+ * @Author: cjh
+ * @Date: 2024-07-10 14:49:18
+ * @LastEditors: cjh
+ * @LastEditTime: 2024-07-11 08:22:42
+ * @FilePath: \vue-lx-1\src\components\TopNav.vue
+ * @Description: 文件描述
+-->
 <template>
   <div class="nav">
     <span id="time">现在是 {{ nowTime }}, {{ hello }} !</span>
     <span id="name">{{ userStore.username }}</span>
     <router-link to="/home"><b>首页</b></router-link>
-    <router-link v-if="userStore.isLogin" to="/login" @click="out"><b>退出</b></router-link>
+    <router-link v-if="userStore.isLogin" to="/login" @click="out"
+      ><b>退出</b></router-link
+    >
     <router-link v-else to="/login"><b>登录</b></router-link>
   </div>
 </template>
@@ -44,11 +54,16 @@ const setGreeting = () => {
   }
 };
 
-const out =()=>{
-    userStore.username='';
-    userStore.password='';
-    userStore.isLogin=false;
-}
+const out = () => {
+  userStore.updateIsLogin = false;
+  userStore.updateUsername = "";
+  userStore.updatePassword = "";
+  if (userStore.isLogin) {
+    console.log("退出失败");
+  } else {
+    console.log("退出成功");
+  }
+};
 
 // 定时更新当前时间和问候语
 const updateTimeAndGreeting = () => {
