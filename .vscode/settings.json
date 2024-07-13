@@ -1,4 +1,5 @@
 {
     "vue3snippets.enable-compile-vue-file-on-did-save-code": false,
-    "editor.fontSize": 12
+    "editor.fontSize": 12,
+    "editor.tabSize": 2
 }
