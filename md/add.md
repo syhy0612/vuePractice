@@ -210,3 +210,20 @@ for (const i = 0; i < arr.length; i++) {
   console.log(arr[i]);
 }
 //仅打印7,并且报错
+
+```
+
+
+
+
+
+```js
+return seenIds.has(v['id']) ? false : seenIds.set(v['id'])
+
+return seenIds.has(v.id) ? false : seenIds.set(v.id)
+```
+
+
+
+上下等价
+
