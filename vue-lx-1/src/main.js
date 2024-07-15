@@ -2,15 +2,19 @@
 // import axios from 'axios';
 // import qs from 'qs';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import App from './App.vue';
 import router from './router';
+import * as echarts from 'echarts';
+
 const pinia = createPinia();
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(pinia)
-app.use(router)
+// 全局挂载 ECharts
+app.config.globalProperties.$echarts = echarts;
 
+app.use(pinia);
+app.use(router);
 
-app.mount('#app')   
+app.mount('#app');
