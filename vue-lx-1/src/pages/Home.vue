@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="sy">这是首页</h2>
+    <h2 class="sy">这是首页(本地)</h2>
     <TuBiao class="tubiao" />
   </div>
 </template>

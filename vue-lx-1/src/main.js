@@ -4,15 +4,15 @@
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import Echarts from 'vue-echarts'
 import App from './App.vue';
 import router from './router';
-import * as echarts from 'echarts';
+import 'echarts';
 
 const pinia = createPinia();
 const app = createApp(App);
 
-// 全局挂载 ECharts
-app.config.globalProperties.$echarts = echarts;
+app.component('Echarts', Echarts);
 
 app.use(pinia);
 app.use(router);
