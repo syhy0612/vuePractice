@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :ref="chart" style="height:600px;width:400px"></div>
+    <div ref="chart" style="height:600px;width:400px"></div>
   </div>
 </template>
 
@@ -8,7 +8,8 @@
 import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
 
-const chart = ref(null)
+const chart = ref()
+
 onMounted(() => {
   const myChart = echarts.init(chart.value)
   const option = {
@@ -25,6 +26,8 @@ onMounted(() => {
     yAxis: {},
     series: [{
       name: '销量',
+      type: 'bar', // 如果是柱状图，需要指定类型
+      data: [5, 20, 36, 10, 10, 20] // 对应 xAxis 的数据，确保一一对应
     }]
   }
   myChart.setOption(option)
