@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>首页</div>
-    <NavMemu />
     <div class="mb-4">
       <el-button>Default</el-button>
       <el-button type="primary">Primary</el-button>
@@ -21,6 +20,7 @@
       <div class="block">
         <el-date-picker v-model="value1" type="date" placeholder="Pick a day" :size="size" />
       </div>
+      <br />
       <!-- 密码 -->
       <el-input v-model="input" style="width: 240px" type="password" placeholder="请输入密码" show-password />
 
@@ -40,7 +40,7 @@ const value1 = ref(false)
 const value2 = ref(false)
 const input = ref('')
 const open = () => {
-  ElMessage('This is a message.')
+  ElMessage('Emmmmm')
 }
 </script>
 

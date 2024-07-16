@@ -2,7 +2,7 @@
   <div>
     <el-aside width="200px">
       <el-menu class="el-menu-vertical-demo" default-active="/home" @select="handleSelect">
-        <el-menu-item :index="v.index" v-for="v in data" :key="v.index">
+        <el-menu-item :index="v.path" v-for="v in data" :key="v.path">
           <el-icon><IconMenu /></el-icon>
           <span>{{ v.name }}</span>
         </el-menu-item>
@@ -20,13 +20,21 @@ import { Menu as IconMenu } from '@element-plus/icons-vue'
 const router = useRouter()
 
 const data = ref([
-  { index: '/home', name: '首页' },
-  { index: '/about', name: '关于' },
-  { index: '/echarts', name: '图表' }
+  { path: '/home', name: '首页' },
+  { path: '/about', name: '关于' },
+  { path: '/echartsBar', name: '柱状图' },
+  { path: '/echartsLine', name: '折线图' },
+  { path: '/echartsPie', name: '饼状图' },
+  { path: '/echartsScatter', name: '散点图' },
+  { path: '/echartsMap', name: '地图' },
+  { path: '/echartsGauge', name: '仪表盘' },
+  { path: '/echartsRadar', name: '雷达图' },
+  { path: '/echartsFunnel', name: '漏斗图' },
+  { path: '/others', name: '其他' }
 ])
 
 const handleSelect = (index) => {
-  router.push(index) // 点击时跳转到对应路由
+  router.push(index)
 }
 </script>
 

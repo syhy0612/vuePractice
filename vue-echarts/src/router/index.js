@@ -1,9 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
-import Contact from '../views/Contact.vue';
 import NotFound from '../views/NotFound.vue';
-import Echarts from '../views/Echarts.vue';
+import EchartsBar from '../views/EchartsBar.vue';
+import EchartsLine from '../views/EchartsLine.vue';
+import EchartsPie from '../views/EchartsPie.vue';
+import EchartsScatter from '../views/EchartsScatter.vue';
+import EchartsMap from '../views/EchartsMap.vue';
+import EchartsGauge from '../views/EchartsGauge.vue';
+import EchartsRadar from '../views/EchartsRadar.vue';
+import EchartsFunnel from '../views/EchartsFunnel.vue';
+import Others from '../views/Others.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,23 +21,58 @@ const router = createRouter({
     },
     {
       path: '/home',
-      name: 'Home',
+      name: 'home',
       component: Home
     },
     {
       path: '/about',
-      name: 'About',
+      name: 'about',
       component: About
     },
     {
-      path: '/contact',
-      name: 'Contact',
-      component: Contact
+      path: '/echartsBar',
+      name: 'echartsBar',
+      component: EchartsBar
     },
     {
-      path: '/echarts',
-      name: 'Echarts',
-      component: Echarts
+      path: '/echartsLine',
+      name: 'echartsLine',
+      component: EchartsLine
+    },
+    {
+      path: '/echartsPie',
+      name: 'echartsPie',
+      component: EchartsPie
+    },
+    {
+      path: '/echartsScatter',
+      name: 'echartsScatter',
+      component: EchartsScatter
+    },
+    {
+      path: '/echartsMap',
+      name: 'echartsMap',
+      component: EchartsMap
+    },
+    {
+      path: '/echartsGauge',
+      name: 'echartsGauge',
+      component: EchartsGauge
+    },
+    {
+      path: '/echartsRadar',
+      name: 'echartsRadar',
+      component: EchartsRadar
+    },
+    {
+      path: '/echartsFunnel',
+      name: 'echartsFunnel',
+      component: EchartsFunnel
+    },
+    {
+      path: '/others',
+      name: 'others',
+      component: Others
     },
     {
       path: '/:pathMatch(.*)*',

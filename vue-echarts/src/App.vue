@@ -5,7 +5,7 @@
       <NavMemu />
       <!-- 主体头部 -->
       <el-container>
-        <el-header>图表展示</el-header>
+        <el-header><div class="header-title">Echarts图表展示</div></el-header>
         <!-- 主体内容 -->
         <el-main>
           <router-view />
@@ -21,4 +21,14 @@ import NavMemu from './views/NavMemu.vue';
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.header-title{
+  color: purple;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  height: 70px;
+  line-height: 70px;
+  /* border: solid 1px rgb(255, 0, 0); */
+}
+</style>
