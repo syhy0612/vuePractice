@@ -12,45 +12,40 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
-import {useRouter, useRoute} from 'vue-router'
-import {ElIcon} from 'element-plus'
-import {Menu as IconMenu} from '@element-plus/icons-vue'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ElIcon } from 'element-plus'
+import { Menu as IconMenu } from '@element-plus/icons-vue'
 
 const router = useRouter()
 const route = useRoute()
 
 const data = ref([
-  {path: '/home', name: '首页'},
-  {path: '/about', name: '关于'},
-  {path: '/echartsBar', name: '柱状图'},
-  {path: '/echartsLine', name: '折线图'},
-  {path: '/echartsPie', name: '饼状图'},
-  {path: '/echartsScatter', name: '散点图'},
-  {path: '/echartsMap', name: '地图'},
-  {path: '/echartsGauge', name: '仪表盘'},
-  {path: '/echartsRadar', name: '雷达图'},
-  {path: '/echartsFunnel', name: '漏斗图'},
-  {path: '/others', name: '其他'}
+  { path: '/home', name: '首页' },
+  { path: '/about', name: '关于' },
+  { path: '/echartsBar', name: '柱状图' },
+  { path: '/echartsLine', name: '折线图' },
+  { path: '/echartsPie', name: '饼状图' },
+  { path: '/echartsScatter', name: '散点图' },
+  { path: '/echartsMap', name: '地图' },
+  { path: '/echartsGauge', name: '仪表盘' },
+  { path: '/echartsRadar', name: '雷达图' },
+  { path: '/echartsFunnel', name: '漏斗图' },
+  { path: '/others', name: '其他' }
 ])
 
 const currentRoutePath = ref('')
-console.log(currentRoutePath)
 
 onMounted(() => {
-  // currentRoutePath.value = route.path
-  currentRoutePath.value = window.location.href
-  console.log(currentRoutePath.value)
-
-  currentURL.value = window.location.href
-  const url = new URL(currentURL.value)
-  currentURL.value = url.pathname // 这里获取到的就是 /echartsLine
-  console.log("111"+currentURL.value)
+  const url = new URL( window.location.href)
+  currentRoutePath.value = url.pathname
+  //打印当前地址
+  console.log("当前地址:"+currentRoutePath.value)
 })
 
 const handleSelect = (index) => {
   router.push(index)
-  console.log(`进入了"${index}"地址}`)
+  console.log(`进入地址:${index}`)
 }
 </script>
 
