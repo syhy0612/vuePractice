@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElIcon } from 'element-plus'
 import { Menu as IconMenu } from '@element-plus/icons-vue'
@@ -34,9 +34,11 @@ const data = ref([
   { path: '/others', name: '其他' }
 ])
 
-const currentRoutePath = route.path
-console.log(currentRoutePath)
-console.log("sad")
+const currentRoutePath = ref('')
+
+onMounted(() => {
+  currentRoutePath.value = route.path
+})
 
 const handleSelect = (index) => {
   router.push(index)
