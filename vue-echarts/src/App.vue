@@ -2,13 +2,15 @@
   <div id="cmodule">
     <!-- 导航栏 -->
     <el-container>
-      <NavMemu />
+      <NavMemu/>
       <!-- 主体头部 -->
       <el-container>
-        <el-header><div class="header-title">Echarts图表展示</div></el-header>
+        <el-header>
+          <div class="header-title">Echarts图表展示</div>
+        </el-header>
         <!-- 主体内容 -->
         <el-main>
-          <router-view />
+          <router-view/>
         </el-main>
       </el-container>
     </el-container>
@@ -21,8 +23,8 @@ import NavMemu from './views/NavMemu.vue';
 
 </script>
 
-<style scoped>
-.header-title{
+<style>
+.header-title {
   color: purple;
   font-size: 20px;
   font-weight: bold;
@@ -30,5 +32,11 @@ import NavMemu from './views/NavMemu.vue';
   height: 70px;
   line-height: 70px;
   /* border: solid 1px rgb(255, 0, 0); */
+}
+
+.chartCss {
+  height: 600px;
+  width: 80%;
+  text-indent: 2em;
 }
 </style>

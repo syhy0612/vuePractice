@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-aside width="200px">
-      <el-menu class="el-menu-vertical-demo" default-active="/home" @select="handleSelect">
+      <el-menu class="el-menu-vertical-demo" @select="handleSelect" :default-active="currentRoutePath">
         <el-menu-item :index="v.path" v-for="v in data" :key="v.path">
           <el-icon><IconMenu /></el-icon>
           <span>{{ v.name }}</span>
@@ -13,11 +13,12 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElIcon } from 'element-plus'
 import { Menu as IconMenu } from '@element-plus/icons-vue'
 
 const router = useRouter()
+const route = useRoute()
 
 const data = ref([
   { path: '/home', name: '首页' },
@@ -32,6 +33,10 @@ const data = ref([
   { path: '/echartsFunnel', name: '漏斗图' },
   { path: '/others', name: '其他' }
 ])
+
+const currentRoutePath = route.path
+console.log(currentRoutePath)
+console.log("sad")
 
 const handleSelect = (index) => {
   router.push(index)

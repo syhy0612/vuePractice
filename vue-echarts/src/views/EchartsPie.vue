@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="chart" style="height:600px;width:400px"></div>
+    <div ref="chart" class="chartCss"></div>
   </div>
 </template>
 
@@ -9,10 +9,7 @@ import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
 
 const chart = ref()
-
-onMounted(() => {
-  const myChart = echarts.init(chart.value)
-  const option = {
+const option = {
   tooltip: {
     trigger: 'item'
   },
@@ -50,8 +47,16 @@ onMounted(() => {
     }
   ]
 };
-  myChart.setOption(option)
+onMounted(() => {
+  initChart();
 })
+const initChart = () => {
+  const myChart = echarts.init(chart.value)
+  myChart.setOption(option)
+  window.addEventListener('resize', () => {
+    myChart.resize()
+  })
+}
 </script>
 
 <style scoped></style>
