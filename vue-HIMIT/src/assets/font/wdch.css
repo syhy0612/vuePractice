@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "wdch";
+  src: url('./文道潮黑体.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "文道潮黑体";
+  src: url('./文道潮黑体.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "wdcht";
+  src: url('./文道潮黑体.ttf');
+  font-weight: normal;
+  font-style: normal;
+}

@@ -1,9 +1,16 @@
 <template>
   <div class="box">
     <div class="container">
-      <img src="../assets/logo1.png" alt="加载失败" title="我是Logo" class="logo">
+      <img src="../assets/logo1.png" alt="加载失败" title="我是Logo" class="logo imgTop">
       <div class="text">
-        品质信息(OQC)
+        <div class="textL">
+          <div class="t1">品质信息(OQC)</div>
+          <div class="t2">OQC Management</div>
+        </div>
+        <div class="textR">
+          <span class="t3">操作员</span>
+          <span class="t4">2024年7月20日10:58:49</span>
+        </div>
       </div>
     </div>
   </div>
@@ -13,19 +20,73 @@
 </script>
 
 <style lang="scss" scoped>
-.box{
-  height: 200px;
+.box {
+  height: 100px;
 }
+
 .container {
   background: url("../assets/head_bg.png") no-repeat;
-  background-position: top center; /* 将背景图像位置设置为顶部居中 */
-  background-size: cover; /* 使背景图像尽可能覆盖容器 */
-  width: 100%; /* 宽度与网页同宽 */
-  height: auto; /* 高度自适应，根据宽度等比例调整 */
+  background-position: top center;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
 }
-.logo{
-  margin-top: 5px;
+
+.logo {
+  margin-top: 6px;
   width: 13%;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
+}
+
+.textL {
+  float: left;
+}
+
+.t1,
+.t2 {
+  margin-left: 10px;
+  margin-top: -10px;
+  font-family: wdcht, Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.t2 {
+  margin-top: -2px;
+  font-size: 16px;
+  color: #8c8c8c;
+}
+
+.textR {
+  display: flex;
+  align-items: center;
+  margin-left: 1300px;
+}
+
+.t3 {
+  margin-right: 20px; /* 调整左右间距 */
+  font-family: wdcht, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.t4 {
+  font-family: wdcht, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  color: white;
+  letter-spacing: 2px;
+}
+
+
+.t4 {
+  //margin-top: -2px;
+  //font-size: 16px;
+  //color: #8c8c8c;
 }
 </style>
