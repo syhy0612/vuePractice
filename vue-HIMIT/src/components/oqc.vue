@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="leftBox">
-      <echarts/>
+      <echarts :chartOptions="waitingTimeForInspection"/>
     </div>
     <div class="rightBox">
       <echarts/>
@@ -10,7 +10,42 @@
 </template>
 
 <script setup>
+import {ref} from "vue";
 import echarts from './echarts.vue'
+
+const waitingTimeForInspection = ref({
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    top: '5%',
+    left: 'center'
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: ['50%', '70%'],
+      avoidLabelOverlap: false,
+      label: {
+        show: true,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 40,
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [{value: 2, name: 'Search Engine'}]
+    }
+  ]
+
+});
 </script>
 
 <style lang="scss" scoped>
