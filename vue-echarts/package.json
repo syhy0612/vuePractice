@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "bootstrap": "^5.3.3",
     "echarts": "^5.5.1",
+    "element": "^0.1.4",
     "element-plus": "^2.7.7",
+    "scss": "^0.2.4",
     "vue": "^3.4.29",
     "vue-router": "^4.4.0"
   },

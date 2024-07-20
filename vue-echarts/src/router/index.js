@@ -20,6 +20,10 @@ const router = createRouter({
       redirect: '/home'
     },
     {
+      path: '/vuePractice',
+      redirect: '/home'
+    },
+    {
       path: '/home',
       name: 'home',
       component: Home

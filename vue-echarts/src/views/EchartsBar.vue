@@ -13,7 +13,10 @@ const option = {
   title: {
     text: '柱状图示例'
   },
-  tooltip: {},
+  tooltip: {
+    show: true,
+    position: 'top',
+  },
   legend: {
     data: ['销量']
   },
@@ -24,7 +27,13 @@ const option = {
   series: [{
     name: '销量',
     type: 'bar',
-    data: [5, 20, 36, 10, 10, 20]
+    data: [5, 20, 36, 10, 10, 20],
+    label:{
+      show: true,
+      position: 'top',
+      fontSize: 20,
+      color: 'purple'
+    }
   }]
 }
 onMounted(() => {
