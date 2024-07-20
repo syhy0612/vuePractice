@@ -8,8 +8,8 @@
           <div class="t2">OQC Management</div>
         </div>
         <div class="textR">
-          <span class="t3">操作员</span>
-          <span class="t4">2024年7月20日10:58:49</span>
+          <span class="t3">当前用户:操作员</span>
+          <span class="t4">2024/07/20 10:58:49</span>
         </div>
       </div>
     </div>
@@ -65,28 +65,23 @@
 .textR {
   display: flex;
   align-items: center;
-  margin-left: 1300px;
+  //margin-left: 1350px;
+  letter-spacing: 0px;
+  //float: right;
 }
 
 .t3 {
-  margin-right: 20px; /* 调整左右间距 */
+  margin-right: 20px;
   font-family: wdcht, Helvetica, Arial, sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   color: white;
-  letter-spacing: 2px;
+  //float: right;
 }
 
 .t4 {
   font-family: wdcht, Helvetica, Arial, sans-serif;
-  font-size: 18px;
+  font-size: 24px;
   color: white;
-  letter-spacing: 2px;
-}
-
-
-.t4 {
-  //margin-top: -2px;
-  //font-size: 16px;
-  //color: #8c8c8c;
+  //float: right;
 }
 </style>
