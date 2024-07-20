@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import Nav from '@/components/Nav.vue'
+import Nav from '@/components/nav.vue'
 import Oqc from '@/components/oqc.vue';
 </script>
 

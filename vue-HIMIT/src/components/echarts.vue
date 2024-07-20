@@ -59,4 +59,10 @@ const initChart = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.chartCss {
+  height: 600px;
+  width: 80%;
+  text-indent: 2em;
+}
+</style>
