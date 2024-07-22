@@ -122,7 +122,7 @@ const boxA2 = ref({
 //左边大盒子
 .leftBox {
   flex: 5.5;
-  background-color: rgba(16, 27, 49, .6);
+  //background-color: rgba(16, 27, 49, .6);
   //background-color: lightblue;
   //width: 90%;
 }
@@ -130,7 +130,7 @@ const boxA2 = ref({
 //右边大盒子
 .rightBox {
   flex: 4.5;
-  background-color: rgba(16, 27, 49, .6);
+  //background-color: rgba(16, 27, 49, .6);
   //background-color: lightpink;
 }
 
@@ -177,7 +177,7 @@ const boxA2 = ref({
   margin: 10px;
   //border: 1px solid red;
   //background: rgba(241, 223, 151, .25);
-  //background: rgba(16, 27, 49, .6);
+  background: rgba(16, 27, 49, .6);
 }
 .colorYellow{
   background: rgba(241, 223, 151, .25);
