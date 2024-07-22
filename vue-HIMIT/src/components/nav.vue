@@ -8,7 +8,7 @@
           <div class="t2">OQC Management</div>
         </div>
         <div class="textR">
-          <span class="t3">当前用户:熊纯一</span>
+          <span class="t3">当前用户:{{ username }}</span>
           <!--          <span class="t4" >2024/07/20 10:58:49</span>-->
           <span class="t4">{{ localTime }}</span>
         </div>
@@ -20,6 +20,7 @@
 <script setup>
 import {ref, onMounted} from "vue";
 
+const username = ref('操作员')
 const localTime = ref('')
 
 const updateTime = () => {
@@ -33,7 +34,7 @@ const updateTime = () => {
   localTime.value = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 };
 
-onMounted(()=>{
+onMounted(() => {
   updateTime()
   setInterval(updateTime, 1000);
 })

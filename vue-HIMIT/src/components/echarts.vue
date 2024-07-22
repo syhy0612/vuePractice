@@ -41,7 +41,7 @@ watch(() => props.chartOptions, (newOptions) => {
 
 <style scoped>
 .chartCss {
-  height: 600px;
-  width: 80%;
+  height: 100%;
+  width: 100%;
 }
 </style>
