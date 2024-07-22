@@ -19,16 +19,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd vue-echarts
+          cd vue-HIMIT
           npm install
 
       - name: Build project
         run: |
-          cd vue-echarts
+          cd vue-HIMIT
           npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./vue-echarts/dist  # 这里指定 vue-echarts/dist 目录
+          publish_dir: ./vue-HIMIT/dist  # 这里指定 vue-HIMIT/dist 目录
