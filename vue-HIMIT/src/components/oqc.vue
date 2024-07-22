@@ -220,66 +220,357 @@ const ngDate = ref('')
 const checkTime = ref('')
 const passTime = ref('')
 
-const boxA1 = ref({
-  tooltip: {
-    trigger: 'item'
+const boxA1 = ref( {
+  title: {
+    text:
+        '2',
+    left: "center",
+    top: "44%",
+    textStyle: {
+      color: "#fff",
+      fontSize: 26,
+      align: "center",
+      textShadowBlur: 10,
+      textShadowColor: "#FFA07A",
+    },
   },
-  legend: {
-    top: '5%',
-    left: 'center'
+  tooltip: {
+    trigger: "item",
   },
   series: [
     {
-      name: 'Access From',
-      type: 'pie',
-      radius: ['50%', '70%'],
-      avoidLabelOverlap: false,
-      label: {
-        show: true,
-        position: 'center'
-      },
+      // roseType: "radius",
+      startAngle: 60,
+      name: "待检时长",
+      type: "pie",
+      radius: ["30%", "45%"],
+      center: ["50%", "50%"],
+      color: [" #7f2a2a", "#fbfe27"],
+      data: [
+        {value: '1'.num, name: "三天以上"},
+        {value: '2', name: "两天内"},
+        {value: '3'.num, name: "一天内"},
+      ],
       emphasis: {
-        label: {
-          show: true,
-          fontSize: 40,
-          fontWeight: 'bold'
-        }
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: "rgba(0, 0, 0, 0.5)",
+        },
+      },
+      itemStyle: {
+        //饼状图阴影，值越大阴影亮度越高
+        shadowBlur: 20,
+        shadowColor: "#FFA07A",
+      },
+      label: {
+        formatter: "{value|{c}}\n{name|{b}}",
+        rich: {
+          name: {
+            fontSize: 14,
+            color: "#fff",
+          },
+          value: {
+            fontSize: 18,
+            fontWeight: 600,
+            color: "#FEF000",
+            shadowBlur: 20,
+            shadowColor: "#FFA07A",
+          },
+        },
       },
       labelLine: {
-        show: false
+        show: true, //数据标签引导线
+        // length: 6,
+        lineStyle: {
+          width: 1,
+          type: "solid",
+        },
       },
-      data: [{value: 2, name: 'Search Engine'}]
-    }
-  ]
-
+    },
+  ],
 })
-const boxA2 = ref({
-  /*title: {
-    text: '柱状图示例'
-  },*/
+const daysData = [
+  { date: '2024-07-01', ngCount: 2, passCount: 18, workers: 25, workHours: 200 },
+  { date: '2024-07-02', ngCount: 1, passCount: 20, workers: 24, workHours: 192 },
+  { date: '2024-07-03', ngCount: 3, passCount: 17, workers: 26, workHours: 208 },
+  { date: '2024-07-04', ngCount: 0, passCount: 22, workers: 25, workHours: 200 },
+  { date: '2024-07-05', ngCount: 2, passCount: 19, workers: 23, workHours: 184 },
+  { date: '2024-07-06', ngCount: 1, passCount: 21, workers: 24, workHours: 192 },
+  { date: '2024-07-07', ngCount: 2, passCount: 18, workers: 25, workHours: 200 },
+  // Continue with the pattern for the rest of the month
+  { date: '2024-07-08', ngCount: 1, passCount: 22, workers: 26, workHours: 208 },
+  { date: '2024-07-09', ngCount: 3, passCount: 19, workers: 25, workHours: 200 },
+  { date: '2024-07-10', ngCount: 0, passCount: 21, workers: 24, workHours: 192 },
+  { date: '2024-07-11', ngCount: 2, passCount: 18, workers: 26, workHours: 208 },
+  { date: '2024-07-12', ngCount: 1, passCount: 20, workers: 23, workHours: 184 },
+  { date: '2024-07-13', ngCount: 2, passCount: 17, workers: 24, workHours: 192 },
+  { date: '2024-07-14', ngCount: 0, passCount: 22, workers: 25, workHours: 200 },
+  { date: '2024-07-15', ngCount: 1, passCount: 19, workers: 26, workHours: 208 },
+  { date: '2024-07-16', ngCount: 3, passCount: 21, workers: 25, workHours: 200 },
+  { date: '2024-07-17', ngCount: 0, passCount: 18, workers: 24, workHours: 192 },
+  { date: '2024-07-18', ngCount: 2, passCount: 20, workers: 26, workHours: 208 },
+  { date: '2024-07-19', ngCount: 1, passCount: 19, workers: 23, workHours: 184 },
+  { date: '2024-07-20', ngCount: 2, passCount: 21, workers: 24, workHours: 192 },
+  { date: '2024-07-21', ngCount: 0, passCount: 18, workers: 25, workHours: 200 },
+  { date: '2024-07-22', ngCount: 1, passCount: 22, workers: 26, workHours: 208 },
+  { date: '2024-07-23', ngCount: 3, passCount: 19, workers: 25, workHours: 200 },
+  { date: '2024-07-24', ngCount: 0, passCount: 20, workers: 24, workHours: 192 },
+  { date: '2024-07-25', ngCount: 2, passCount: 18, workers: 26, workHours: 208 },
+  { date: '2024-07-26', ngCount: 1, passCount: 21, workers: 23, workHours: 184 },
+  { date: '2024-07-27', ngCount: 2, passCount: 17, workers: 24, workHours: 192 },
+  { date: '2024-07-28', ngCount: 0, passCount: 22, workers: 25, workHours: 200 },
+  { date: '2024-07-29', ngCount: 1, passCount: 19, workers: 26, workHours: 208 },
+  { date: '2024-07-30', ngCount: 3, passCount: 21, workers: 25, workHours: 200 },
+  { date: '2024-07-31', ngCount: 0, passCount: 18, workers: 24, workHours: 192 },
+];
+
+console.log(daysData);
+
+const boxA2 = {
+  dataZoom: [
+    {
+      type: "slider",
+      height: 7,
+      backgroundColor: "transparent",
+      borderColor: "transparent",
+      bottom: 0,
+      textStyle: {
+        color: "transparent",
+      },
+      zoomLock: true,
+      startValue: 0,
+      endValue: 7,
+    },
+  ],
   tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      type: "shadow",
+    },
+    formatter: (params) => {
+      let str = "";
+      params.forEach((item) => {
+        str += `${item.marker} <b>${item.seriesName}: ${item.value} </b><br/>`;
+      });
+      return params[0].name + "<br/>" + str;
+    },
+  },
+  legend: {
     show: true,
-    position: 'top',
+    right: "10px",
+    width: "100%",
+    data: ["PASS批次数", "NG批次数", "上班人数", "打卡工时"],
+    textStyle: {
+      color: "#fff",
+    },
   },
-  /*legend: {
-    data: ['销量']
-  },*/
-  xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '胜他半子']
+  grid: {
+    top: "35%",
+    right: "1%",
+    left: "1%",
+    bottom: "15%",
   },
-  yAxis: {},
-  series: [{
-    name: '销量',
-    type: 'bar',
-    data: [5, 20, 36, 10, 10, 20],
-    label: {
-      show: true,
-      position: 'top',
-      fontSize: 20,
-      color: 'purple'
-    }
-  }]
-});
+  xAxis: [
+    {
+      triggerEvent: true,
+      type: "category",
+      axisLabel: {
+        color: "#b9bec6",
+        interval: 0,
+        fontSize: 12,
+        formatter: function (value) {
+          if (value.length > 9) {
+            return `${value.slice(0, 9)}...`;
+          }
+          return value;
+        },
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: "#0a3e98",
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+        lineStyle: {
+          color: "#195384",
+          type: "dotted",
+        },
+      },
+      data: daysData.map(v => v.date),
+    },
+  ],
+  yAxis: [
+    {
+      type: "value",
+      min: 0,
+      position: "left",
+      nameTextStyle: {
+        color: "#fff",
+        fontSize: 10,
+      },
+      axisLine: {
+        lineStyle: {
+          color: "#0a3e98",
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: "rgba(255,255,255,.2)",
+          type: "dotted",
+        },
+      },
+      axisLabel: {
+        formatter: "{value}",
+        color: "transparent",
+      },
+    },
+    {
+      type: "value",
+      min: 0,
+      max: function () {
+        return Math.max(...daysData.map(v => v.workHours)) * 2.2;
+      },
+      position: "left",
+      nameTextStyle: {
+        color: "#fff",
+        fontSize: 10,
+      },
+      axisLine: {
+        lineStyle: {
+          color: "#0a3e98",
+        },
+      },
+      axisTick: {
+        show: false,
+      },
+      splitLine: {
+        show: false,
+        lineStyle: {
+          color: "#0a3e98",
+          type: "dotted",
+        },
+      },
+      axisLabel: {
+        formatter: "{value}",
+        color: "transparent",
+      },
+    },
+  ],
+  series: [
+    {
+      yAxisIndex: 0,
+      name: "NG批次数",
+      type: "bar",
+      stack: "bar",
+      barMaxWidth: 25,
+      barGap: 0.3,
+      itemStyle: {
+        color: "#ff5858",
+      },
+      label: {
+        show: false,
+        position: "top",
+        color: "#fff",
+      },
+      data: daysData.map(v => v.ngCount),
+    },
+    {
+      yAxisIndex: 0,
+      name: "PASS批次数",
+      type: "bar",
+      stack: "bar",
+      barMaxWidth: 25,
+      barGap: 0.3,
+      itemStyle: {
+        color: "rgba(73, 188, 247,1)",
+      },
+      label: {
+        show: true,
+        position: "top",
+        formatter: function (params) {
+          const dayData = daysData[params.dataIndex];
+          return `${dayData.ngCount <= 0 ? "{d|0}" : `{a|${dayData.ngCount}}`}\n${params.value}\n${dayData.workers}\n${dayData.workHours}`;
+        },
+        rich: {
+          a: {
+            color: "#F00",
+            fontWeight: 900,
+          },
+          b: {
+            color: "#FFFF00",
+            fontSize: 11,
+          },
+          c: {
+            color: "#eee",
+            fontSize: 11,
+            fontFamily: "wdch",
+          },
+          d: {
+            color: "rgba(255,255,255,0.5)",
+            fontSize: 11,
+          },
+        },
+        fontSize: 12,
+        color: "rgba(255,255,255,0.5)",
+        align: "right",
+        padding: [0, -10, 0, 0],
+      },
+      data: daysData.map(v => v.passCount),
+    },
+    {
+      yAxisIndex: 0,
+      data: daysData.map(v => v.workers),
+      name: "上班人数",
+      type: "line",
+      symbolSize: 3,
+      smooth: true,
+      itemStyle: {
+        color: "#00d6e1",
+      },
+      label: {
+        show: false,
+        fontSize: 10,
+        top: 0,
+        color: "#eee",
+        distance: 10,
+      },
+      lineStyle: {
+        width: 2,
+      },
+    },
+    {
+      yAxisIndex: 1,
+      data: daysData.map(v => v.workHours),
+      name: "打卡工时",
+      type: "line",
+      symbolSize: 3,
+      smooth: true,
+      itemStyle: {
+        color: "#99cc00",
+      },
+      label: {
+        show: false,
+        fontSize: 10,
+        top: 0,
+        color: "#eee",
+        distance: 10,
+      },
+      lineStyle: {
+        width: 2,
+      },
+    },
+  ],
+};
 
 </script>
 
@@ -456,7 +747,7 @@ const boxA2 = ref({
   text-align: center;
   margin: 5px 10px;
   border: 0; // 移除默认边框
-  border-top: 1px solid rgba(white,.35);
+  border-top: 1px solid rgba(white, .35);
 }
 
 .workLossTop,
