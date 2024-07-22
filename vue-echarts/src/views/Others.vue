@@ -19,6 +19,9 @@
       <div class="block">
         <el-date-picker v-model="value1" type="date" placeholder="Pick a day" :size="size" />
       </div>
+      <div>
+        <el-date-picker v-model="value3" type="month" placeholder="选择月份" :size="'default'" />
+      </div>
       <br />
       <!-- 密码 -->
       <el-input v-model="input" style="width: 240px" type="password" placeholder="请输入密码" show-password />
