@@ -3,44 +3,79 @@
     <div class="leftBox">
       <div class="leftTop">
         <div class="a1 littleBox colorYellow">
+          <div class="before_title"></div>
+          <div class="title">待检时长</div>
+
+          <!--todo-->
           <echarts :chart-options="boxA1"/>
         </div>
         <div class="a2 littleBox">
+          <div class="before_title"></div>
+          <div class="title">每日数据汇总</div>
           <echarts :chart-options="boxA2"/>
         </div>
       </div>
       <div class="leftMiddle">
-        <div class="b1 littleBox">B1</div>
-        <div class="b2 littleBox">B2</div>
+        <div class="b1 littleBox">
+          <div class="before_title"></div>
+          <div class="title">工损</div>
+        </div>
+        <div class="b2 littleBox">
+          <div class="before_title"></div>
+          <div class="title">NG批次处理</div>
+        </div>
       </div>
       <div class="leftBottom">
-        <div class="c1 littleBox">C1</div>
-        <div class="c2 littleBox">C2</div>
+        <div class="c1 littleBox">
+          <div class="before_title"></div>
+          <div class="title">PASS待入库（共8项）</div>
+        </div>
+        <div class="c2 littleBox">
+          <div class="before_title"></div>
+          <div class="title">待检工单 (共8项）</div>
+        </div>
       </div>
     </div>
     <div class="rightBox">
       <div class="rightTop">
-        <div class="a3 littleBox">A1</div>
+        <div class="a3 littleBox">
+          <div class="before_title"></div>
+          <div class="title">数量</div>
+        </div>
         <div class="a4">
-          <div class="a4u littleBox"></div>
+          <div class="a4u littleBox">
+            <div class="before_title"></div>
+            <div class="title">报检人统计</div>
+          </div>
           <div class="a4d littleBox">
+            <div class="before_title"></div>
+            <div class="title">NG批次周汇总</div>
             <echarts :chart-options="boxA2"/>
           </div>
         </div>
       </div>
       <div class="rightMiddle">
         <div class="b3 littleBox">
+          <div class="before_title"></div>
+          <div class="title">报检人不良占比</div>
           <echarts :chart-options="boxA2"/>
         </div>
         <div class="b4 littleBox">
+          <div class="before_title"></div>
+          <div class="title">产品不良占比</div>
           <echarts :chart-options="boxA2"/>
         </div>
       </div>
       <div class="rightBottom">
         <div class="c3 littleBox">
+          <div class="before_title"></div>
+          <div class="title">NG批次汇总</div>
           <echarts :chart-options="boxA2"/>
         </div>
-        <div class="c4 littleBox">C2</div>
+        <div class="c4 littleBox">
+          <div class="before_title"></div>
+          <div class="title">人员名单</div>
+        </div>
       </div>
     </div>
   </div>
@@ -49,6 +84,7 @@
 <script setup>
 import {ref} from "vue";
 import echarts from './echarts.vue'
+
 
 const boxA1 = ref({
   tooltip: {
@@ -84,16 +120,16 @@ const boxA1 = ref({
 
 })
 const boxA2 = ref({
-  title: {
+  /*title: {
     text: '柱状图示例'
-  },
+  },*/
   tooltip: {
     show: true,
     position: 'top',
   },
-  legend: {
+  /*legend: {
     data: ['销量']
-  },
+  },*/
   xAxis: {
     data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '胜他半子']
   },
@@ -179,7 +215,8 @@ const boxA2 = ref({
   //background: rgba(241, 223, 151, .25);
   background: rgba(16, 27, 49, .6);
 }
-.colorYellow{
+
+.colorYellow {
   background: rgba(241, 223, 151, .25);
   //background: rgba(16, 27, 49, .6);
 }
@@ -246,4 +283,25 @@ const boxA2 = ref({
 .c4 {
   flex: 0 1 50%;
 }*/
+
+.before_title {
+  float: left;
+  width: 4.5px;
+  height: 14px;
+  background-color: #49bcf7;
+  margin-right: 5px;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.title {
+  color: white;
+  font-family: wdcht, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin-left: 20px;
+  margin-top: 7.5px;
+}
+
+
 </style>
