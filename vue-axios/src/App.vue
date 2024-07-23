@@ -21,7 +21,7 @@
           :prefix-icon="Search"
           clearable>
         <template #append>°
-<!--          <span style="min-width: 0px; padding: 0px"!>°</span>-->
+          <!--          <span style="min-width: 0px; padding: 0px"!>°</span>-->
         </template>
       </el-input>
       <div></div>
@@ -33,6 +33,7 @@
           :max="15"
       />
       <div></div>
+      <el-button type="success" style="margin-top: 5px;" @click="initCity" title="岳阳">初始化</el-button>
       <el-button type="primary" style="margin-top: 5px;" @click="getTianQi">查询</el-button>
     </div>
     <echarts :chart-options="weatherChart" class="echarts" v-if="judge"/>
@@ -46,9 +47,9 @@ import {Search} from '@element-plus/icons-vue'
 import echarts from './components/echarts.vue'
 
 const judge = ref(false);
-const latitude = ref(29.28);
-const longitude = ref(113.1212);
-const day = ref(7);
+const latitude = ref();
+const longitude = ref();
+const day = ref();
 const weatherList = ref([]);
 
 const url = 'https://api.open-meteo.com/v1/forecast';
@@ -153,6 +154,12 @@ const weatherChart = reactive({
 function formatDate(dateString) {
   const date = new Date(dateString);
   return `${date.getMonth() + 1}月${date.getDate()}日`;
+}
+
+function initCity() {
+  latitude.value = 29.28;
+  longitude.value = 113.12;
+  day.value = 15;
 }
 
 async function getTianQi() {
