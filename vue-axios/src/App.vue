@@ -36,7 +36,7 @@
       <el-button type="primary" style="margin-top: 5px;" @click="getTianQi">查询</el-button>
     </div>
     <!--图表-->
-    <echarts :chart-options="weatherChart" class="echarts" :v-if="judge"  />
+    <echarts :chart-options="weatherChart" class="echarts" v-if="judge"/>
   </div>
 </template>
 
@@ -48,7 +48,6 @@ import echarts from './components/echarts.vue'
 
 // 判断是否显示图表
 const judge = ref(false)
-console.log("判断为" + judge.value)
 // 默认经纬度
 const latitude = ref(29.28)
 const longitude = ref(113.1212)
@@ -58,9 +57,9 @@ const day = ref(7)
 const params = {
   latitude: latitude.value,
   longitude: longitude.value,
-  daily: 'weather_code,precipitation_sum',
+  daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum',
   timezone: 'auto',
-  forecast_days: day.value
+  forecast_days: day.value, // 使用最新的 day 值
 };
 // 天气代码
 const weatherCodes = {
@@ -220,20 +219,27 @@ const weatherChart = {
 // 天气-信息列表
 const weatherList = ref([]);
 
+// 获取天气信息
 async function getTianQi() {
+  judge.value = false;
   try {
     const res = await axios({
       url: url,
       method: 'get',
       params: params
-    })
-    console.log(res.data)
+    });
+    params.forecast_days = day.value;
+    params.latitude = latitude.value;
+    params.longitude = longitude.value;
+    console.log(res.data);
+    getTianQiInfo(res.data);
     judge.value = true;
   } catch (error) {
     console.error('获取天气信息失败:', error);
   }
 }
 
+// 解析天气信息
 function getTianQiInfo(data) {
   // 解析数据
   data = data.daily;
@@ -241,15 +247,15 @@ function getTianQiInfo(data) {
 
   weatherList.value = data.time.map((item, index) => {
     return {
-      date: item,
+      date: item,//todo  加一个方法调用  2024-7-23转化成7月23日
       weather: weatherCodes[data.weather_code[index]] || '未知',
-      temperature: data.temperature_2m_max[index] + '°C', // 确保 data 对象中包含 temperature_2m_max 数据
+      temperatureMax: data.temperature_2m_max[index] + '°C', // 确保 data 对象中包含 temperature_2m_max 数据
+      temperatureMin: data.temperature_2m_min[index] + '°C', // 确保 data 对象中包含 temperature_2m_max 数据
       precipitation: data.precipitation_sum[index] + 'mm'
     }
   });
-
-  console.log(weatherList);
-  return weatherList;
+  console.log(weatherList.value);
+  // return weatherList;
 }
 </script>
 
