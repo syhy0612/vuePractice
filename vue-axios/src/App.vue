@@ -79,12 +79,23 @@ const weatherCodes = {
 };
 
 const weatherChart = reactive({
-  tooltip: { trigger: 'axis' },
+  tooltip: {
+    trigger: 'axis',
+    formatter: function(params) {
+      const date = params[0].axisValue;
+      const weather = weatherList.value.find(item => item.date === date)?.weather || '未知';
+      let result = `${date}<br/>天气：${weather}<br/>`;
+      params.forEach(param => {
+        result += `${param.seriesName}：${param.value}${param.seriesName.includes('温度') ? '°C' : 'mm'}<br/>`;
+      });
+      return result;
+    }
+  },
   legend: { data: ['最高温度', '最低温度', '降水量'] },
   grid: {
     left: '3%',
     right: '4%',
-    bottom: '3%',
+    bottom: '10%',
     containLabel: true
   },
   toolbox: {
@@ -94,7 +105,7 @@ const weatherChart = reactive({
   },
   xAxis: {
     type: 'category',
-    boundaryGap: false,
+    boundaryGap: true,
     data: []
   },
   yAxis: [
@@ -102,9 +113,35 @@ const weatherChart = reactive({
     { type: 'value', name: '降水量 (mm)' }
   ],
   series: [
-    { name: '最高温度', type: 'line', data: [] },
-    { name: '最低温度', type: 'line', data: [] },
-    { name: '降水量', type: 'bar', yAxisIndex: 1, data: [] }
+    {
+      name: '最高温度',
+      type: 'line',
+      data: [],
+      itemStyle: { color: '#FF6B3B' },  // 橘红色
+      lineStyle: { color: '#FF6B3B' }
+    },
+    {
+      name: '最低温度',
+      type: 'line',
+      data: [],
+      itemStyle: { color: '#54B4EF' },  // 淡蓝色
+      lineStyle: { color: '#54B4EF' }
+    },
+    {
+      name: '降水量',
+      type: 'bar',
+      yAxisIndex: 1,
+      data: [],
+      itemStyle: { color: '#3D9AF9' },  // 水蓝色
+      label: {
+        show: true,
+        position: 'top',
+        formatter: function(params) {
+          const weather = weatherList.value[params.dataIndex]?.weather || '';
+          return weather;
+        }
+      }
+    }
   ]
 });
 
