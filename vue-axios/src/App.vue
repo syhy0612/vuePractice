@@ -1,6 +1,8 @@
 <template>
   <div>
+    <!--标题-->
     <div class="title">天气预报</div>
+    <!-- 输入框-->
     <div class="inputBox">
       <span>纬度：</span>
       <el-input
@@ -11,7 +13,6 @@
           :prefix-icon="Search"
           clearable
       />
-      <!--      <span>{{ latitude }}</span>-->
       <div></div>
       <span>经度：</span>
       <el-input
@@ -22,7 +23,6 @@
           :prefix-icon="Search"
           clearable
       />
-      <!--      <span>{{ longitude }}</span>-->
       <div></div>
       <span>天数：</span>
       <el-input-number
@@ -33,10 +33,10 @@
           :min="1" :max="14"
       />
       <div></div>
-      <!--      <span>{{ day }}</span>-->
       <el-button type="primary" style="margin-top: 5px;" @click="getTianQi">查询</el-button>
     </div>
-    <echarts :chart-options="boxA1" class="echarts"/>
+    <!--图表-->
+    <echarts :chart-options="weatherChart" class="echarts"/>
   </div>
 </template>
 
@@ -46,10 +46,12 @@ import axios from "axios";
 import {Search} from '@element-plus/icons-vue'
 import echarts from './components/echarts.vue'
 
-
+// 默认经纬度
 const latitude = ref(29.28)
 const longitude = ref(113.1212)
+// 默认天数
 const day = ref(7)
+// 请求参数
 const params = {
   latitude: latitude.value,
   longitude: longitude.value,
@@ -57,6 +59,7 @@ const params = {
   timezone: 'auto',
   forecast_days: day.value
 };
+// 天气代码
 const weatherCodes = {
   0: '晴天',
   1: '晴间多云',
@@ -86,8 +89,9 @@ const weatherCodes = {
   96: '雷暴伴有小冰雹',
   99: '雷暴伴有大冰雹'
 };
-//只能请求0-16天
+// 只能请求0-16天
 const url = 'https://api.open-meteo.com/v1/forecast'
+// 测试图表
 const boxA1 = {
   title: {
     text: 'Stacked Line'
@@ -150,6 +154,71 @@ const boxA1 = {
     }
   ]
 };
+// 天气图表
+const weatherChart = {
+  title: {
+    text: '天气预报'
+  },
+  // tooltip: {
+  //   trigger: 'axis'
+  // },
+  legend: {
+    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: 'Email',
+      type: 'line',
+      stack: 'Total',
+      data: [120, 132, 101, 134, 90, 230, 210]
+    },
+    {
+      name: 'Union Ads',
+      type: 'line',
+      stack: 'Total',
+      data: [220, 182, 191, 234, 290, 330, 310]
+    },
+    {
+      name: 'Video Ads',
+      type: 'line',
+      stack: 'Total',
+      data: [150, 232, 201, 154, 190, 330, 410]
+    },
+    {
+      name: 'Direct',
+      type: 'line',
+      stack: 'Total',
+      data: [320, 332, 301, 334, 390, 330, 320]
+    },
+    {
+      name: 'Search Engine',
+      type: 'line',
+      stack: 'Total',
+      data: [820, 932, 901, 934, 1290, 1330, 1320]
+    }
+  ]
+};
+// 天气-信息列表
+const weatherList =ref([])
 
 async function getTianQi() {
   try {
@@ -167,7 +236,8 @@ async function getTianQi() {
 
 function getTianQiInfo(data) {
   //todo 解析数据
-  console.log(data)
+  // console.log(data)
+  console.log(data.daily)
 
 }
 </script>
