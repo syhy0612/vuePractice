@@ -3,11 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # 当推送到 main 分支时触发
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      PROJECT_DIR: vue-HIMIT  #环境变量
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -19,16 +21,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd vue-axios
+          cd ${{ env.PROJECT_DIR }}
           npm install
 
       - name: Build project
         run: |
-          cd vue-axios
+          cd ${{ env.PROJECT_DIR }}
           npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./vue-axios/dist  # 这里指定 vue-axios/dist 目录
+          publish_dir: ${{ env.PROJECT_DIR }}/dist
