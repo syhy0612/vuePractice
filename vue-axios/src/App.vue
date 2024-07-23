@@ -9,7 +9,9 @@
           placeholder="请输入纬度"
           :prefix-icon="Search"
           clearable
-      />
+      >
+        <template #append>°</template>
+      </el-input>
       <div></div>
       <span>经度：</span>
       <el-input
@@ -17,15 +19,18 @@
           class="inputInfo"
           placeholder="请输入经度"
           :prefix-icon="Search"
-          clearable
-      />
+          clearable>
+        <template #append>°
+<!--          <span style="min-width: 0px; padding: 0px"!>°</span>-->
+        </template>
+      </el-input>
       <div></div>
       <span>天数：</span>
       <el-input-number
           v-model="day"
           class="inputInfo"
           :min="1"
-          :max="14"
+          :max="15"
       />
       <div></div>
       <el-button type="primary" style="margin-top: 5px;" @click="getTianQi">查询</el-button>
@@ -35,9 +40,9 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import {ref, reactive} from "vue";
 import axios from "axios";
-import { Search } from '@element-plus/icons-vue'
+import {Search} from '@element-plus/icons-vue'
 import echarts from './components/echarts.vue'
 
 const judge = ref(false);
@@ -81,7 +86,7 @@ const weatherCodes = {
 const weatherChart = reactive({
   tooltip: {
     trigger: 'axis',
-    formatter: function(params) {
+    formatter: function (params) {
       const date = params[0].axisValue;
       const weather = weatherList.value.find(item => item.date === date)?.weather || '未知';
       let result = `${date}<br/>天气：${weather}<br/>`;
@@ -91,7 +96,7 @@ const weatherChart = reactive({
       return result;
     }
   },
-  legend: { data: ['最高温度', '最低温度', '降水量'] },
+  legend: {data: ['最高温度', '最低温度', '降水量']},
   grid: {
     left: '3%',
     right: '4%',
@@ -109,34 +114,34 @@ const weatherChart = reactive({
     data: []
   },
   yAxis: [
-    { type: 'value', name: '温度 (°C)' },
-    { type: 'value', name: '降水量 (mm)' }
+    {type: 'value', name: '温度 (°C)'},
+    {type: 'value', name: '降水量 (mm)'}
   ],
   series: [
     {
       name: '最高温度',
       type: 'line',
       data: [],
-      itemStyle: { color: '#FF6B3B' },  // 橘红色
-      lineStyle: { color: '#FF6B3B' }
+      itemStyle: {color: '#FF6B3B'},  // 橘红色
+      lineStyle: {color: '#FF6B3B'}
     },
     {
       name: '最低温度',
       type: 'line',
       data: [],
-      itemStyle: { color: '#54B4EF' },  // 淡蓝色
-      lineStyle: { color: '#54B4EF' }
+      itemStyle: {color: '#54B4EF'},  // 淡蓝色
+      lineStyle: {color: '#54B4EF'}
     },
     {
       name: '降水量',
       type: 'bar',
       yAxisIndex: 1,
       data: [],
-      itemStyle: { color: '#3D9AF9' },  // 水蓝色
+      itemStyle: {color: '#3D9AF9'},  // 水蓝色
       label: {
         show: true,
         position: 'top',
-        formatter: function(params) {
+        formatter: function (params) {
           const weather = weatherList.value[params.dataIndex]?.weather || '';
           return weather;
         }
@@ -161,7 +166,7 @@ async function getTianQi() {
   };
 
   try {
-    const res = await axios.get(url, { params });
+    const res = await axios.get(url, {params});
     console.log("当前请求天数", params.forecast_days);
     console.log(res.data);
     getTianQiInfo(res.data);
@@ -202,7 +207,7 @@ function updateWeatherChart() {
 }
 
 .inputInfo {
-  width: 150px;
+  width: 180px;
   margin-top: 5px;
   height: 30px;
 }
