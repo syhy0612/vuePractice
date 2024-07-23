@@ -6,7 +6,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: 8080, // 修改为你想要的端口号
+    port: 8080,//端口号
   },
   plugins: [
     vue(),
