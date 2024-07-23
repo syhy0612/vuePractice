@@ -19,13 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-#          cd vue-HIMIT
           cd vue-axios
           npm install
 
       - name: Build project
         run: |
-#          cd vue-HIMIT
           cd vue-axios
           npm run build
 
@@ -33,5 +31,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-#          publish_dir: ./vue-HIMIT/dist  # 这里指定 vue-HIMIT/dist 目录
           publish_dir: ./vue-axios/dist  # 这里指定 vue-axios/dist 目录
