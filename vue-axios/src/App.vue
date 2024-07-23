@@ -79,7 +79,6 @@ const weatherCodes = {
 };
 
 const weatherChart = reactive({
-  // title: { text: '天气预报' },
   tooltip: { trigger: 'axis' },
   legend: { data: ['最高温度', '最低温度', '降水量'] },
   grid: {
