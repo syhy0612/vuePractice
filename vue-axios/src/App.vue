@@ -1,12 +1,9 @@
 <template>
   <div>
-    <!--标题-->
     <div class="title">天气预报</div>
-    <!-- 输入框-->
     <div class="inputBox">
       <span>纬度：</span>
       <el-input
-          type="text"
           v-model="latitude"
           class="inputInfo"
           placeholder="请输入纬度"
@@ -16,7 +13,6 @@
       <div></div>
       <span>经度：</span>
       <el-input
-          type="text"
           v-model="longitude"
           class="inputInfo"
           placeholder="请输入经度"
@@ -26,42 +22,32 @@
       <div></div>
       <span>天数：</span>
       <el-input-number
-          type="text"
           v-model="day"
           class="inputInfo"
-          :prefix-icon="Search"
-          :min="1" :max="14"
+          :min="1"
+          :max="14"
       />
       <div></div>
       <el-button type="primary" style="margin-top: 5px;" @click="getTianQi">查询</el-button>
     </div>
-    <!--图表-->
     <echarts :chart-options="weatherChart" class="echarts" v-if="judge"/>
   </div>
 </template>
 
 <script setup>
-import {ref} from "vue";
+import { ref, reactive } from "vue";
 import axios from "axios";
-import {Search} from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
 import echarts from './components/echarts.vue'
 
-// 判断是否显示图表
-const judge = ref(false)
-// 默认经纬度
-const latitude = ref(29.28)
-const longitude = ref(113.1212)
-// 默认天数
-const day = ref(7)
-// 请求参数
-const params = {
-  latitude: latitude.value,
-  longitude: longitude.value,
-  daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum',
-  timezone: 'auto',
-  forecast_days: day.value, // 使用最新的 day 值
-};
-// 天气代码
+const judge = ref(false);
+const latitude = ref(29.28);
+const longitude = ref(113.1212);
+const day = ref(7);
+const weatherList = ref([]);
+
+const url = 'https://api.open-meteo.com/v1/forecast';
+
 const weatherCodes = {
   0: '晴天',
   1: '晴间多云',
@@ -91,171 +77,82 @@ const weatherCodes = {
   96: '雷暴伴有小冰雹',
   99: '雷暴伴有大冰雹'
 };
-// 只能请求0-16天
-const url = 'https://api.open-meteo.com/v1/forecast'
-// 测试图表
-const boxA1 = {
-  title: {
-    text: 'Stacked Line'
-  },
-  // tooltip: {
-  //   trigger: 'axis'
-  // },
-  legend: {
-    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: 'Email',
-      type: 'line',
-      stack: 'Total',
-      data: [120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-      name: 'Union Ads',
-      type: 'line',
-      stack: 'Total',
-      data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-      name: 'Video Ads',
-      type: 'line',
-      stack: 'Total',
-      data: [150, 232, 201, 154, 190, 330, 410]
-    },
-    {
-      name: 'Direct',
-      type: 'line',
-      stack: 'Total',
-      data: [320, 332, 301, 334, 390, 330, 320]
-    },
-    {
-      name: 'Search Engine',
-      type: 'line',
-      stack: 'Total',
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
-    }
-  ]
-};
-// 天气图表
-const weatherChart = {
-  title: {
-    text: '天气预报'
-  },
-  // tooltip: {
-  //   trigger: 'axis'
-  // },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: 'Email',
-      type: 'line',
-      stack: 'Total',
-      data: [120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-      name: 'Union Ads',
-      type: 'line',
-      stack: 'Total',
-      data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-      name: 'Video Ads',
-      type: 'line',
-      stack: 'Total',
-      data: [150, 232, 201, 154, 190, 330, 410]
-    },
-    {
-      name: 'Direct',
-      type: 'line',
-      stack: 'Total',
-      data: [320, 332, 301, 334, 390, 330, 320]
-    },
-    {
-      name: 'Search Engine',
-      type: 'line',
-      stack: 'Total',
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
-    }
-  ]
-};
-// 天气-信息列表
-const weatherList = ref([]);
 
-// 获取天气信息
+const weatherChart = reactive({
+  // title: { text: '天气预报' },
+  tooltip: { trigger: 'axis' },
+  legend: { data: ['最高温度', '最低温度', '降水量'] },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: []
+  },
+  yAxis: [
+    { type: 'value', name: '温度 (°C)' },
+    { type: 'value', name: '降水量 (mm)' }
+  ],
+  series: [
+    { name: '最高温度', type: 'line', data: [] },
+    { name: '最低温度', type: 'line', data: [] },
+    { name: '降水量', type: 'bar', yAxisIndex: 1, data: [] }
+  ]
+});
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return `${date.getMonth() + 1}月${date.getDate()}日`;
+}
+
 async function getTianQi() {
   judge.value = false;
+  const params = {
+    latitude: latitude.value,
+    longitude: longitude.value,
+    daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum',
+    timezone: 'auto',
+    forecast_days: day.value,
+  };
+
   try {
-    const res = await axios({
-      url: url,
-      method: 'get',
-      params: params
-    });
-    params.forecast_days = day.value;
-    params.latitude = latitude.value;
-    params.longitude = longitude.value;
+    const res = await axios.get(url, { params });
+    console.log("当前请求天数", params.forecast_days);
     console.log(res.data);
     getTianQiInfo(res.data);
+    updateWeatherChart();
     judge.value = true;
   } catch (error) {
     console.error('获取天气信息失败:', error);
   }
 }
 
-// 解析天气信息
 function getTianQiInfo(data) {
-  // 解析数据
-  data = data.daily;
-  console.log(data);
+  const daily = data.daily;
+  weatherList.value = daily.time.map((item, index) => ({
+    date: formatDate(item),
+    weather: weatherCodes[daily.weather_code[index]] || '未知',
+    temperatureMax: daily.temperature_2m_max[index],
+    temperatureMin: daily.temperature_2m_min[index],
+    precipitation: daily.precipitation_sum[index]
+  }));
+  console.log("解析结果", weatherList.value);
+}
 
-  weatherList.value = data.time.map((item, index) => {
-    return {
-      date: item,//todo  加一个方法调用  2024-7-23转化成7月23日
-      weather: weatherCodes[data.weather_code[index]] || '未知',
-      temperatureMax: data.temperature_2m_max[index] + '°C', // 确保 data 对象中包含 temperature_2m_max 数据
-      temperatureMin: data.temperature_2m_min[index] + '°C', // 确保 data 对象中包含 temperature_2m_max 数据
-      precipitation: data.precipitation_sum[index] + 'mm'
-    }
-  });
-  console.log(weatherList.value);
-  // return weatherList;
+function updateWeatherChart() {
+  weatherChart.xAxis.data = weatherList.value.map(item => item.date);
+  weatherChart.series[0].data = weatherList.value.map(item => parseFloat(item.temperatureMax));
+  weatherChart.series[1].data = weatherList.value.map(item => parseFloat(item.temperatureMin));
+  weatherChart.series[2].data = weatherList.value.map(item => parseFloat(item.precipitation));
 }
 </script>
 
