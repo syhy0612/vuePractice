@@ -1,5 +1,19 @@
 # ECharts 图表笔记
 
+
+
+> 官方文档：
+
+[图例](https://echarts.apache.org/handbook/zh/concepts/legend) -可以点击图例显示与隐藏
+
+[坐标轴](https://echarts.apache.org/handbook/zh/concepts/axis) -直角坐标系中的 x/y 轴
+
+[堆叠柱状图](https://echarts.apache.org/handbook/zh/how-to/chart-types/bar/stacked-bar) -上下可以堆叠柱状图数据
+
+
+
+
+
 ## 1. 饼图（Pie Chart）
 
 ### 主要配置项：
@@ -206,4 +220,94 @@ yAxis: [{
     axisLabel: { formatter: '{value}', color: 'transparent' }
 }]
 ```
+
+
+
+
+
+------
+
+
+
+## 自记
+
+[图例](https://echarts.apache.org/handbook/zh/concepts/legend)
+
+
+
+
+
+[坐标轴](https://echarts.apache.org/handbook/zh/concepts/axis) -直角坐标系中的 x/y 轴
+
+[堆叠柱状图](https://echarts.apache.org/handbook/zh/how-to/chart-types/bar/stacked-bar) -上下可以堆叠柱状图数据
+
+
+
+
+
+
+
+
+
+这个代码中使用了多个图表,主要是使用了ECharts图表库。以下是使用的主要图表类型及其属性:
+
+1. 待检时长图 (optionDJ)
+
+- 类型:饼图(pie chart)
+- 主要属性:
+  - title: 中心显示总数
+  - tooltip: 鼠标悬停提示
+  - series: 定义饼图数据和样式
+  - label: 定义标签样式
+  - itemStyle: 定义扇形样式
+
+1. 每日数据汇总图 (optionRJTZ)
+
+- 类型:柱状图(bar chart)和折线图(line chart)组合
+- 主要属性:
+  - dataZoom: 数据缩放
+  - tooltip: 鼠标悬停提示
+  - legend: 图例
+  - xAxis/yAxis: x轴和y轴设置
+  - series: 定义多个系列的数据和样式
+
+1. NG批次汇总图 (ngReworkOption)
+
+- 类型:堆叠柱状图(stacked bar chart)
+- 主要属性:
+  - dataZoom: 数据缩放
+  - tooltip: 自定义的复杂提示框
+  - xAxis/yAxis: x轴和y轴设置
+  - series: 定义两个堆叠的柱状图系列
+
+1. 报检人不良占比图 (optionGYlv)
+
+- 类型:堆叠柱状图(stacked bar chart)
+- 主要属性:
+  - dataZoom: 数据缩放
+  - tooltip: 自定义的复杂提示框
+  - xAxis/yAxis: x轴和y轴设置
+  - series: 定义两个堆叠的柱状图系列
+
+1. 产品不良占比图 (optionlxlv)
+
+- 类型:堆叠柱状图(stacked bar chart)
+- 主要属性:
+  - dataZoom: 数据缩放
+  - tooltip: 自定义的复杂提示框
+  - xAxis/yAxis: x轴和y轴设置
+  - series: 定义两个堆叠的柱状图系列
+
+1. NG批次周汇总图 (optionNGs)
+
+- 类型:堆叠柱状图(stacked bar chart)
+- 主要属性:
+  - dataZoom: 数据缩放
+  - tooltip: 自定义的复杂提示框
+  - xAxis/yAxis: x轴和y轴设置
+  - series: 定义两个堆叠的柱状图系列
+
+这些图表都使用了自定义的颜色、字体大小、标签样式等来适应特定的设计需求。它们还广泛使用了 tooltip 来提供详细的数据信息,dataZoom 来处理大量数据,以及自定义的 formatter 函数来格式化标签和提示框内容。
+
+
 
