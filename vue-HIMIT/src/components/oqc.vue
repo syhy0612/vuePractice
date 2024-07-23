@@ -298,7 +298,6 @@ const daysData = [
   { date: '2024-07-05', ngCount: 2, passCount: 19, workers: 23, workHours: 184 },
   { date: '2024-07-06', ngCount: 1, passCount: 21, workers: 24, workHours: 192 },
   { date: '2024-07-07', ngCount: 2, passCount: 18, workers: 25, workHours: 200 },
-  // Continue with the pattern for the rest of the month
   { date: '2024-07-08', ngCount: 1, passCount: 22, workers: 26, workHours: 208 },
   { date: '2024-07-09', ngCount: 3, passCount: 19, workers: 25, workHours: 200 },
   { date: '2024-07-10', ngCount: 0, passCount: 21, workers: 24, workHours: 192 },
