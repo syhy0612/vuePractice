@@ -36,7 +36,7 @@
       <el-button type="primary" style="margin-top: 5px;" @click="getTianQi">查询</el-button>
     </div>
     <!--图表-->
-    <echarts :chart-options="weatherChart" class="echarts"/>
+    <echarts :chart-options="weatherChart" class="echarts" :v-if="judge"  />
   </div>
 </template>
 
@@ -46,6 +46,9 @@ import axios from "axios";
 import {Search} from '@element-plus/icons-vue'
 import echarts from './components/echarts.vue'
 
+// 判断是否显示图表
+const judge = ref(false)
+console.log("判断为" + judge.value)
 // 默认经纬度
 const latitude = ref(29.28)
 const longitude = ref(113.1212)
@@ -162,9 +165,6 @@ const weatherChart = {
   // tooltip: {
   //   trigger: 'axis'
   // },
-  legend: {
-    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-  },
   grid: {
     left: '3%',
     right: '4%',
@@ -218,7 +218,7 @@ const weatherChart = {
   ]
 };
 // 天气-信息列表
-const weatherList =ref([])
+const weatherList = ref([]);
 
 async function getTianQi() {
   try {
@@ -227,18 +227,29 @@ async function getTianQi() {
       method: 'get',
       params: params
     })
-    getTianQiInfo(res.data)
+    console.log(res.data)
+    judge.value = true;
   } catch (error) {
-    // 处理错误
     console.error('获取天气信息失败:', error);
   }
 }
 
 function getTianQiInfo(data) {
-  //todo 解析数据
-  // console.log(data)
-  console.log(data.daily)
+  // 解析数据
+  data = data.daily;
+  console.log(data);
 
+  weatherList.value = data.time.map((item, index) => {
+    return {
+      date: item,
+      weather: weatherCodes[data.weather_code[index]] || '未知',
+      temperature: data.temperature_2m_max[index] + '°C', // 确保 data 对象中包含 temperature_2m_max 数据
+      precipitation: data.precipitation_sum[index] + 'mm'
+    }
+  });
+
+  console.log(weatherList);
+  return weatherList;
 }
 </script>
 
