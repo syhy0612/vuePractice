@@ -9,7 +9,7 @@
           <div class="header-title">Echarts图表展示</div>
         </el-header>
         <!-- 主体内容 -->
-        <el-main>
+        <el-main class="conBox">
           <router-view/>
         </el-main>
       </el-container>
@@ -38,5 +38,9 @@ import NavMemu from './views/NavMemu.vue';
   height: 600px;
   width: 80%;
   text-indent: 2em;
+}
+
+.conBox{
+  background: rgba(16, 27, 49, .6);
 }
 </style>
