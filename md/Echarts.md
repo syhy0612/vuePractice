@@ -289,14 +289,227 @@ yAxis: [{
 
 [图例](https://echarts.apache.org/handbook/zh/concepts/legend)
 
-
-
-
-
 [坐标轴](https://echarts.apache.org/handbook/zh/concepts/axis) -直角坐标系中的 x/y 轴
 
 [堆叠柱状图](https://echarts.apache.org/handbook/zh/how-to/chart-types/bar/stacked-bar) -上下可以堆叠柱状图数据
 
 
 
+### xAxis 属性
+
+`xAxis` 控制图表的水平轴，常用于显示类别数据或时间序列。
+
+- `type`: 轴的类型，通常是 `'category'` 对于类别数据或 `'time'` 对于时间数据。
+- `data`: 包含所有轴标签的数组。
+- `axisLabel`: 定义轴标签的外观和行为，例如颜色、字体大小、间隔、格式化函数等。
+- `axisLine`: 控制轴线的显示和样式，如颜色和宽度。
+- `axisTick`: 定义轴上刻度的显示和样式。
+- `triggerEvent`: 设置为 `true` 以启用轴标签的交互事件。
+
+### yAxis 属性
+
+`yAxis` 控制图表的垂直轴，用于表示数值范围。
+
+- `type`: 轴类型，通常为 `'value'`，表示数值轴。
+- `min` 和 `max`: 设置轴的最小值和最大值。
+- `splitLine`: 控制轴中分隔线的显示和样式。
+- `axisLabel`: 设置轴标签的格式、颜色等。
+- `axisLine` 和 `axisTick`: 同 `xAxis`，用于控制轴线和刻度的显示样式。
+
+### series 属性
+
+`series` 是一组定义图表如何显示数据的配置项。每个对象代表图表中的一个数据系列。
+
+- `type`: 系列类型，如 `'bar'`（柱状图）、`'line'`（线图）、`'scatter'`（散点图）等。
+- `data`: 系列数据，通常是一个数值数组。
+- `name`: 系列名称，用于图例（legend）和提示框（tooltip）。
+- `stack`: 如果要将多个条形图系列堆叠在一起，使用此属性。
+- `label`: 定义数据标签的显示方式和格式。
+- `itemStyle` 和 `lineStyle`: 控制系列的视觉样式，如颜色、线宽等。
+- `yAxisIndex`: 指定系列使用哪个 y 轴（多轴场景中）。
+
+
+
+底部滑动条：
+
+https://echarts.apache.org/zh/option.html#dataZoom-slider
+
+
+
+```js
+// 数据缩放组件配置
+dataZoom: [
+  {
+    type: 'slider',          // 滑动条型数据区域缩放组件  inside直接触碰或鼠标滑 slider滑动条
+    height: 20,              // 组件高度
+    backgroundColor: "transparent",  // 背景透明
+    borderColor: "transparent",      // 边框透明
+    bottom: 0,               // 组件位于底部
+    textStyle: {
+      color: "transparent",  // 文本颜色透明
+    },
+    zoomLock: true,          // 锁定选择区域大小
+    startValue: 0,           // 数据窗口范围的起始值
+    endValue: 18,            // 数据窗口范围的结束值，此处设置显示到第19条
+    show: true,              // 显示滑动条
+    moveHandleSize: 20,      // 移动手柄尺寸高度
+  //brushSelect: false,      // 禁用刷选，因为height=moveHandleSize  所以可以不写
+  }
+]
+```
+
+
+
+
+
+```js
+// 提示框配置
+tooltip: {
+  trigger: 'axis',           // 触发类型：坐标轴触发
+  axisPointer: {
+    type: 'cross'
+  }
+  //'line' 直线指示器   'shadow' 阴影指示器    'none' 无指示器    'cross' 十字准星指示器。
+},
+```
+
+
+
+
+
+```js
+// 图例配置 tip：图例要和后面实际数据对应 不然会不显示
+legend: {
+  show: true,                // 显示图例
+  right: "10px",             // 右侧距离
+  width: "100%",             // 宽度
+  data: ['PASS批次数', 'NG批次数', '上班人数', '打卡工时'],  // 图例项
+  textStyle: {
+    color: "#fff"            // 图例文字颜色
+  },
+},
+```
+
+
+
+
+
+```js
+// 绘图网格配置
+grid: {
+  top: "35%",                // 上边距
+  right: "1%",               // 右边距
+  left: "1%",                // 左边距
+  bottom: "15%",             // 下边距
+},
+```
+
+
+
+
+
+```js
+// X轴配置
+xAxis: [
+  {
+    triggerEvent: true,      // 开启事件触发
+    type: 'category',        // 类目轴 https://echarts.apache.org/zh/option.html#xAxis.type
+    axisLabel: {			 // 坐标轴刻度标签 https://echarts.apache.org/zh/option.html#xAxis.axisLabel
+      color: "#b9bec6",      // 轴标签颜色
+      interval: 0,           // 全部显示
+      fontSize: 12,          // 字体大小
+      formatter: function (value) {  // 自定义标签内容
+        if (value.length > 9) {
+          return `${value.slice(0, 9)}...`;
+        }
+        return value;
+      },
+    },
+    axisLine: {				 // 坐标轴轴线
+      show: true,			 // 显示
+      lineStyle: {
+        color: "#0a3e98",    // 轴线颜色
+      },
+    },
+    axisTick: {				 // 坐标轴刻度
+      show: false,           // 不显示刻度
+    },
+    // 类目数据 https://echarts.apache.org/zh/option.html#xAxis.data
+    data: Array.from({length: 31}, (_, i) => `${i + 1}日`)  // 生成31天的数据
+  }
+],
+```
+
+
+
+```js
+// 关于X轴配置的类目数据补充
+// from https://echarts.apache.org/zh/option.html#xAxis.data
+// 所有类目名称列表
+data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+// 每一项也可以是具体的配置项，此时取配置项中的 `value` 为类目名
+data: [{
+    value: '周一',
+    // 突出周一
+    textStyle: {
+        fontSize: 20,
+        color: 'red'
+    }
+}, '周二', '周三', '周四', '周五', '周六', '周日']
+```
+
+
+
+
+
+```js
+// Y轴配置
+yAxis: [
+  {
+    type: 'value',           // 数值轴
+    min: 0,                  // 最小值
+    axisLine: {				 // 坐标轴轴线
+      show: true,			 // 显示
+      lineStyle: {
+        color: "#0a3e98",    // 轴线颜色
+      },
+    },
+    axisTick: {
+      show: false,           // 不显示刻度
+    },
+    splitLine: {
+      show: true,			 // 是否显示分隔线
+      lineStyle: {
+        color: "rgba(255,255,255,.2)",  // 分隔线颜色
+        type: "dotted",      // 分隔线类型  `solid`-实线 `dashed`-虚线 `dotted`-点线
+      },
+    },
+    axisLabel: {			 //todo 
+      formatter: "{value}",  // 标签格式
+      color: "transparent",  // 标签颜色透明
+    },
+  },
+  {
+    type: 'value',           // 数值轴
+    min: 0,                  // 最小值
+    max: 10,                 // 最大值
+    position: 'left',        // 位置
+    axisLine: {
+      lineStyle: {
+        color: "#0a3e98",    // 轴线颜色
+      },
+    },
+    axisTick: {				 // 坐标轴刻度
+      show: false,           // 不显示刻度
+    },
+    splitLine: {
+      show: false,           // 不显示分隔线
+    },
+    axisLabel: {
+      formatter: "{value}",  // 标签格式
+      color: "transparent",  // 标签颜色透明
+    },
+  }
+],
+```
 

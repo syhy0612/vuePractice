@@ -1642,7 +1642,7 @@ const option = {
   // 数据缩放组件配置
   dataZoom: [
     {
-      type: 'slider',          // 滑动条型数据区域缩放组件
+      type: 'inside',          // 滑动条型数据区域缩放组件
       height: 7,               // 组件高度
       backgroundColor: "transparent",  // 背景透明
       borderColor: "transparent",      // 边框透明
@@ -1652,7 +1652,7 @@ const option = {
       },
       zoomLock: true,          // 锁定选择区域大小
       startValue: 0,           // 数据窗口范围的起始值
-      endValue: 18,            // 数据窗口范围的结束值，默认显示前18天
+      endValue: 18,            // 数据窗口范围的结束值，默认显示前19天
       show: true,              // 显示滑动条
     }
   ],
@@ -1661,15 +1661,9 @@ const option = {
   tooltip: {
     trigger: 'axis',           // 触发类型：坐标轴触发
     axisPointer: {
-      type: 'shadow'           // 指示器类型：阴影指示器
-    },
-    formatter: (params) => {   // 自定义提示框内容
-      var str = "";
-      params.forEach((item) => {
-        str += ` ${item.marker} <b>${item.seriesName}: ${item.value} </b><br/>`;
-      });
-      return params[0].name + "<br/>" + str;
-    },
+      type: 'cross'
+    }
+    //'line' 直线指示器   'shadow' 阴影指示器    'none' 无指示器    'cross' 十字准星指示器。
   },
 
   // 图例配置
