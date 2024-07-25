@@ -1642,8 +1642,8 @@ const option = {
   // 数据缩放组件配置
   dataZoom: [
     {
-      type: 'inside',          // 滑动条型数据区域缩放组件
-      height: 7,               // 组件高度
+      type: 'slider',          // 滑动条型数据区域缩放组件
+      height: 10,               // 组件高度
       backgroundColor: "transparent",  // 背景透明
       borderColor: "transparent",      // 边框透明
       bottom: 0,               // 组件位于底部
@@ -1651,8 +1651,9 @@ const option = {
         color: "transparent",  // 文本颜色透明
       },
       zoomLock: true,          // 锁定选择区域大小
-      startValue: 0,           // 数据窗口范围的起始值
-      endValue: 18,            // 数据窗口范围的结束值，默认显示前19天
+      startValue:9,           // 数据窗口范围的起始值
+      endValue: 19,            // 数据窗口范围的结束值，默认显示前19天
+      moveHandleSize: 10,      // 移动手柄尺寸高度
       show: true,              // 显示滑动条
     }
   ],
@@ -1661,7 +1662,7 @@ const option = {
   tooltip: {
     trigger: 'axis',           // 触发类型：坐标轴触发
     axisPointer: {
-      type: 'cross'
+      type: 'shadow'
     }
     //'line' 直线指示器   'shadow' 阴影指示器    'none' 无指示器    'cross' 十字准星指示器。
   },
@@ -1680,8 +1681,8 @@ const option = {
   // 绘图网格配置
   grid: {
     top: "35%",                // 上边距
-    right: "1%",               // 右边距
-    left: "1%",                // 左边距
+    right: "10%",               // 右边距
+    left: "10%",                // 左边距
     bottom: "15%",             // 下边距
   },
 
@@ -1735,15 +1736,15 @@ const option = {
         },
       },
       axisLabel: {
-        formatter: "{value}",  // 标签格式
-        color: "transparent",  // 标签颜色透明
+        formatter: "{value}cm",  // 标签格式
+        // color: "transparent",  // 标签颜色透明
       },
     },
     {
       type: 'value',           // 数值轴
       min: 0,                  // 最小值
       max: 10,                 // 最大值
-      position: 'left',        // 位置
+      position: 'right',        // 位置
       axisLine: {
         lineStyle: {
           color: "#0a3e98",    // 轴线颜色
@@ -1756,8 +1757,8 @@ const option = {
         show: false,           // 不显示分隔线
       },
       axisLabel: {
-        formatter: "{value}",  // 标签格式
-        color: "transparent",  // 标签颜色透明
+        formatter: "{value}mc",  // 标签格式
+        // color: "transparent",  // 标签颜色透明
       },
     }
   ],

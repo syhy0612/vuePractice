@@ -485,10 +485,13 @@ yAxis: [
       },
     },
     axisLabel: {			 //todo 
-      formatter: "{value}",  // 标签格式
+      // 地址:https://echarts.apache.org/zh/option.html#yAxis.axisLabel.formatter
+      formatter: "{value}单位",  // 标签格式 value后接单位 
       color: "transparent",  // 标签颜色透明
+      // color: "rgba(0, 0, 0, 0)" 同理透明
     },
   },
+  // 另外一个折线数据
   {
     type: 'value',           // 数值轴
     min: 0,                  // 最小值
@@ -512,4 +515,110 @@ yAxis: [
   }
 ],
 ```
+
+
+
+
+
+```js
+// 系列列表配置
+series: [
+  {
+    yAxisIndex: 0,           // 使用第一个Y轴
+    name: 'NG批次数',
+    type: 'bar',             // 柱状图
+    stack: 'bar',            // 堆叠
+    barMaxWidth: 25,         // 最大宽度
+    barGap: 0.3,             // 柱间距离
+    itemStyle: {
+      color: "#ff5858",      // 柱子颜色
+    },
+    label: {
+      show: false,           // 不显示标签
+    },
+    data: Array.from({length: 31}, () => Math.floor(Math.random() * 10))  // 生成随机数据
+  },
+  {
+    yAxisIndex: 0,           // 使用第一个Y轴
+    name: 'PASS批次数',
+    type: 'bar',             // 柱状图
+    stack: 'bar',            // 堆叠
+    barMaxWidth: 25,         // 最大宽度
+    barGap: 0.3,             // 柱间距离
+    itemStyle: {
+      color: "rgba(73, 188, 247,1)",  // 柱子颜色
+    },
+    label: {
+      show: true,            // 显示标签
+      position: 'top',       // 标签位置
+      formatter: function (params) {  // 自定义标签内容
+        let ngValue = params.data + Math.floor(Math.random() * 10);
+        let peopleValue = Math.floor(Math.random() * 30) + 10;
+        let workHourValue = (Math.random() * 2 + 7).toFixed(1);
+        return `${ngValue}\n${params.value}\n${peopleValue}\n${workHourValue}`;
+      },
+      rich: {                // 富文本样式
+        a: {
+          color: "#F00",
+          fontWeight: 900,
+        },
+        b: {
+          color: "#FFFF00",
+          fontSize: 11,
+        },
+        c: {
+          color: "#eee",
+          fontSize: 11,
+          fontFamily: "wdch",
+        },
+        d: {
+          color: "rgba(255,255,255,0.5)",
+          fontSize: 11,
+        },
+      },
+      fontSize: 12,
+      color: "rgba(255,255,255,0.5)",
+      align: "right",
+      padding: [0, -10, 0, 0],
+    },
+    data: Array.from({length: 31}, () => Math.floor(Math.random() * 50 + 30))  // 生成随机数据
+  },
+  {
+    yAxisIndex: 0,           // 使用第一个Y轴
+    name: '上班人数',
+    type: 'line',            // 折线图
+    symbolSize: 3,           // 标记大小
+    smooth: true,            // 平滑曲线
+    itemStyle: {
+      color: "#00d6e1",      // 线条颜色
+    },
+    label: {
+      show: false,           // 不显示标签
+    },
+    lineStyle: {
+      width: 2,              // 线宽
+    },
+    data: Array.from({length: 31}, () => Math.floor(Math.random() * 30 + 10))  // 生成随机数据
+  },
+  {
+    yAxisIndex: 1,           // 使用第二个Y轴
+    name: '打卡工时',
+    type: 'line',            // 折线图
+    symbolSize: 3,           // 标记大小
+    smooth: true,            // 平滑曲线
+    itemStyle: {
+      color: "#99cc00",      // 线条颜色
+    },
+    label: {
+      show: false,           // 不显示标签
+    },
+    lineStyle: {
+      width: 2,              // 线宽
+    },
+    data: Array.from({length: 31}, () => (Math.random() * 2 + 7).toFixed(1))  // 生成随机数据
+  }
+]
+```
+
+
 
