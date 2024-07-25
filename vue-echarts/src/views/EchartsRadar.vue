@@ -1651,8 +1651,8 @@ const option = {
         color: "transparent",  // 文本颜色透明
       },
       zoomLock: true,          // 锁定选择区域大小
-      startValue:9,           // 数据窗口范围的起始值
-      endValue: 19,            // 数据窗口范围的结束值，默认显示前19天
+      startValue:0,           // 数据窗口范围的起始值
+      endValue: 18,            // 数据窗口范围的结束值，默认显示前19天
       moveHandleSize: 10,      // 移动手柄尺寸高度
       show: true,              // 显示滑动条
     }
@@ -1711,7 +1711,8 @@ const option = {
       axisTick: {
         show: false,           // 不显示刻度
       },
-      data: Array.from({length: 31}, (_, i) => `${i + 1}日`)  // 生成31天的数据
+      // data: Array.from({length: 31}, (_, i) => `${i + 1}日`)  // 生成31天的数据
+      data: dailyData.map(item => item.日期)
     }
   ],
 
@@ -1736,14 +1737,14 @@ const option = {
         },
       },
       axisLabel: {
-        formatter: "{value}cm",  // 标签格式
-        // color: "transparent",  // 标签颜色透明
+        // formatter: "{value}cm",  // 标签格式
+        color: "transparent",  // 标签颜色透明
       },
     },
     {
       type: 'value',           // 数值轴
       min: 0,                  // 最小值
-      max: 10,                 // 最大值
+      // max: 10,                 // 最大值
       position: 'right',        // 位置
       axisLine: {
         lineStyle: {
@@ -1757,107 +1758,108 @@ const option = {
         show: false,           // 不显示分隔线
       },
       axisLabel: {
-        formatter: "{value}mc",  // 标签格式
-        // color: "transparent",  // 标签颜色透明
+        // formatter: "{value}mc",  // 标签格式
+        color: "transparent",  // 标签颜色透明
       },
     }
   ],
 
   // 系列列表配置
+// series 配置
   series: [
     {
-      yAxisIndex: 0,           // 使用第一个Y轴
+      yAxisIndex: 0,
       name: 'NG批次数',
-      type: 'bar',             // 柱状图
-      stack: 'bar',            // 堆叠
-      barMaxWidth: 25,         // 最大宽度
-      barGap: 0.3,             // 柱间距离
+      type: 'bar',
+      stack: 'bar',
+      barMaxWidth: 25,
+      barGap: 0.3,
       itemStyle: {
-        color: "#ff5858",      // 柱子颜色
+        color: "#ff5858",
       },
       label: {
-        show: false,           // 不显示标签
+        show: false,
       },
-      data: Array.from({length: 31}, () => Math.floor(Math.random() * 10))  // 生成随机数据
+      // 修改: 使用dailyData中的nG数量数据
+      data: dailyData.map(item => item.nG数量)
     },
     {
-      yAxisIndex: 0,           // 使用第一个Y轴
+      yAxisIndex: 0,
       name: 'PASS批次数',
-      type: 'bar',             // 柱状图
-      stack: 'bar',            // 堆叠
-      barMaxWidth: 25,         // 最大宽度
-      barGap: 0.3,             // 柱间距离
+      type: 'bar',
+      stack: 'bar',
+      barMaxWidth: 25,
+      barGap: 0.3,
       itemStyle: {
-        color: "rgba(73, 188, 247,1)",  // 柱子颜色
+        color: "rgba(73, 188, 247,1)",
       },
       label: {
-        show: true,            // 显示标签
-        position: 'top',       // 标签位置
-        formatter: function (params) {  // 自定义标签内容
-          let ngValue = params.data + Math.floor(Math.random() * 10);
-          let peopleValue = Math.floor(Math.random() * 30) + 10;
-          let workHourValue = (Math.random() * 2 + 7).toFixed(1);
-          return `${ngValue}\n${params.value}\n${peopleValue}\n${workHourValue}`;
+        show: true,
+        position: 'top',
+        formatter: function (params) {
+          // 修改: 使用实际数据而不是随机生成
+          let ngValue = dailyData[params.dataIndex].nG数量;
+          let passValue = dailyData[params.dataIndex].oK数量;
+          let peopleValue = dailyData[params.dataIndex].上班人数;
+          let workHourValue = dailyData[params.dataIndex].打卡工时;
+          // 根据NG数量决定使用哪种样式
+          let ngStyle = ngValue > 0 ? 'ng' : 'normal';
+          return `{${ngStyle}|${ngValue}}\n{normal|${passValue}}\n{normal|${peopleValue}}\n{normal|${workHourValue}}`;
         },
-        rich: {                // 富文本样式
-          a: {
+        rich: {
+          ng: {
             color: "#F00",
             fontWeight: 900,
+            fontSize: 12,
           },
-          b: {
-            color: "#FFFF00",
-            fontSize: 11,
-          },
-          c: {
-            color: "#eee",
-            fontSize: 11,
-            fontFamily: "wdch",
-          },
-          d: {
+          normal: {
             color: "rgba(255,255,255,0.5)",
-            fontSize: 11,
-          },
+            fontSize: 12,
+          }
         },
         fontSize: 12,
         color: "rgba(255,255,255,0.5)",
         align: "right",
         padding: [0, -10, 0, 0],
       },
-      data: Array.from({length: 31}, () => Math.floor(Math.random() * 50 + 30))  // 生成随机数据
+      // 修改: 使用dailyData中的PASS数量数据（假设存在这个字段，如果没有需要添加）
+      data: dailyData.map(item => item.oK数量 || 0)
     },
     {
-      yAxisIndex: 0,           // 使用第一个Y轴
+      yAxisIndex: 0,
       name: '上班人数',
-      type: 'line',            // 折线图
-      symbolSize: 3,           // 标记大小
-      smooth: true,            // 平滑曲线
+      type: 'line',
+      symbolSize: 3,
+      smooth: true,
       itemStyle: {
-        color: "#00d6e1",      // 线条颜色
+        color: "#00d6e1",
       },
       label: {
-        show: false,           // 不显示标签
+        show: false,
       },
       lineStyle: {
-        width: 2,              // 线宽
+        width: 2,
       },
-      data: Array.from({length: 31}, () => Math.floor(Math.random() * 30 + 10))  // 生成随机数据
+      // 修改: 使用dailyData中的上班人数数据
+      data: dailyData.map(item => item.上班人数)
     },
     {
-      yAxisIndex: 1,           // 使用第二个Y轴
+      yAxisIndex: 1,
       name: '打卡工时',
-      type: 'line',            // 折线图
-      symbolSize: 3,           // 标记大小
-      smooth: true,            // 平滑曲线
+      type: 'line',
+      symbolSize: 3,
+      smooth: true,
       itemStyle: {
-        color: "#99cc00",      // 线条颜色
+        color: "#99cc00",
       },
       label: {
-        show: false,           // 不显示标签
+        show: false,
       },
       lineStyle: {
-        width: 2,              // 线宽
+        width: 2,
       },
-      data: Array.from({length: 31}, () => (Math.random() * 2 + 7).toFixed(1))  // 生成随机数据
+      // 修改: 使用dailyData中的打卡工时数据
+      data: dailyData.map(item => item.打卡工时)
     }
   ]
 };
