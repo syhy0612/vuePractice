@@ -89,7 +89,7 @@ const router = createRouter({
 router.afterEach((to, from) => {
   if (to.name === 'NotFound') {
     setTimeout(() => {
-      router.push({ name: 'Home' });
+      router.push({ name: 'home' });
     }, 3000);
   }
 });
