@@ -5,6 +5,7 @@ import App from './App.vue';
 import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import { useDark, useToggle } from '@vueuse/core';
+import 'lib-flexible';
 
 // 处理暗黑模式
 const isDark = useDark();

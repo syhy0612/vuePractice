@@ -215,6 +215,7 @@
 <script setup>
 import {ref} from "vue";
 import echarts from './echarts.vue'
+// import dailyDataImport from '../assets/data/dailyData.json'
 
 const ngDate = ref('')
 const checkTime = ref('')
