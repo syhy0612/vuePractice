@@ -4,7 +4,7 @@
     <hr>
     <p>npm install</p>
     <p>npm run dev</p>
-    <p>npm run build</p>
+    <router-link to="oqc"><p>npm run build</p></router-link>
   </div>
 </template>
 
@@ -21,5 +21,9 @@ div {
 h1, p {
   color: white;
   text-align: center;
+}
+
+:deep(a) {
+  text-decoration: none;
 }
 </style>
