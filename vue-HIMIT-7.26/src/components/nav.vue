@@ -23,6 +23,7 @@ import {ref, onMounted} from "vue";
 const username = ref('操作员')
 const localTime = ref('')
 
+//获取当前时间并格式化
 const updateTime = () => {
   const now = new Date();
   const year = now.getFullYear();
@@ -43,7 +44,10 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .box {
-  height: 100px;
+  height: 100%;
+  width: 100%;
+  //显示边框方便调整
+  border: 1px solid pink;
 }
 
 .container {
