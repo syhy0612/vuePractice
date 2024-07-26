@@ -61,7 +61,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   padding-bottom: 5px;
-  background-color: #464646;
+  //background-color: #464646;
   overflow: hidden;
 }
 
