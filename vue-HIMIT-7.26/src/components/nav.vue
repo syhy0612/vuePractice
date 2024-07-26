@@ -44,7 +44,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .box {
-  height: 100%;
+  height: 10vh;
   width: 100%;
   //显示边框方便调整
   //border: 1px solid pink;
