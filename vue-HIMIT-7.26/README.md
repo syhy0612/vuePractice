@@ -1,29 +1,63 @@
 # vue-HIMIT-7.26
 
-This template should help get you started developing with Vue 3 in Vite.
+这是一个尝试重新尝试复刻OQC看板的项目
 
-## Recommended IDE Setup
+## 项目启动
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### 使用淘宝镜像
 
-## Customize configuration
+```sh
+npm config set registry https://registry.npm.taobao.org
+```
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+### 安装项目依赖
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 运行开发环境
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### 打包项目
 
 ```sh
 npm run build
+```
+
+## 复刻需要添加的依赖
+
+### 生产环境依赖安装
+
+```sh
+# 安装 echarts
+npm install echarts
+
+# 安装 element-plus
+npm install element-plus
+
+# 安装 router
+npm install router
+
+# 安装 vue
+npm install vue
+```
+
+### 开发环境依赖安装
+
+```sh
+# 安装 lib-flexible
+npm install -D lib-flexible
+
+# 安装 postcss-pxtorem
+npm install -D postcss-pxtorem
+
+# 安装 sass
+npm install -D sass
+
+# 安装 unplugin-vue-components
+npm install -D unplugin-vue-components
 ```
