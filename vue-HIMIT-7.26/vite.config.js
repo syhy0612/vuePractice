@@ -1,9 +1,8 @@
-// vite.config.js
-import { defineConfig } from 'vite'
+import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { fileURLToPath, URL } from 'url'
+import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
+import {fileURLToPath, URL} from 'url'
 import postcsspxtorem from 'postcss-pxtorem'
 
 export default defineConfig({
@@ -23,8 +22,12 @@ export default defineConfig({
         postcss: {
             plugins: [
                 postcsspxtorem({
-                    rootValue: 192, // 对应 1920px 设计稿
+                    rootValue({file}) {
+                        return file.indexOf('element-plus') !== -1 ? 16 : 192;
+                    },
                     propList: ['*'],
+                    selectorBlackList: ['norem'], // 不转换的类名
+                    minPixelValue: 1, // 小于1px的不会被转换
                 })
             ]
         }
@@ -35,5 +38,5 @@ export default defineConfig({
     },
     server: {
         port: 8090,
-        },
+    },
 })

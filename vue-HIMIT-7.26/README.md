@@ -64,9 +64,9 @@ npm install -D unplugin-vue-components
 
 ### 手动修改淘宝适配依赖文件
 
+> 手动修改 node_modules/lib-flexible/flexible.js 文件，修改refreshRem() 函数
+
 ```sh
-# 手动修改 node_modules/lib-flexible/flexible.js 文件
-# 将 refreshRem() 函数改为
 function refreshRem(){
   var width = docEl.getBoundingClientRect().width;
   if (width / dpr > 540) {
