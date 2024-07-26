@@ -49,8 +49,9 @@ npm install vue
 ### 开发环境依赖安装
 
 ```sh
-# 安装 lib-flexible
-npm install -D lib-flexible
+# 安装 lib-flexible（不推荐）
+# 这个方案需要手动改refreshRem函数，不如直接引用方便
+# npm install -D lib-flexible
 
 # 安装 postcss-pxtorem
 npm install -D postcss-pxtorem
@@ -62,15 +63,16 @@ npm install -D sass
 npm install -D unplugin-vue-components
 ```
 
-### 手动修改淘宝适配依赖文件
+### 如果选择安装lib-flexible（完全重新做项目）
 
 > 手动修改 node_modules/lib-flexible/flexible.js 文件，修改refreshRem() 函数
 
 ```sh
-function refreshRem(){
+function refreshRem() {
   var width = docEl.getBoundingClientRect().width;
-  if (width / dpr > 540) {
-      width = 540 * dpr;
+  // 手机
+  if (width / dpr < 600) {
+      width = width * 192 / 37.5;
   }
   var rem = width / 10;
   docEl.style.fontSize = rem + 'px';

@@ -4,7 +4,6 @@ import App from './App.vue'
 import router from './router'
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-// import 'lib-flexible/flexible.js'
 // flexible.js v0.3.2 - 适配解决方案
 import './utils/flexibleModify.js'
 
