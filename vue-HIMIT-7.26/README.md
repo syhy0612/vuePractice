@@ -61,3 +61,19 @@ npm install -D sass
 # 安装 unplugin-vue-components
 npm install -D unplugin-vue-components
 ```
+
+### 手动修改淘宝适配依赖文件
+
+```sh
+# 手动修改 node_modules/lib-flexible/flexible.js 文件
+# 将 refreshRem() 函数改为
+function refreshRem(){
+  var width = docEl.getBoundingClientRect().width;
+  if (width / dpr > 540) {
+      width = 540 * dpr;
+  }
+  var rem = width / 10;
+  docEl.style.fontSize = rem + 'px';
+  flexible.rem = win.rem = rem;
+}
+```
