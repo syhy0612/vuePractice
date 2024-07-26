@@ -577,11 +577,16 @@ const boxA2 = {
 <style lang="scss" scoped>
 .container {
   display: flex; //设置弹性布局
-  height: 850px; //设置固定高度
+  //width: 100%;
+  //height: 100%;
+  //单页面布局 加一个宽高100% overflow hidden
+  overflow: hidden;
+   height: 850px; //设置固定高度
 }
 
 //左边大盒子
 .leftBox {
+  //width: calc(50% - 10px);
   flex: 5.5;
   //background-color: rgba(16, 27, 49, .6);
   //background-color: lightblue;
@@ -590,6 +595,7 @@ const boxA2 = {
 
 //右边大盒子
 .rightBox {
+  //width: calc(50% - 10px);
   flex: 4.5;
   //background-color: rgba(16, 27, 49, .6);
   //background-color: lightpink;
@@ -599,6 +605,9 @@ const boxA2 = {
 .leftTop {
   display: flex;
   height: 40%;
+  //width: 200px;
+  //height: 200px;
+  //background: pink;
   //border: 1px solid black;
 }
 
