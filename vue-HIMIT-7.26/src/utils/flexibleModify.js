@@ -1,4 +1,5 @@
-(function(win, lib) {
+
+;(function(win, lib) {
     var doc = win.document;
     var docEl = doc.documentElement;
     var metaEl = doc.querySelector('meta[name="viewport"]');
@@ -65,11 +66,16 @@
         }
     }
 
-    function refreshRem(){
+    function refreshRem() {
         var width = docEl.getBoundingClientRect().width;
-        if (width / dpr > 540) {
-            width = 540 * dpr;
+        // 手机
+        if (width / dpr < 600) {
+            width = width * 192 / 37.5;
+            // 平板
         }
+        // else if (width / dpr <= 1124) {
+        //     width = width * 192 / 120.2;
+        // }
         var rem = width / 10;
         docEl.style.fontSize = rem + 'px';
         flexible.rem = win.rem = rem;
@@ -94,6 +100,7 @@
         }, false);
     }
 
+
     refreshRem();
 
     flexible.dpr = win.dpr = dpr;
@@ -114,5 +121,3 @@
     }
 
 })(window, window['lib'] || (window['lib'] = {}));
-
-export default {};
