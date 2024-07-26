@@ -47,7 +47,7 @@ onMounted(() => {
   height: 100%;
   width: 100%;
   //显示边框方便调整
-  border: 1px solid pink;
+  //border: 1px solid pink;
 }
 
 .container {

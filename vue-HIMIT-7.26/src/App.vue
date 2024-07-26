@@ -2,7 +2,7 @@
   <div class="common-layout">
     <!--这是Navbar-->
     <Nav/>
-    <!--z这是页面-->
+    <!--这是页面-->
     <router-view/>
   </div>
 </template>
