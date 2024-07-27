@@ -1,0 +1,21 @@
+.titleSolt {
+  //width: calc(100% - 200px);
+  //height: 100%;
+  width: 20px;
+  height: 10px;
+  //display: flex;
+  //align-items: center;
+}
+
+.demo-date-picker {
+  //position: fixed;
+  bottom: 4px;
+  left: 15px;
+}
+
+/*
+:deep(.el-date-editor.el-input) {
+  --el-date-editor-width: 2px;
+  --el-input-font-size: 2px;
+  --el-input-height: 30px;
+}*/

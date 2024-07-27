@@ -4,11 +4,14 @@
       <img src="../assets/logo1.png" alt="加载失败" title="我是Logo" class="logo imgTop">
       <div class="text">
         <div class="textL">
-          <div class="t1">品质信息(OQC)</div>
-          <div class="t2">OQC Management</div>
+          <div class="t1">{{ title }}</div>
+          <div class="t2">{{ description }}</div>
         </div>
         <div class="textR">
-          <span class="t3">当前用户: {{ isLoggedIn ? username : '未登录' }}</span>
+          <router-link to='login' class="t3">
+            <span v-if="isLoggedIn">当前用户: {{ username }}</span>
+            <span v-else style="color: darkgrey">未登录</span>
+          </router-link>
           <span class="t4">{{ localTime }}</span>
         </div>
       </div>
@@ -19,8 +22,12 @@
 <script setup>
 import {ref, onMounted, computed} from "vue";
 import {useUserStore} from '@/stores/userStore.js';
+import {useTitleStore} from "@/stores/titleStore.js";
 // 初始化 user store
 const userStore = useUserStore();
+const titleStore = useTitleStore();
+const title = computed(() => titleStore.title)
+const description = computed(() => titleStore.description)
 const username = computed(() => userStore.username);
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const localTime = ref('')
@@ -113,5 +120,9 @@ onMounted(() => {
   font-family: wdcht, Helvetica, Arial, sans-serif;
   font-size: 23px;
   color: white;
+}
+
+:deep(a) {
+  text-decoration: none;
 }
 </style>

@@ -39,14 +39,14 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-/*    const userStore = useUserStore()
-    if (!userStore.isLoggedIn && to.name !== 'login') {
-        // 如果是未登录状态，3秒后跳转到登录页
-        setTimeout(() => {
-            router.push({name: 'login'})
-        }, 3000)
-    }*/
-    if (to.name === 'NotFound' ) {
+    /*    const userStore = useUserStore()
+        if (!userStore.isLoggedIn && to.name !== 'login') {
+            // 如果是未登录状态，3秒后跳转到登录页
+            setTimeout(() => {
+                router.push({name: 'login'})
+            }, 3000)
+        }*/
+    if (to.name === 'NotFound') {
         // 如果是404页面，3秒后跳转到主页
         setTimeout(() => {
             router.push({name: 'home'})

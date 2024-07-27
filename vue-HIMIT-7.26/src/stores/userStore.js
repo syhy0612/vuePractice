@@ -4,17 +4,17 @@ import {defineStore} from 'pinia'
 export const useUserStore = defineStore('user', {
     // 定义 store 的初始状态
     state: () => ({
-        username: '',     // 用户名，初始为空字符串
+        username: 'admin',     // 用户名，初始为空字符串
         isLoggedIn: false // 登录状态，初始为 false
     }),
     // 定义可以修改状态的 actions
     actions: {
         // 登录操作
-        login(username) {
-            this.username = username            // 设置用户名
+        login(_username) {
+            this.username = _username            // 设置用户名
             this.isLoggedIn = true              // 更新登录状态为 true
             // 将用户信息保存到 localStorage
-            localStorage.setItem('user', JSON.stringify({username, isLoggedIn: true}))
+            localStorage.setItem('user', JSON.stringify({username: _username, isLoggedIn: true}))
         },
         // 登出操作
         logout() {
