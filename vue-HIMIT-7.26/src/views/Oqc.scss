@@ -7,8 +7,9 @@
   //处理左右大盒子摆放
   .left-box, .right-box {
     margin-top: 5px;
-    height: 95%;
-    border: solid 1px red;
+    // 修改为90%
+    height: 90%;
+    //border: solid 1px red;
     // 确保padding和border不会增加元素的总宽度
     box-sizing: border-box;
   }
@@ -16,29 +17,39 @@
   .left-box {
     width: 55%;
     float: left;
-    border: solid 1px green;
+    //border: solid 10px green;
   }
 
   .right-box {
     width: 45%;
     float: left;
-    border: solid 1px orange;
+    //border: solid 1px orange;
   }
 
   // 左右大盒子内部中盒子
+  .left-box-T, .right-box-T,
+  .left-box-M, .right-box-M,
+  .left-box-B, .right-box-B {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
   .left-box-T, .right-box-T {
     height: 40%;
-    border: solid 1px white;
+    //border: solid 1px white;
   }
 
   .left-box-M, .right-box-M {
     height: 30%;
-    border: solid 1px white;
+    //border: solid 1px white;
   }
 
+  .left-box-M, .right-box-M,
   .left-box-B, .right-box-B {
     height: 30%;
-    border: solid 1px white;
+    //background-color: purple;
   }
 
   // 清除浮动
@@ -51,35 +62,60 @@
     }
   }
 
-  // 内部小盒子  统一的属性
+  // 内部小盒子统一的属性
   .inner-box {
+    color: rgba(255, 255, 255, .8);
+    font-size: 30px;
+    text-align: center;
     height: calc(100% - 20px); // 减去上下边框的宽度
-    background: rgba(128, 128, 128, 0.7); // 半透明灰色背景
+    //background: rgba(241, 223, 151, .25);
+    background: rgba(16, 27, 49, .6); // 半透明灰色背景
     border: 10px solid transparent;
     float: left;
     box-sizing: border-box;
     padding: 10px;
     margin: 10px 0; // 添加上下外边距
   }
+
   // 各个盒子的宽度设置
-  .left-box-T .inner-box {
-    &:nth-child(1) { width: calc(30% - 10px); }
-    &:nth-child(2) { width: calc(70% - 10px); }
+  .left-box-T {
+    .inner-box:nth-child(1) {
+      width: calc(30% - 5px);
+      background: rgba(241, 223, 151, .25);
+    }
+
+    .inner-box:nth-child(2) {
+      width: calc(70% - 5px);
+    }
   }
 
-  .left-box-M .inner-box {
-    &:nth-child(1) { width: calc(20% - 10px); }
-    &:nth-child(2) { width: calc(80% - 10px); }
+  .left-box-M {
+    .inner-box:nth-child(1) {
+      width: calc(20% - 5px);
+      background: rgba(241, 223, 151, .25);
+    }
+
+    .inner-box:nth-child(2) {
+      width: calc(80% - 5px);
+    }
   }
 
-  .left-box-B .inner-box,
-  .right-box-M .inner-box,
-  .right-box-B .inner-box {
-    &:nth-child(1), &:nth-child(2) { width: calc(50% - 10px); }
+  .left-box-B,
+  .right-box-M,
+  .right-box-B {
+    .inner-box {
+      width: calc(50% - 5px);
+    }
   }
 
-  .right-box-T .inner-box {
-    &:nth-child(1) { width: calc(30% - 10px); }
-    &:nth-child(2) { width: calc(70% - 10px); }
+  .right-box-T {
+    .inner-box:nth-child(1) {
+      width: calc(30% - 10px);
+      background: rgba(241, 223, 151, .25);
+    }
+
+    .inner-box:nth-child(2) {
+      width: calc(70% - 10px);
+    }
   }
 }
