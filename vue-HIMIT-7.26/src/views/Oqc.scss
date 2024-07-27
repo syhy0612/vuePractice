@@ -4,7 +4,7 @@
   background: no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
-
+  //处理左右大盒子摆放
   .left-box, .right-box {
     margin-top: 5px;
     height: 95%;
@@ -25,38 +25,79 @@
     border: solid 1px orange;
   }
 
+  // 左右大盒子内部中盒子
   .left-box-T, .right-box-T {
-    height: 34%;
-    //margin-bottom: 15px;
+    height: 40%;
+    border: solid 1px white;
   }
 
   .left-box-M, .right-box-M {
-    height: 25%;
-    //margin-bottom: 15px;
+    height: 30%;
+    border: solid 1px white;
   }
 
   .left-box-B, .right-box-B {
-    height: 24%;
+    height: 30%;
+    border: solid 1px white;
   }
 
+  // 内部小盒子  统一的属性
   .inner-box {
     height: 100%;
     background: gray;
-    padding: 10px;
-
-    border: 3px solid blue;
+    //padding: 10px;
+    border: 1px solid blue;
     float: left;
+    box-sizing: border-box;
+  }
+  .left-box-T .inner-box {
+    &:nth-child(1) {
+      width: 30%;
+    }
+    &:nth-child(2) {
+      width: 70%;
+    }
+  }
+  .left-box-M .inner-box {
+    &:nth-child(1) {
+      width: 20%;
+    }
+    &:nth-child(2) {
+      width: 80%;
+    }
+  }
+  .left-box-B .inner-box {
+    &:nth-child(1) {
+      width: 50%;
+    }
+    &:nth-child(2) {
+      width: 50%;
+    }
+  }
+  .right-box-T .inner-box {
+    &:nth-child(1) {
+      width: 30%;
+    }
+    &:nth-child(2) {
+      width: 70%;
+    }
+  }
+  .right-box-M .inner-box {
+    &:nth-child(1) {
+      width: 50%;
+    }
+    &:nth-child(2) {
+      width: 50%;
+    }
+  }
+  .right-box-B .inner-box {
+    &:nth-child(1) {
+      width: 50%;
+    }
+    &:nth-child(2) {
+      width: 50%;
+    }
   }
 
-  .left-box-T-L, .left-box-M-L, .left-box-B-L,
-  .right-box-T-L, .right-box-M-L, .right-box-B-L {
-    width: 40px;
-    height: 50px;
-  }
 
-  .left-box-T-R, .left-box-M-R, .left-box-B-R,
-  .right-box-T-R, .right-box-M-R, .right-box-B-R {
-    width: 40px;
-    height: 50px;
-  }
 }
