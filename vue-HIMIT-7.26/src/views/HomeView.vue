@@ -2,7 +2,7 @@
   <div>
     <h1>我是首页</h1>
     <hr>
-    <p>npm install</p>
+    <a href="https://github.com/syhy0612/vuePractice" target="_blank"><p>npm install</p></a>
     <p>npm run dev</p>
     <router-link to="oqc"><p>npm run build</p></router-link>
   </div>
