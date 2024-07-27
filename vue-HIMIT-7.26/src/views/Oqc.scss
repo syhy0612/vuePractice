@@ -41,63 +41,45 @@
     border: solid 1px white;
   }
 
+  // 清除浮动
+  .left-box-T, .left-box-M, .left-box-B,
+  .right-box-T, .right-box-M, .right-box-B {
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+
   // 内部小盒子  统一的属性
   .inner-box {
-    height: 100%;
-    background: gray;
-    //padding: 10px;
-    border: 1px solid blue;
+    height: calc(100% - 20px); // 减去上下边框的宽度
+    background: rgba(128, 128, 128, 0.7); // 半透明灰色背景
+    border: 10px solid transparent;
     float: left;
     box-sizing: border-box;
+    padding: 10px;
+    margin: 10px 0; // 添加上下外边距
   }
+  // 各个盒子的宽度设置
   .left-box-T .inner-box {
-    &:nth-child(1) {
-      width: 30%;
-    }
-    &:nth-child(2) {
-      width: 70%;
-    }
+    &:nth-child(1) { width: calc(30% - 10px); }
+    &:nth-child(2) { width: calc(70% - 10px); }
   }
+
   .left-box-M .inner-box {
-    &:nth-child(1) {
-      width: 20%;
-    }
-    &:nth-child(2) {
-      width: 80%;
-    }
+    &:nth-child(1) { width: calc(20% - 10px); }
+    &:nth-child(2) { width: calc(80% - 10px); }
   }
-  .left-box-B .inner-box {
-    &:nth-child(1) {
-      width: 50%;
-    }
-    &:nth-child(2) {
-      width: 50%;
-    }
-  }
-  .right-box-T .inner-box {
-    &:nth-child(1) {
-      width: 30%;
-    }
-    &:nth-child(2) {
-      width: 70%;
-    }
-  }
-  .right-box-M .inner-box {
-    &:nth-child(1) {
-      width: 50%;
-    }
-    &:nth-child(2) {
-      width: 50%;
-    }
-  }
+
+  .left-box-B .inner-box,
+  .right-box-M .inner-box,
   .right-box-B .inner-box {
-    &:nth-child(1) {
-      width: 50%;
-    }
-    &:nth-child(2) {
-      width: 50%;
-    }
+    &:nth-child(1), &:nth-child(2) { width: calc(50% - 10px); }
   }
 
-
+  .right-box-T .inner-box {
+    &:nth-child(1) { width: calc(30% - 10px); }
+    &:nth-child(2) { width: calc(70% - 10px); }
+  }
 }
