@@ -1,25 +1,28 @@
-.container {
+.mainInfo {
   width: 100%;
-  height: 100vh;
-  background:  no-repeat center center fixed;
+  height: 90vh;
+  background: no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
 
   .left-box, .right-box {
-    height: 10%;
+    margin-top: 5px;
+    height: 95%;
     border: solid 1px red;
+    // 确保padding和border不会增加元素的总宽度
+    box-sizing: border-box;
   }
 
   .left-box {
     width: 55%;
     float: left;
+    border: solid 1px green;
   }
 
   .right-box {
-    //width: calc(45% - 15px);
     width: 45%;
-    //margin-left: 55%;
-    //margin-right: 15px;
+    float: left;
+    border: solid 1px orange;
   }
 
   .left-box-T, .right-box-T {
@@ -38,10 +41,10 @@
 
   .inner-box {
     height: 100%;
-    background: orange;
+    background: gray;
     padding: 10px;
 
-    border: 2px solid greenyellow;
+    border: 3px solid blue;
     float: left;
   }
 
