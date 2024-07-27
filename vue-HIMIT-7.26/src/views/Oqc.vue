@@ -4,8 +4,10 @@
     <div class="left-box">
       <!--      左上盒子-->
       <div class=" left-box-T">
-        <div class="inner-box">a1</div>
-        <div class="inner-box">b1</div>
+        <div class="inner-box">a1 </div>
+        <div class="inner-box">
+          <chart-a1/>
+        </div>
       </div>
       <!--      左中盒子-->
       <div class=" left-box-M">
@@ -40,6 +42,7 @@
 </template>
 
 <script setup>
+import ChartA1 from  '../components/echarts/chartA1.vue'
 </script>
 
 <style lang="scss" scoped>
