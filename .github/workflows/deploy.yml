@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      PROJECT_DIR: vue-HIMIT-7.26  #环境变量
+      PROJECT_DIR: vue-echarts  #环境变量
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
