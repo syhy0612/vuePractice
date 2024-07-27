@@ -35,7 +35,6 @@ html, body {
   background: url("./assets/bg.jpg") no-repeat center center fixed;
   background-size: cover;
   background-color: #464646;
-  font-family: 'wdch';
   position: relative;
 }
 

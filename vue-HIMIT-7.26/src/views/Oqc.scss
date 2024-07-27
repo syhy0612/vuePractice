@@ -82,12 +82,12 @@
   // 各个盒子的宽度设置
   .left-box-T {
     .inner-box:nth-child(1) {
-      width: calc(30% - 5px);
+      width: calc(28% - 5px);
       background: rgba(241, 223, 151, .25);
     }
 
     .inner-box:nth-child(2) {
-      width: calc(70% - 5px);
+      width: calc(72% - 5px);
     }
   }
 

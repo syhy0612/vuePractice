@@ -4,8 +4,9 @@
     <div class="left-box">
       <!--      左上盒子-->
       <div class=" left-box-T">
-        <div class="inner-box">a1 </div>
+        <div class="inner-box">a1</div>
         <div class="inner-box">
+          <Subtitle title="每日数据汇总"/>
           <chart-a1/>
         </div>
       </div>
@@ -42,7 +43,8 @@
 </template>
 
 <script setup>
-import ChartA1 from  '../components/echarts/chartA1.vue'
+import ChartA1 from '../components/echarts/chartA1.vue'
+import Subtitle from "@/components/Subtitle.vue";
 </script>
 
 <style lang="scss" scoped>

@@ -1,23 +1,20 @@
 <template>
   <div>
-    <div ref="chart" class="chartCss"></div>
+    <EchartsBase :chart-options="option"/>
   </div>
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
-import * as echarts from 'echarts'
+import EchartsBase from "@/components/echarts/echartsBase.vue";
 import dailyDataImport from '../../assets/data/dailyData.json'
 
-const chart = ref()
 const dailyData = dailyDataImport
-
 const option = {
   // 数据缩放组件配置
   dataZoom: [
     {
       type: 'slider',          // 滑动条型数据区域缩放组件
-      height: 10,               // 组件高度
+      height: 7,               // 组件高度
       backgroundColor: "transparent",  // 背景透明
       borderColor: "transparent",      // 边框透明
       bottom: 0,               // 组件位于底部
@@ -25,20 +22,29 @@ const option = {
         color: "transparent",  // 文本颜色透明
       },
       zoomLock: true,          // 锁定选择区域大小
-      startValue:0,           // 数据窗口范围的起始值
+      startValue: 0,           // 数据窗口范围的起始值
       endValue: 18,            // 数据窗口范围的结束值，默认显示前19天
-      moveHandleSize: 10,      // 移动手柄尺寸高度
+      moveHandleSize: 7,      // 移动手柄尺寸高度
       show: true,              // 显示滑动条
     }
   ],
 
   // 提示框配置
-  tooltip: {
+  /*tooltip: {
     trigger: 'axis',           // 触发类型：坐标轴触发
     axisPointer: {
       type: 'shadow'
     }
     //'line' 直线指示器   'shadow' 阴影指示器    'none' 无指示器    'cross' 十字准星指示器。
+  },*/
+  tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      type: "shadow",
+    },
+    textStyle: {
+      align: 'left'  // 设置文本左对齐
+    },
   },
 
   // 图例配置
@@ -46,7 +52,7 @@ const option = {
     show: true,                // 显示图例
     right: "0px",             // 右侧距离
     // left:"center",              // 水平居中
-    width: "100%",           // 宽度
+    width: "80%",           // 宽度
     data: ['PASS批次数', 'NG批次数', '上班人数', '打卡工时'],  // 图例项
     textStyle: {
       color: "#fff"              // 图例文字颜色
@@ -55,10 +61,10 @@ const option = {
 
   // 绘图网格配置
   grid: {
-    top: "15%",                // 上边距
-    right: "0%",               // 右边距
-    left: "10%",                // 左边距
-    bottom: "10%",             // 下边距
+    top: "35%",
+    right: "0%",
+    left: "0%",
+    bottom: "15%",
   },
 
   // X轴配置
@@ -235,16 +241,11 @@ const option = {
     }
   ]
 };
-onMounted(() => {
-  initChart();
-})
-const initChart = () => {
-  const myChart = echarts.init(chart.value)
-  myChart.setOption(option)
-  window.addEventListener('resize', () => {
-    myChart.resize()
-  })
-}
 </script>
 
-<style scoped></style>
+<style scoped>
+div{
+  height: 100%;
+  width: 100%;
+}
+</style>
