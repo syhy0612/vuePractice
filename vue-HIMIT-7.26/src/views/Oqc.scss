@@ -64,17 +64,19 @@
 
   // 内部小盒子统一的属性
   .inner-box {
+    font-family: wdcht, Helvetica, Arial, sans-serif;
     color: rgba(255, 255, 255, .8);
     font-size: 30px;
     text-align: center;
-    height: calc(100% - 20px); // 减去上下边框的宽度
-    //background: rgba(241, 223, 151, .25);
+    //height: calc(100% - 20px); // 减去上下边框的宽度
+    height: 100%;
+    line-height: 150px;
     background: rgba(16, 27, 49, .6); // 半透明灰色背景
     border: 10px solid transparent;
     float: left;
     box-sizing: border-box;
     padding: 10px;
-    margin: 10px 0; // 添加上下外边距
+    margin: 5px 10px; // 添加上下外边距
   }
 
   // 各个盒子的宽度设置
