@@ -4,12 +4,17 @@ import components from 'unplugin-vue-components/vite'
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
 import {fileURLToPath, URL} from 'url'
 import postcsspxtorem from 'postcss-pxtorem'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
     base: './',
     plugins: [
         vue(),
-        components({
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+        }),
+        Components({
             resolvers: [ElementPlusResolver()],
         }),
     ],

@@ -13,13 +13,6 @@
 
 <script setup>
 import Nav from '@/components/nav.vue'
-import {useUserStore} from '@/stores/userStore.js';
-import {computed} from "vue";
-// 初始化 user store
-const userStore = useUserStore();
-const username = computed(() => userStore.username);
-const isLoggedIn = computed(() => userStore.isLoggedIn);
-
 </script>
 
 <style scoped lang="scss">

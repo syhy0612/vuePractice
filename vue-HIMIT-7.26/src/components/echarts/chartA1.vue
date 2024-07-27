@@ -52,7 +52,7 @@ const option = {
     show: true,                // 显示图例
     right: "0px",             // 右侧距离
     // left:"center",              // 水平居中
-    width: "80%",           // 宽度
+    width: "100%",           // 宽度
     data: ['PASS批次数', 'NG批次数', '上班人数', '打卡工时'],  // 图例项
     textStyle: {
       color: "#fff"              // 图例文字颜色
