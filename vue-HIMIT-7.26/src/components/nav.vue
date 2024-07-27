@@ -8,8 +8,7 @@
           <div class="t2">OQC Management</div>
         </div>
         <div class="textR">
-          <span class="t3">当前用户:{{ username }}</span>
-          <!--          <span class="t4" >2024/07/20 10:58:49</span>-->
+          <span class="t3">当前用户: {{ isLoggedIn ? username : '未登录' }}</span>
           <span class="t4">{{ localTime }}</span>
         </div>
       </div>
@@ -18,9 +17,12 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from "vue";
-
-const username = ref('操作员')
+import {ref, onMounted, computed} from "vue";
+import {useUserStore} from '@/stores/userStore.js';
+// 初始化 user store
+const userStore = useUserStore();
+const username = computed(() => userStore.username);
+const isLoggedIn = computed(() => userStore.isLoggedIn);
 const localTime = ref('')
 
 //获取当前时间并格式化
@@ -36,6 +38,7 @@ const updateTime = () => {
 };
 
 onMounted(() => {
+  userStore.initializeStore();
   updateTime()
   setInterval(updateTime, 1000);
 })

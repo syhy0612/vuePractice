@@ -1,16 +1,25 @@
 <template>
-  <div class="container">
+  <div class="container" v-if=true>
     <div class="bgMask">
-      <!--这是Navbar-->
-      <Nav/>
-      <!--这是页面-->
-      <router-view/>
+      <div class="mainInfo">
+        <!--这是Navbar-->
+        <Nav/>
+        <!--这是页面-->
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import Nav from '@/components/nav.vue'
+import {useUserStore} from '@/stores/userStore.js';
+import {computed} from "vue";
+// 初始化 user store
+const userStore = useUserStore();
+const username = computed(() => userStore.username);
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+
 </script>
 
 <style scoped lang="scss">
