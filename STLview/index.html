@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>3D模型查看器</title>
+    <script src="./stlList/stl_viewer.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+        }
+
+        #stl_cont {
+            width: 70%;
+            height: 100vh;
+            background: #ebebeb;
+            float: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #controls {
+            width: 10%;
+            height: 100vh;
+            float: right;
+            padding:  0 10px;
+            background-color: #f8f8f8;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        button, input[type='color'], input[type='file'] {
+            margin-top: 5px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="stl_cont">
+    <div class="loading" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+        <img src="./loader.gif" alt="Loading..."/>
+    </div>
+</div>
+<div id="controls">
+    <input type="file" id="file_input">
+    <input type="color" id="model_color" value="#FF5733"> 模型颜色<br>
+    <input type="color" id="bgcolor" value="#ffffff"> 背景颜色<br>
+    <button onclick="resetView()">重置视角</button>
+    <button onclick="zoomIn()">放大</button>
+    <button onclick="zoomOut()">缩小</button>
+    <button onclick="removeModel()">清除模型</button>
+</div>
+
+<script>
+    var stl_viewer = new StlViewer(document.getElementById("stl_cont"), {
+        bgcolor: "#ffffff",
+        allow_drag_and_drop: true,
+        models: []
+    });
+
+    var currentModelId = null;
+
+    document.getElementById("file_input").addEventListener("change", function (event) {
+        var file = event.target.files[0];
+        if (currentModelId !== null) {
+            stl_viewer.remove_model(currentModelId);
+        }
+        currentModelId = stl_viewer.add_model({
+            local_file: file,
+            display: 'smooth',
+            color: document.getElementById("model_color").value
+        });
+    });
+
+    document.getElementById("bgcolor").addEventListener("change", function (event) {
+        stl_viewer.set_bgcolor(event.target.value);
+    });
+
+    document.getElementById("model_color").addEventListener("change", function (event) {
+        if (currentModelId !== null) {
+            stl_viewer.set_color(currentModelId, event.target.value);
+        }
+    });
+
+    function resetView() {
+        stl_viewer.reset_camera();
+    }
+
+    function zoomIn() {
+        stl_viewer.zoom(1.1);
+    }
+
+    function zoomOut() {
+        stl_viewer.zoom(0.9);
+    }
+
+    function removeModel() {
+        if (currentModelId !== null) {
+            stl_viewer.remove_model(currentModelId);
+            currentModelId = null;
+        }
+    }
+
+    stl_viewer.all_loaded_callback = function () {
+        document.querySelector(".loading").style.display = 'none';
+    };
+</script>
+</body>
+</html>

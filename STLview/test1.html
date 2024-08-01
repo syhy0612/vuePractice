@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>Viewstl Javascript 插件 - 初始化示例</title>
+</head>
+
+<body>
+<div id="stl_cont" style="width:500px;height:500px;margin:0 auto;"></div>
+
+<script src="./stlList/stl_viewer.min.js"></script>
+<script>
+    var stl_viewer=new StlViewer
+    (
+        document.getElementById("stl_cont"),
+        {
+            auto_rotate:true,
+            bgcolor:"#20FAAC",
+            allow_drag_and_drop:true,
+            models:
+                [
+                    {filename:"sol.stl"}
+                ]
+        }
+    );
+</script>
+
+</body>
+</html>
