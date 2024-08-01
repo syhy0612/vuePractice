@@ -7,7 +7,7 @@
         <div class="inner-box">a1</div>
         <div class="inner-box">
           <Subtitle title="每日数据汇总">
-            <div class="titleSolt" v-if=true>
+            <div class="titleSolt" v-if=false>
               <div class="demo-date-picker">
                 <el-date-picker
                     :clearable="false"

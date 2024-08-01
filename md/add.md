@@ -227,7 +227,16 @@ return seenIds.has(v.id) ? false : seenIds.set(v.id)
 
 上下等价
 
+------
 
+在 Vue.js 使用 Element UI 的 `el-table-column` 组件中，`class-name` 和 `class` 的作用有所不同：
+
+1. **`class-name`**:
+   - `class-name` 是 Element UI 组件的特定属性，用于为该列添加一个或多个自定义的 CSS 类。这个属性专门用于设置表格列的样式。
+   - 示例：`<el-table-column class-name="hoverClass" />`。这个属性会将 `hoverClass` 应用于列的整体。
+2. **`class`**:
+   - `class` 是 HTML 的标准属性，用于为 HTML 元素添加一个或多个 CSS 类。它适用于任何 HTML 元素。
+   - 在 `el-table-column` 中使用 `class` 属性，会将指定的类应用到列的容器上，但不一定会产生和 `class-name` 相同的效果，因为 `class-name` 是 Element UI 提供的专用属性，可能会有一些内置的样式处理。
 
 
 
