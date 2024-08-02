@@ -13,7 +13,7 @@
 </div>
 <div id="controls">
     <input type="file" id="file_input">
-    <input type="color" id="model_color" value="#FF5733"> 模型颜色<br>
+    <input type="color" id="model_color" value="#C0C0C0"> 模型颜色<br>
     <input type="color" id="bgcolor" value="#ffffff"> 背景颜色<br>
     <button onclick="resetView()">重置视角</button>
     <button onclick="zoomIn()">放大</button>
@@ -22,6 +22,7 @@
 </div>
 
 <script>
+    // 初始化STL查看器
     var stl_viewer = new StlViewer(document.getElementById("stl_cont"), {
         bgcolor: "#ffffff",
         allow_drag_and_drop: true,
@@ -30,6 +31,7 @@
 
     var currentModelId = null;
 
+    // 监听文件输入事件，加载STL模型
     document.getElementById("file_input").addEventListener("change", function (event) {
         var file = event.target.files[0];
         if (currentModelId !== null) {
@@ -42,34 +44,40 @@
         });
     });
 
+    // 监听背景颜色变化事件
     document.getElementById("bgcolor").addEventListener("change", function (event) {
         stl_viewer.set_bg_color(event.target.value);
     });
 
+    // 监听模型颜色变化事件
     document.getElementById("model_color").addEventListener("change", function (event) {
         if (currentModelId !== null) {
             stl_viewer.set_color(currentModelId, event.target.value);
         }
     });
 
+    // 重置视角
     function resetView() {
         var cameraState = stl_viewer.get_camera_state();
         cameraState.position = {x: 100, y: 100, z: 100};
         stl_viewer.set_camera_state(cameraState);
     }
 
+    // 放大模型
     function zoomIn() {
         var cameraState = stl_viewer.get_camera_state();
         cameraState.position.z *= 0.9;
         stl_viewer.set_camera_state(cameraState);
     }
 
+    // 缩小模型
     function zoomOut() {
         var cameraState = stl_viewer.get_camera_state();
         cameraState.position.z *= 1.1;
         stl_viewer.set_camera_state(cameraState);
     }
 
+    // 清除模型
     function removeModel() {
         if (currentModelId !== null) {
             stl_viewer.remove_model(currentModelId);
@@ -77,6 +85,7 @@
         }
     }
 
+    // 加载完成后的回调函数
     stl_viewer.all_loaded_callback = function () {
         document.querySelector(".loading").style.display = 'none';
     };
