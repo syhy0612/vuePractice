@@ -43,7 +43,7 @@
     });
 
     document.getElementById("bgcolor").addEventListener("change", function (event) {
-        stl_viewer.set_bgcolor(event.target.value);
+        stl_viewer.set_bg_color(event.target.value);
     });
 
     document.getElementById("model_color").addEventListener("change", function (event) {
@@ -53,15 +53,21 @@
     });
 
     function resetView() {
-        stl_viewer.set_camera_position({x: 100, y: 100, z: 100});
+        var cameraState = stl_viewer.get_camera_state();
+        cameraState.position = {x: 100, y: 100, z: 100};
+        stl_viewer.set_camera_state(cameraState);
     }
 
     function zoomIn() {
-        stl_viewer.zoom(1.1);
+        var cameraState = stl_viewer.get_camera_state();
+        cameraState.position.z *= 0.9;
+        stl_viewer.set_camera_state(cameraState);
     }
 
     function zoomOut() {
-        stl_viewer.zoom(0.9);
+        var cameraState = stl_viewer.get_camera_state();
+        cameraState.position.z *= 1.1;
+        stl_viewer.set_camera_state(cameraState);
     }
 
     function removeModel() {
