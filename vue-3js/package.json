@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "file-saver": "^2.0.5",
     "three": "^0.167.1",
     "vue": "^3.4.29"
   },

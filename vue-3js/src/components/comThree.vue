@@ -21,6 +21,8 @@
         </div>
       </el-upload>
 
+      <el-button @click="exportConfiguration" type="primary" style="">导出当前配置</el-button>
+
       <el-divider>模型设置</el-divider>
 
       <el-form label-position="top">
@@ -43,8 +45,18 @@
         <el-form-item label="粗糙度">
           <el-slider v-model="roughness" :min="0" :max="1" :step="0.1" @change="updateMaterial"/>
         </el-form-item>
+        <el-form-item label="显示坐标轴">
+          <el-switch v-model="showAxes" @change="toggleAxes"></el-switch>
+        </el-form-item>
+
 
         <el-divider>光照设置</el-divider>
+        <el-form-item label="显示光源位置">
+          <el-switch v-model="showLightHelpers" @change="updateLightHelpers"></el-switch>
+        </el-form-item>
+        <el-form-item label="使用固定光源">
+          <el-switch v-model="useFixedLight" @change="toggleFixedLight"></el-switch>
+        </el-form-item>
 
         <!-- 环境光 -->
         <el-form-item label="环境光强度">
@@ -142,19 +154,24 @@
 </template>
 
 <script setup>
-import {ref, onMounted, watch} from 'vue';
+import {ref, onMounted, onUnmounted, watch} from 'vue';
 import * as THREE from 'three';
 import {STLLoader} from 'three/examples/jsm/loaders/STLLoader';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {ElMessage} from 'element-plus';
 import {UploadFilled} from '@element-plus/icons-vue';
+import { saveAs } from 'file-saver';
 
 // 渲染区域引用
 const renderArea = ref(null);
 
 // 模型和背景颜色
-const modelColor = ref('#aaaaaa');
-const backgroundColor = ref('#8C8C8C');
+const modelColor = ref('#bdbdbd');
+const backgroundColor = ref('#cfcfcf');
+
+// 定义显示坐标轴属性
+const showAxes = ref(false);
+const axesHelper = ref(null);
 
 // 材质属性
 const metalness = ref(0.5);
@@ -186,12 +203,16 @@ onMounted(() => {
 });
 
 // 初始化Three.js场景
+// 在 initScene 函数中初始化场景时添加坐标轴
 function initScene() {
-  // 创建场景、相机和渲染器
+  // 创建场景
   scene = new THREE.Scene();
+
+  // 创建相机
   camera = new THREE.PerspectiveCamera(75, renderArea.value.clientWidth / renderArea.value.clientHeight, 0.1, 1000);
   camera.position.z = 5;
 
+  // 创建渲染器
   renderer = new THREE.WebGLRenderer({antialias: true});
   renderer.setSize(renderArea.value.clientWidth, renderArea.value.clientHeight);
   renderArea.value.appendChild(renderer.domElement);
@@ -205,19 +226,58 @@ function initScene() {
 
   // 添加平行光
   directionalLight = new THREE.DirectionalLight(0xffffff, directionalLightIntensity.value);
-  directionalLight.position.set(directionalLightPosition.value.x, directionalLightPosition.value.y, directionalLightPosition.value.z);
+  directionalLight.position.set(
+      directionalLightPosition.value.x,
+      directionalLightPosition.value.y,
+      directionalLightPosition.value.z
+  );
   scene.add(directionalLight);
 
   // 添加点光源
   pointLight = new THREE.PointLight(0xffffff, pointLightIntensity.value);
-  pointLight.position.set(pointLightPosition.value.x, pointLightPosition.value.y, pointLightPosition.value.z);
+  pointLight.position.set(
+      pointLightPosition.value.x,
+      pointLightPosition.value.y,
+      pointLightPosition.value.z
+  );
   scene.add(pointLight);
 
   // 添加聚光灯
   spotLight = new THREE.SpotLight(0xffffff, spotLightIntensity.value);
-  spotLight.position.set(spotLightPosition.value.x, spotLightPosition.value.y, spotLightPosition.value.z);
+  spotLight.position.set(
+      spotLightPosition.value.x,
+      spotLightPosition.value.y,
+      spotLightPosition.value.z
+  );
   spotLight.angle = Math.PI / 6;
   scene.add(spotLight);
+
+  // 创建固定光源
+  fixedLight = new THREE.DirectionalLight(0xffffff, 0.5);
+  fixedLight.position.set(1, 1, 1);
+  scene.add(fixedLight);
+
+  // 创建光源辅助对象
+  directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
+  pointLightHelper = new THREE.PointLightHelper(pointLight, 0.5);
+  spotLightHelper = new THREE.SpotLightHelper(spotLight);
+  fixedLightHelper = new THREE.DirectionalLightHelper(fixedLight, 1);
+
+  scene.add(directionalLightHelper);
+  scene.add(pointLightHelper);
+  scene.add(spotLightHelper);
+  scene.add(fixedLightHelper);
+
+  // 更新光源辅助对象的可见性
+  updateLightHelpers();
+
+  // 切换固定光源
+  toggleFixedLight();
+
+  // 创建坐标轴
+  axesHelper.value = createAxesHelper();
+  scene.add(axesHelper.value);
+  toggleAxes(); // 确保坐标轴的初始可见性正确
 
   // 创建默认立方体
   const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -229,16 +289,23 @@ function initScene() {
   mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
+  // 设置背景颜色
+  updateBackgroundColor();
+
   // 开始动画循环
   animate();
+
+  // 添加窗口大小变化的监听器
+  window.addEventListener('resize', onWindowResize);
 }
 
-// 动画循环
-function animate() {
-  requestAnimationFrame(animate);
-  controls.update();
-  renderer.render(scene, camera);
+// 窗口大小变化时调整渲染器和相机
+function onWindowResize() {
+  camera.aspect = renderArea.value.clientWidth / renderArea.value.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(renderArea.value.clientWidth, renderArea.value.clientHeight);
 }
+
 
 // 处理文件上传
 function handleFileUpload(file, onLoadSuccess) {
@@ -374,9 +441,148 @@ function updateLightPositions() {
   );
 }
 
+// 定义切换坐标轴显示的函数
+function toggleAxes() {
+  if (showAxes.value) {
+    if (!axesHelper.value) {
+      axesHelper.value = createAxesHelper();
+    }
+    scene.add(axesHelper.value);
+  } else {
+    if (axesHelper.value) {
+      scene.remove(axesHelper.value);
+    }
+  }
+}
+
 // 监听颜色变化
 watch(modelColor, updateModelColor);
 watch(backgroundColor, updateBackgroundColor);
+watch(showAxes, toggleAxes);
+
+
+function exportConfiguration() {
+  const config = {
+    模型颜色: modelColor.value,
+    背景颜色: backgroundColor.value,
+    金属度: metalness.value,
+    粗糙度: roughness.value,
+    显示坐标轴: showAxes.value,
+    环境光强度: ambientLightIntensity.value,
+    平行光强度: directionalLightIntensity.value,
+    平行光位置: {
+      X: directionalLightPosition.value.x,
+      Y: directionalLightPosition.value.y,
+      Z: directionalLightPosition.value.z
+    },
+    点光源强度: pointLightIntensity.value,
+    点光源位置: {
+      X: pointLightPosition.value.x,
+      Y: pointLightPosition.value.y,
+      Z: pointLightPosition.value.z
+    },
+    聚光灯强度: spotLightIntensity.value,
+    聚光灯位置: {
+      X: spotLightPosition.value.x,
+      Y: spotLightPosition.value.y,
+      Z: spotLightPosition.value.z
+    },
+    显示光源位置: showLightHelpers.value,
+    使用固定光源: useFixedLight.value
+  };
+
+  console.log('当前配置：');
+  Object.entries(config).forEach(([key, value]) => {
+    if (typeof value === 'object') {
+      console.log(`${key}:`);
+      Object.entries(value).forEach(([subKey, subValue]) => {
+        console.log(`  ${subKey}: ${subValue}`);
+      });
+    } else {
+      console.log(`${key}: ${value}`);
+    }
+  });
+
+  const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+  saveAs(blob, 'stl-viewer-config.json');
+}
+
+onUnmounted(() => {
+  if (renderer) {
+    renderer.dispose();
+  }
+  if (scene) {
+    scene.traverse((object) => {
+      if (object.geometry) {
+        object.geometry.dispose();
+      }
+      if (object.material) {
+        if (Array.isArray(object.material)) {
+          object.material.forEach(material => material.dispose());
+        } else {
+          object.material.dispose();
+        }
+      }
+    });
+  }
+});
+
+const showLightHelpers = ref(false);
+const useFixedLight = ref(false);
+
+// Three.js 相关变量
+let fixedLight;
+let directionalLightHelper, pointLightHelper, spotLightHelper, fixedLightHelper;
+
+function createAxesHelper() {
+  const size = 1000; // 使用很大的值来模拟"无限"长度
+  const axes = new THREE.AxesHelper(size);
+  axes.position.set(0, 0, 0); // 将坐标轴置于原点
+  return axes;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (controls) {
+    controls.update();
+  }
+  if (renderer && scene && camera) {
+    try {
+      // 更新固定光源的位置
+      if (useFixedLight.value) {
+        const cameraDirection = new THREE.Vector3();
+        camera.getWorldDirection(cameraDirection);
+        fixedLight.position.copy(camera.position).add(cameraDirection);
+        fixedLightHelper.update();
+      }
+
+      renderer.render(scene, camera);
+    } catch (error) {
+      console.error('Render error:', error);
+    }
+  }
+}
+
+function updateLightHelpers() {
+  directionalLightHelper.visible = showLightHelpers.value;
+  pointLightHelper.visible = showLightHelpers.value;
+  spotLightHelper.visible = showLightHelpers.value;
+  fixedLightHelper.visible = showLightHelpers.value && useFixedLight.value;
+}
+
+function toggleFixedLight() {
+  if (useFixedLight.value) {
+    fixedLight.intensity = 0.5;
+    directionalLight.intensity = 0;
+    pointLight.intensity = 0;
+    spotLight.intensity = 0;
+  } else {
+    fixedLight.intensity = 0;
+    updateLights(); // 恢复其他光源的强度
+  }
+  updateLightHelpers();
+}
+
 
 </script>
 
