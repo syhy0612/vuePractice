@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>3D模型查看器</title>
+    <!-- 引入STL查看器的JavaScript文件 -->
     <script src="./stlList/stl_viewer.min.js"></script>
 </head>
 <body>
@@ -12,22 +13,30 @@
     </div>
 </div>
 <div id="controls">
+    <!-- 文件输入框，用于上传STL模型 -->
     <input type="file" id="file_input">
+    <!-- 颜色选择器，用于选择模型颜色 -->
     <input type="color" id="model_color" value="#C0C0C0"> 模型颜色<br>
+    <!-- 颜色选择器，用于选择背景颜色 -->
     <input type="color" id="bgcolor" value="#ffffff"> 背景颜色<br>
+    <!-- 复选框，用于选择模型是否光滑 -->
     <label><input type="checkbox" id="smooth_toggle" checked> 光滑</label><br>
+    <!-- 按钮，用于重置视角 -->
     <button onclick="resetView()">重置视角</button>
+    <!-- 按钮，用于放大模型 -->
     <button onclick="zoomIn()">放大</button>
+    <!-- 按钮，用于缩小模型 -->
     <button onclick="zoomOut()">缩小</button>
+    <!-- 按钮，用于清除模型 -->
     <button onclick="removeModel()">清除模型</button>
 </div>
 
 <script>
     // 初始化STL查看器
     var stl_viewer = new StlViewer(document.getElementById("stl_cont"), {
-        bgcolor: "#ffffff",
-        allow_drag_and_drop: true,
-        models: []
+        bgcolor: "#ffffff", // 设置背景颜色
+        allow_drag_and_drop: true, // 允许拖放文件
+        models: [] // 初始化时不加载任何模型
     });
 
     var currentModelId = null;
@@ -55,6 +64,14 @@
     document.getElementById("model_color").addEventListener("change", function (event) {
         if (currentModelId !== null) {
             stl_viewer.set_color(currentModelId, event.target.value);
+        }
+    });
+
+    // 监听是否光滑复选框变化事件
+    document.getElementById("smooth_toggle").addEventListener("change", function (event) {
+        if (currentModelId !== null) {
+            var smooth = event.target.checked ? 'smooth' : 'flat';
+            stl_viewer.set_display(currentModelId, smooth);
         }
     });
 
@@ -94,11 +111,13 @@
 </script>
 
 <style>
+    /* 设置页面样式 */
     body {
         margin: 0;
         height: 100vh;
     }
 
+    /* 设置STL查看器容器样式 */
     #stl_cont {
         width: 70%;
         height: 100vh;
@@ -108,6 +127,7 @@
         overflow: hidden;
     }
 
+    /* 设置控制面板样式 */
     #controls {
         width: 10%;
         height: 100vh;
@@ -117,6 +137,7 @@
         box-shadow: 0 0 10px #ccc;
     }
 
+    /* 设置控件样式 */
     button, input[type='color'], input[type='file'], label {
         margin-top: 5px;
         width: 100%;

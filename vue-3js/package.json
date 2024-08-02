@@ -1,5 +1,5 @@
 {
-  "name": "vue-threejs",
+  "name": "vue-3js",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,12 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "three": "^0.167.0",
+    "three": "^0.167.1",
     "vue": "^3.4.29"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
+    "element-plus": "^2.7.8",
+    "install": "^0.13.0",
+    "npm": "^10.8.2",
     "sass": "^1.77.8",
+    "unplugin-auto-import": "^0.18.2",
+    "unplugin-vue-components": "^0.27.3",
     "vite": "^5.3.1"
   }
 }
