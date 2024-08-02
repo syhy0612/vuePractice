@@ -15,6 +15,7 @@
     <input type="file" id="file_input">
     <input type="color" id="model_color" value="#C0C0C0"> 模型颜色<br>
     <input type="color" id="bgcolor" value="#ffffff"> 背景颜色<br>
+    <label><input type="checkbox" id="smooth_toggle" checked> 光滑</label><br>
     <button onclick="resetView()">重置视角</button>
     <button onclick="zoomIn()">放大</button>
     <button onclick="zoomOut()">缩小</button>
@@ -37,9 +38,10 @@
         if (currentModelId !== null) {
             stl_viewer.remove_model(currentModelId);
         }
+        var smooth = document.getElementById("smooth_toggle").checked ? 'smooth' : 'flat';
         currentModelId = stl_viewer.add_model({
             local_file: file,
-            display: 'smooth',
+            display: smooth,
             color: document.getElementById("model_color").value
         });
     });
@@ -115,9 +117,10 @@
         box-shadow: 0 0 10px #ccc;
     }
 
-    button, input[type='color'], input[type='file'] {
+    button, input[type='color'], input[type='file'], label {
         margin-top: 5px;
         width: 100%;
+        display: block;
     }
 </style>
 </body>
