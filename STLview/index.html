@@ -4,35 +4,6 @@
     <meta charset="UTF-8">
     <title>3D模型查看器</title>
     <script src="./stlList/stl_viewer.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-        }
-
-        #stl_cont {
-            width: 70%;
-            height: 100vh;
-            background: #ebebeb;
-            float: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #controls {
-            width: 10%;
-            height: 100vh;
-            float: right;
-            padding:  0 10px;
-            background-color: #f8f8f8;
-            box-shadow: 0 0 10px #ccc;
-        }
-
-        button, input[type='color'], input[type='file'] {
-            margin-top: 5px;
-            width: 100%;
-        }
-    </style>
 </head>
 <body>
 <div id="stl_cont">
@@ -82,7 +53,7 @@
     });
 
     function resetView() {
-        stl_viewer.reset_camera();
+        stl_viewer.set_camera_position({x: 100, y: 100, z: 100});
     }
 
     function zoomIn() {
@@ -104,5 +75,35 @@
         document.querySelector(".loading").style.display = 'none';
     };
 </script>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+    }
+
+    #stl_cont {
+        width: 70%;
+        height: 100vh;
+        background: #ebebeb;
+        float: left;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #controls {
+        width: 10%;
+        height: 100vh;
+        float: right;
+        padding: 0 10px;
+        background-color: #f8f8f8;
+        box-shadow: 0 0 10px #ccc;
+    }
+
+    button, input[type='color'], input[type='file'] {
+        margin-top: 5px;
+        width: 100%;
+    }
+</style>
 </body>
 </html>
