@@ -56,20 +56,20 @@
           <el-slider v-model="directionalLightIntensity" :min="0" :max="2" :step="0.1" @change="updateLights"/>
         </el-form-item>
         <el-form-item label="平行光位置">
-          <el-row :gutter="10">
-            <el-col :span="8">
+          <el-row :gutter="200">
+            <el-col :span="24">
               <el-form-item label="X">
                 <el-slider v-model="directionalLightPosition.x" :min="-5" :max="5" :step="0.1"
                            @change="updateLightPositions"/>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="24">
               <el-form-item label="Y">
                 <el-slider v-model="directionalLightPosition.y" :min="-5" :max="5" :step="0.1"
                            @change="updateLightPositions"/>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="24">
               <el-form-item label="Z">
                 <el-slider v-model="directionalLightPosition.z" :min="-5" :max="5" :step="0.1"
                            @change="updateLightPositions"/>
@@ -78,25 +78,26 @@
           </el-row>
         </el-form-item>
 
+
         <!-- 点光源 -->
         <el-form-item label="点光源强度">
           <el-slider v-model="pointLightIntensity" :min="0" :max="2" :step="0.1" @change="updateLights"/>
         </el-form-item>
         <el-form-item label="点光源位置">
-          <el-row :gutter="10">
-            <el-col :span="8">
+          <el-row :gutter="200">
+            <el-col :span="24">
               <el-form-item label="X">
                 <el-slider v-model="pointLightPosition.x" :min="-5" :max="5" :step="0.1"
                            @change="updateLightPositions"/>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="24">
               <el-form-item label="Y">
                 <el-slider v-model="pointLightPosition.y" :min="-5" :max="5" :step="0.1"
                            @change="updateLightPositions"/>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="24">
               <el-form-item label="Z">
                 <el-slider v-model="pointLightPosition.z" :min="-5" :max="5" :step="0.1"
                            @change="updateLightPositions"/>
@@ -110,18 +111,18 @@
           <el-slider v-model="spotLightIntensity" :min="0" :max="2" :step="0.1" @change="updateLights"/>
         </el-form-item>
         <el-form-item label="聚光灯位置">
-          <el-row :gutter="10">
-            <el-col :span="8">
+          <el-row :gutter="200">
+            <el-col :span="24">
               <el-form-item label="X">
                 <el-slider v-model="spotLightPosition.x" :min="-5" :max="5" :step="0.1" @change="updateLightPositions"/>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="24">
               <el-form-item label="Y">
                 <el-slider v-model="spotLightPosition.y" :min="-5" :max="5" :step="0.1" @change="updateLightPositions"/>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="24">
               <el-form-item label="Z">
                 <el-slider v-model="spotLightPosition.z" :min="-5" :max="5" :step="0.1" @change="updateLightPositions"/>
               </el-form-item>
@@ -240,7 +241,7 @@ function animate() {
 }
 
 // 处理文件上传
-function handleFileUpload(file) {
+function handleFileUpload(file, onLoadSuccess) {
   if (file) {
     loadingDialogVisible.value = true;
     loadingProgress.value = 0;
@@ -268,7 +269,9 @@ function handleFileUpload(file) {
       });
 
       // 移除旧模型
-      if (mesh) scene.remove(mesh);
+      if (mesh) {
+        scene.remove(mesh);
+      }
 
       // 添加新模型
       mesh = new THREE.Mesh(geometry, material);
@@ -288,6 +291,11 @@ function handleFileUpload(file) {
       controls.update();
       loadingDialogVisible.value = false;
       ElMessage.success('STL文件加载成功！模型已在场景中显示。');
+
+      // 调用成功回调
+      if (typeof onLoadSuccess === 'function') {
+        onLoadSuccess(mesh);
+      }
     };
     reader.readAsArrayBuffer(file.raw);
   }
