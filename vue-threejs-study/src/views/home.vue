@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <br/><b>Hello Three.JS<br/></b>
+  <div class="zww">
+    <div class="main">
+      <b>Hello Three.JS</b>
+    </div>
   </div>
 </template>
 
@@ -8,10 +10,13 @@
 </script>
 
 <style lang="scss" scoped>
-div {
+.zww {
   color: black;
   font-size: 40px;
   text-align: center;
-  height: 90vh;
+
+  .main {
+    padding-top: 50px;
+  }
 }
 </style>
