@@ -3,12 +3,12 @@
 
     <el-container>
       <el-header>Three.JS</el-header>
-      <el-container>
+      <el-container class="con-main">
         <el-aside>导航菜单哦</el-aside>
+        <el-main>
+          <router-view/>
+        </el-main>
       </el-container>
-      <el-main>
-        <router-view />
-      </el-main>
     </el-container>
   </div>
 </template>
@@ -20,13 +20,31 @@
 <style lang="scss" scoped>
 .el-header {
   text-align: center;
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bold;
   color: green;
-  padding-top: 20px;
+  //padding-top: 20px;
+  line-height: 10vh;
+  background: lightgray;
+  width: 100%;
+  height: 10vh;
 }
 
-.el-aside {
-  width: 10vw;
-  width: 300px;
+.con-main {
+  width: 100%;
+  height: 90vh;
+
+  .el-aside {
+    width: 10vw;
+    font-weight: bold;
+    font-size: 20px;
+    background: pink;
+  }
+
+  .el-main {
+    background: lightsalmon;
+  }
 }
+
+
 </style>
