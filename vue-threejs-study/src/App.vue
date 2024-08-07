@@ -2,7 +2,7 @@
   <div>
 
     <el-container>
-      <el-header>Three.JS</el-header>
+      <el-header>Three.JS学习</el-header>
       <el-container class="con-main">
         <el-aside>导航菜单哦</el-aside>
         <el-main>
@@ -37,8 +37,10 @@
   .el-aside {
     width: 10vw;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
     background: pink;
+    text-align: center;
+    padding-top: 5px;
   }
 
   .el-main {
